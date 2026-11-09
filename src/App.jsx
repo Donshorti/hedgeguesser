@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { SettingsProvider } from './state/SettingsContext.jsx';
 import { useHashRoute } from './state/useHashRoute.js';
 import { ScreenActiveContext } from './state/ScreenActive.js';
@@ -59,6 +59,16 @@ function ScreenStack({ screenKey, currentRef, children }) {
     return () => clearTimeout(t);
   }, [leaving]);
 
+  // A screen that was leaving can come back as the current one (A → B → A
+  // inside the fade: React reuses the keyed div), so un-inert it explicitly.
+  const attachCurrent = useCallback(
+    (el) => {
+      currentRef.current = el;
+      if (el) el.inert = false;
+    },
+    [currentRef]
+  );
+
   const done = (e) => {
     if (e.target === e.currentTarget) setLeaving(null);
   };
@@ -72,7 +82,7 @@ function ScreenStack({ screenKey, currentRef, children }) {
           <ScreenActiveContext.Provider value={false}>{leaving.node}</ScreenActiveContext.Provider>
         </div>
       ) : null}
-      <div key={screenKey} ref={currentRef} className={`${styles.layer} ${leaving ? styles.entering : ''}`}>
+      <div key={screenKey} ref={attachCurrent} className={`${styles.layer} ${leaving ? styles.entering : ''}`}>
         <ScreenActiveContext.Provider value={true}>{children}</ScreenActiveContext.Provider>
       </div>
     </div>

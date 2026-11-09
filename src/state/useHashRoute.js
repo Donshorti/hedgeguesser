@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 /**
  * Route table. `path` is the pattern; `:name` segments become params.
@@ -76,8 +76,6 @@ function currentHash() {
  */
 export function useHashRoute() {
   const [route, setRoute] = useState(() => parseHash(currentHash()));
-  const routeRef = useRef(route);
-  routeRef.current = route;
 
   useEffect(() => {
     const sync = () => {
@@ -95,7 +93,7 @@ export function useHashRoute() {
   const navigate = useCallback((to, { replace = false } = {}) => {
     const hash = toHash(to);
     // already there (also covers '' / '#' / '#/' all meaning home): no duplicate history entry
-    if (parseHash(hash).location === routeRef.current.location) return;
+    if (parseHash(hash).location === parseHash(window.location.hash).location) return;
     if (replace) {
       window.history.replaceState(window.history.state, '', hash);
       // replaceState fires no hashchange; tell the listener ourselves
