@@ -1,0 +1,27 @@
+/* LED columns inside the CRT window; height is set per frame via clip-path. */
+.eq {
+  display: grid;
+  grid-template-columns: repeat(20, minmax(0, 1fr));
+  align-items: end;
+  gap: clamp(3px, 0.8vw, 8px);
+  height: 100%;
+  min-height: 96px;
+}
+
+.bar {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  clip-path: inset(92% 0 0 0);
+  /* stacked LED cells: gaps cut out of a cyan column */
+  background:
+    repeating-linear-gradient(0deg, transparent 0 5px, var(--bezel) 5px 7px),
+    linear-gradient(0deg, var(--cyan-lo), var(--cyan) 55%, var(--cyan-hi));
+  opacity: 0.35;
+  transition: opacity var(--t-med) var(--ease-out);
+}
+
+.on .bar {
+  opacity: 1;
+  box-shadow: 0 0 10px rgba(32, 227, 255, 0.35);
+}

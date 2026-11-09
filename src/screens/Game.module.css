@@ -1,0 +1,217 @@
+/* The play deck: status strip, CRT window, ladder, then the controls low for thumbs. */
+.screen {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+  min-height: 100%;
+}
+
+/* ---- status strip ---- */
+.status {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.round {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  margin-right: auto;
+}
+
+.mode {
+  font-family: var(--font-sign);
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.count {
+  margin: 0;
+  font-family: var(--font-sign);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-tight);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.score {
+  flex: none;
+}
+
+/* ---- CRT window: grows to push the controls into thumb reach ---- */
+.crt {
+  position: relative;
+  flex: 1 1 120px;
+  min-height: 120px;
+  max-height: 34vh;
+  padding: var(--s-4) var(--s-4) var(--s-3);
+  border-radius: var(--r-window);
+  background:
+    radial-gradient(120% 90% at 50% 40%, rgba(32, 227, 255, 0.07), transparent 70%),
+    #07020f;
+  box-shadow:
+    inset 0 0 0 6px var(--bezel),
+    inset 0 0 0 7px var(--line),
+    inset 0 10px 30px rgba(0, 0, 0, 0.8),
+    var(--shadow-panel);
+  overflow: hidden;
+}
+
+/* scanlines on the glass, never over text */
+.crt::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: calc(var(--r-window) - 6px);
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 3px);
+  pointer-events: none;
+}
+
+/* ---- deck ---- */
+.deck {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.playRow {
+  display: flex;
+  justify-content: center;
+  padding-block: var(--s-1);
+}
+
+.secondary {
+  display: flex;
+  justify-content: center;
+  gap: var(--s-3);
+}
+
+.btnNote {
+  opacity: 0.75;
+}
+
+/* ---- panels: loading, out of order, game over ---- */
+.panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-5);
+  margin-block: auto;
+  padding: var(--s-8) var(--s-6);
+  border: 1px solid var(--line);
+  border-radius: var(--r-panel);
+  background: linear-gradient(180deg, var(--bg-3) 0%, var(--bg-2) 100%);
+  box-shadow: var(--shadow-panel), inset 0 1px 0 color-mix(in srgb, var(--ink) 5%, transparent);
+  text-align: center;
+}
+
+.panelTitle {
+  font-family: var(--font-sign);
+  font-size: var(--fs-h2);
+  font-weight: 400;
+  color: var(--pink);
+  text-shadow: var(--pink-glow-text);
+}
+
+.panelText {
+  max-width: 40ch;
+  margin: 0;
+  font-size: var(--fs-body);
+  color: var(--ink-dim);
+}
+
+.panelActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-3);
+}
+
+.meter {
+  width: min(100%, 420px);
+  height: 18px;
+  padding: 3px;
+  border-radius: var(--r-strip);
+  background: var(--bezel);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.meterFill {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 10px, var(--bezel) 10px 12px),
+    var(--cyan);
+  box-shadow: var(--cyan-glow);
+  transition: width var(--t-med) var(--ease-out);
+}
+
+/* ---- minimal reveal ---- */
+.reveal {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-panel);
+  background: var(--bg-2);
+  box-shadow: var(--shadow-panel);
+}
+
+.reveal > button {
+  grid-column: 1 / -1;
+  justify-self: center;
+}
+
+.art {
+  width: clamp(96px, 22vw, 180px);
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: var(--r-strip);
+  box-shadow: var(--shadow-housing);
+}
+
+.revealText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  min-width: 0;
+}
+
+.win,
+.lose {
+  margin: 0;
+  font-family: var(--font-sign);
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+}
+
+.win {
+  color: var(--amber);
+  text-shadow: var(--amber-glow-text);
+}
+
+.lose {
+  color: var(--red);
+  text-shadow: var(--red-glow-text);
+}
+
+.trackTitle {
+  font-family: var(--font-body);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: var(--lh-snug);
+  overflow-wrap: anywhere;
+}
+
+.trackArtist {
+  margin: 0;
+  font-size: var(--fs-body);
+  color: var(--ink-dim);
+}

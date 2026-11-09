@@ -1,0 +1,78 @@
+/* Four slots on the cabinet's lower panel; misses get a red rubber stamp. */
+.log {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  min-height: 40px;
+  padding: 0 var(--s-3);
+  border-radius: var(--r-strip);
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.empty {
+  color: var(--bg-4);
+  letter-spacing: 0.3em;
+}
+
+.stamp {
+  flex: none;
+  padding: 2px 8px;
+  border: 2px solid currentColor;
+  border-radius: 4px;
+  font-family: var(--font-sign);
+  font-size: var(--fs-xs);
+  line-height: 1.2;
+  text-transform: uppercase;
+  transform: rotate(-3deg);
+}
+
+.miss {
+  color: var(--red);
+  text-shadow: var(--red-glow-text);
+}
+
+.skip {
+  color: var(--ink-dim);
+}
+
+.hit {
+  color: var(--amber);
+  text-shadow: var(--amber-glow-text);
+}
+
+.text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shake {
+  animation: shake 300ms var(--ease-out);
+}
+
+@keyframes shake {
+  20% { transform: translateX(-6px); }
+  45% { transform: translateX(5px); }
+  70% { transform: translateX(-3px); }
+  100% { transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shake {
+    animation: none;
+  }
+}

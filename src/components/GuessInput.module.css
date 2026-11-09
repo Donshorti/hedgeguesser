@@ -1,0 +1,112 @@
+/* The guess field: a recessed slot in the cabinet with a lit send key. */
+.field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  min-height: 56px;
+  padding: 0 64px 0 var(--s-4);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-panel);
+  background: var(--bezel);
+  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.7);
+  font-family: var(--font-body);
+  font-size: max(16px, var(--fs-body)); /* 16px floor: no iOS zoom on focus */
+  font-weight: 600;
+  color: var(--ink);
+  caret-color: var(--pink);
+  transition: border-color var(--t-fast) var(--ease-out), box-shadow var(--t-fast) var(--ease-out);
+}
+
+.input::placeholder {
+  color: var(--ink-dim);
+  font-weight: 500;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--pink);
+  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.7), 0 0 0 3px rgba(255, 46, 151, 0.28);
+}
+
+.input:disabled {
+  opacity: 0.55;
+}
+
+.send {
+  position: absolute;
+  right: 6px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--pink);
+  color: var(--on-lit);
+  font-size: 1.25rem;
+  box-shadow: var(--pink-glow);
+  transition: background-color var(--t-fast) var(--ease-out), transform var(--t-fast) var(--ease-press);
+}
+
+.send:active:not(:disabled) {
+  transform: translateY(1px) scale(0.96);
+}
+
+.send:disabled {
+  background: var(--pink-off);
+  color: var(--ink-dim);
+  box-shadow: none;
+}
+
+.send:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* suggestions open upward on phones (the field sits low), downward otherwise */
+.list {
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  right: 0;
+  bottom: calc(100% + 6px);
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-panel);
+  background: var(--bg-3);
+  box-shadow: var(--shadow-panel);
+}
+
+@media (min-width: 900px) and (min-height: 760px) {
+  .list {
+    top: calc(100% + 6px);
+    bottom: auto;
+  }
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--s-3);
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.active {
+  background: var(--pink);
+  color: var(--on-lit);
+}

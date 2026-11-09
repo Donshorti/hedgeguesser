@@ -1,0 +1,87 @@
+/* Hint tiles: amber price cards that flip to the answer once bought. */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 600px) {
+  .tiles {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2px;
+  width: 100%;
+  min-height: 56px;
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid color-mix(in srgb, var(--amber) 45%, transparent);
+  border-radius: var(--r-strip);
+  background: linear-gradient(180deg, var(--bg-3), var(--bg-2));
+  box-shadow: var(--shadow-housing);
+  color: var(--ink);
+  text-align: left;
+  transition: transform var(--t-fast) var(--ease-press), border-color var(--t-fast) var(--ease-out);
+}
+
+button.tile:active:not(:disabled) {
+  transform: translateY(2px);
+}
+
+button.tile:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+button.tile:disabled {
+  border-color: var(--line);
+  opacity: 0.5;
+}
+
+.flipped {
+  border-color: var(--amber);
+  background: var(--amber-off);
+  animation: flip var(--t-slow) var(--ease-out);
+}
+
+@keyframes flip {
+  from { transform: perspective(400px) rotateX(90deg); }
+  to { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flipped {
+    animation: none;
+  }
+}
+
+.name {
+  font-family: var(--font-sign);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.cost {
+  font-family: var(--font-seg);
+  font-size: var(--fs-sm);
+  color: var(--amber);
+  text-shadow: var(--amber-glow-text);
+}
+
+.answer {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 700;
+  color: var(--amber-hi);
+  overflow-wrap: anywhere;
+}
