@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { SettingsProvider } from './state/SettingsContext.jsx';
+import { GameProvider, useGame } from './state/GameContext.jsx';
 import { useHashRoute } from './state/useHashRoute.js';
 import { ScreenActiveContext } from './state/ScreenActive.js';
 import { save } from './services/storage.js';
@@ -22,12 +23,13 @@ const SCREENS = {
   '/settings': { Screen: Settings, title: 'Settings' },
 };
 
-/**
- * App-wide state providers. Task 15 adds <GameProvider> inside
- * <SettingsProvider> here (the game reads settings).
- */
+/** App-wide state providers; the game reads settings, so it sits inside. */
 function Providers({ children }) {
-  return <SettingsProvider>{children}</SettingsProvider>;
+  return (
+    <SettingsProvider>
+      <GameProvider>{children}</GameProvider>
+    </SettingsProvider>
+  );
 }
 
 function prefersReducedMotion() {
@@ -98,17 +100,19 @@ function makeInert(el) {
 
 function RoutedScreen() {
   const { path, params, location, navigate } = useHashRoute();
+  const game = useGame();
+  const startRun = game.start;
   const { Screen, title } = SCREENS[path] ?? SCREENS['/'];
   const currentRef = useRef(null);
 
-  // Task 15 swaps the body for game.start(setup); the setup is remembered so
-  // PLAY AGAIN and the next visit to Play are one tap.
+  // The setup is remembered so PLAY AGAIN and the next visit to Play are one tap.
   const startGame = useCallback(
     ({ mode, playlistIds }) => {
       save('lastSetup', { mode, playlistIds });
+      startRun({ mode, playlistIds });
       navigate('/game');
     },
-    [navigate]
+    [navigate, startRun]
   );
   const screenProps = path === '/play' ? { onStart: startGame } : null;
 

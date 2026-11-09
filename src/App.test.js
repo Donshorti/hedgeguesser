@@ -5,6 +5,7 @@ import App from './App.jsx';
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 window.scrollTo = () => {}; // jsdom: not implemented
+window.HTMLMediaElement.prototype.load = () => {}; // jsdom: not implemented (GameProvider audio)
 
 // jsdom fires hashchange asynchronously after a location.hash write
 const go = (hash) =>
