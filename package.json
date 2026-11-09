@@ -1,0 +1,31 @@
+{
+  "name": "hedgeguesser",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "seeds": "node scripts/build-seeds.mjs"
+  },
+  "dependencies": {
+    "@fontsource/barlow-semi-condensed": "^5.1.0",
+    "@fontsource/bungee": "^5.1.0",
+    "@fontsource/monoton": "^5.1.0",
+    "dseg": "^0.46.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^25.0.1",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.8"
+  },
+  "overrides": {
+    "rollup": "npm:@rollup/wasm-node@^4.20.0"
+  }
+}
