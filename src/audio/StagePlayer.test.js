@@ -11,7 +11,11 @@ class FakeAudio {
   addEventListener(t, f) { (this.listeners[t] ||= []).push(f); }
   removeEventListener(t, f) { this.listeners[t] = (this.listeners[t] || []).filter((x) => x !== f); }
   emit(t) { (this.listeners[t] || []).slice().forEach((f) => f()); }
-  listenerCount() { return Object.values(this.listeners).reduce((n, l) => n + l.length, 0); }
+  /** Listeners a load() registers; the permanent pause listener is excluded. */
+  listenerCount() {
+    return ['loadedmetadata', 'canplay', 'canplaythrough', 'error']
+      .reduce((n, type) => n + (this.listeners[type] || []).length, 0);
+  }
 }
 
 let audio, frames, timers, player;
@@ -172,5 +176,59 @@ describe('StagePlayer', () => {
     player.destroy();
     expect(audio.removeAttribute).toHaveBeenCalledWith('src');
     expect(audio.load).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe('StagePlayer unlock during play', () => {
+  it('does not pause a play started earlier in the same gesture', async () => {
+    const p = player.play(5);
+    player.unlock();
+    await p;
+    expect(audio.pause).not.toHaveBeenCalled();
+    expect(audio.paused).toBe(false);
+    expect(frames).toHaveLength(1);
+  });
+  it('does not pause audio that is already playing', async () => {
+    await player.play(5);
+    player.unlock();
+    expect(audio.pause).not.toHaveBeenCalled();
+    expect(audio.play).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('StagePlayer external pause', () => {
+  it('halts the loop and calls onEnd once when the element is paused externally', async () => {
+    const onEnd = vi.fn();
+    player.onEnd = onEnd;
+    await player.play(5);
+    audio.paused = true; // e.g. an OS audio interruption
+    audio.emit('pause');
+    expect(onEnd).toHaveBeenCalledTimes(1);
+    expect(frames).toHaveLength(0);
+    expect(timers).toHaveLength(0);
+    expect(player.playing).toBe(false);
+    audio.emit('pause');
+    expect(onEnd).toHaveBeenCalledTimes(1);
+  });
+  it('ignores pause events caused by its own stop', async () => {
+    const onEnd = vi.fn();
+    player.onEnd = onEnd;
+    await player.play(5);
+    player.stop();
+    audio.emit('pause');
+    expect(onEnd).not.toHaveBeenCalled();
+  });
+  it('ignores a stale pause event once a new play is running', async () => {
+    const onEnd = vi.fn();
+    player.onEnd = onEnd;
+    await player.play(5);
+    await player.play(5); // restart: the old pause event arrives late
+    audio.emit('pause');
+    expect(onEnd).not.toHaveBeenCalled();
+    expect(player.playing).toBe(true);
+  });
+  it('destroy stops listening for pause', async () => {
+    player.destroy();
+    expect(audio.listeners.pause ?? []).toHaveLength(0);
   });
 });

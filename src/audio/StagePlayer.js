@@ -32,8 +32,11 @@ export class StagePlayer {
     this.playing = false;
     this.unlocked = false;
     this.pendingLoad = null;
+    this.starting = null;
     this.onProgress = null;
     this.onEnd = null;
+    this.onExternalPause = this.#handleExternalPause.bind(this);
+    this.audio.addEventListener('pause', this.onExternalPause);
   }
 
   setVolume(v) {
@@ -45,10 +48,12 @@ export class StagePlayer {
   unlock() {
     if (this.unlocked) return;
     this.unlocked = true;
+    // A play already started (or running) in this gesture has unlocked the element; leave it alone.
+    if (!this.audio.paused || this.playing || this.starting != null) return;
     try {
       const p = this.audio.play();
       p?.catch?.(() => {});
-      if (!this.playing) this.audio.pause();
+      this.audio.pause();
     } catch {
       /* autoplay refused; a later gesture-driven play() still works */
     }
@@ -84,11 +89,14 @@ export class StagePlayer {
     this.limit = limit;
     this.audio.currentTime = 0;
     this.audio.volume = this.volume;
+    this.starting = token;
     try {
       await this.audio.play();
     } catch (err) {
       if (token === this.token) throw err;
       return;
+    } finally {
+      if (this.starting === token) this.starting = null;
     }
     if (token !== this.token) {
       this.audio.pause();
@@ -125,6 +133,16 @@ export class StagePlayer {
     }, Math.max(0, remaining) * 1000 + BACKUP_SLACK_MS);
   }
 
+  /**
+   * The element was paused by something other than this player (OS audio interruption,
+   * headset unplugged, media keys). Stop the loop and call onEnd once so the UI resets.
+   * Our own pauses happen after `playing` is cleared, and a stale event that arrives once a
+   * new play is running sees `audio.paused === false`, so neither is mistaken for one.
+   */
+  #handleExternalPause() {
+    if (this.playing && this.audio.paused) this.#finish();
+  }
+
   #finish() {
     this.#halt();
     this.onEnd?.();
@@ -137,9 +155,10 @@ export class StagePlayer {
     if (this.timer != null) this.clearTimer(this.timer);
     this.frame = null;
     this.timer = null;
+    this.starting = null;
+    this.playing = false;
     if (!this.audio.paused) this.audio.pause();
     this.audio.volume = this.volume;
-    this.playing = false;
   }
 
   stop() {
@@ -151,6 +170,7 @@ export class StagePlayer {
     this.stop();
     this.audio.removeAttribute?.('src');
     this.audio.load?.();
+    this.audio.removeEventListener('pause', this.onExternalPause);
     this.onEnd = this.onProgress = null;
   }
 }
