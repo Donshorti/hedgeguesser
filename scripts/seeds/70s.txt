@@ -1,0 +1,54 @@
+# id: 70s
+# code: A3
+# name: The 70s
+# color: amber
+Dancing Queen - ABBA
+Stayin' Alive - Bee Gees
+Le Freak - Chic
+I Will Survive - Gloria Gaynor
+September - Earth, Wind & Fire
+Superstition - Stevie Wonder
+Go Your Own Way - Fleetwood Mac
+Dreams - Fleetwood Mac
+Heart of Glass - Blondie
+Disco Inferno - The Trammps
+Hotel California - Eagles
+Night Fever - Bee Gees
+Don't Stop Me Now - Queen
+Bohemian Rhapsody - Queen
+Imagine - John Lennon
+Let's Stay Together - Al Green
+Lean on Me - Bill Withers
+Ain't No Sunshine - Bill Withers
+Rocket Man - Elton John
+Tiny Dancer - Elton John
+Crocodile Rock - Elton John
+Mamma Mia - ABBA
+Waterloo - ABBA
+Take Me Home, Country Roads - John Denver
+American Pie - Don McLean
+Piano Man - Billy Joel
+Killer Queen - Queen
+Born to Be Alive - Patrick Hernandez
+Y.M.C.A. - Village People
+Ring My Bell - Anita Ward
+Kung Fu Fighting - Carl Douglas
+Hot Stuff - Donna Summer
+I Feel Love - Donna Summer
+Car Wash - Rose Royce
+Boogie Wonderland - Earth, Wind & Fire
+Rivers of Babylon - Boney M.
+Rasputin - Boney M.
+Daddy Cool - Boney M.
+Wuthering Heights - Kate Bush
+Heroes - David Bowie
+Life on Mars? - David Bowie
+Rock and Roll All Nite - KISS
+Show Me the Way - Peter Frampton
+Love Will Keep Us Together - Captain & Tennille
+Brown Eyed Girl - Van Morrison
+Sir Duke - Stevie Wonder
+Get Down Tonight - KC and the Sunshine Band
+That's the Way (I Like It) - KC and the Sunshine Band
+Play That Funky Music - Wild Cherry
+More Than a Woman - Bee Gees

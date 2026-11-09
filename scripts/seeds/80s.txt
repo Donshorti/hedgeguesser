@@ -1,0 +1,55 @@
+# id: 80s
+# code: A4
+# name: The 80s
+# color: pink
+Billie Jean - Michael Jackson
+Take On Me - a-ha
+Sweet Dreams (Are Made of This) - Eurythmics
+Thriller - Michael Jackson
+Like a Prayer - Madonna
+Material Girl - Madonna
+Girls Just Want to Have Fun - Cyndi Lauper
+Don't You (Forget About Me) - Simple Minds
+Every Breath You Take - The Police
+Beat It - Michael Jackson
+Africa - Toto
+Livin' on a Prayer - Bon Jovi
+Purple Rain - Prince
+When Doves Cry - Prince
+Never Gonna Give You Up - Rick Astley
+Tainted Love - Soft Cell
+Wake Me Up Before You Go-Go - Wham!
+Careless Whisper - George Michael
+Total Eclipse of the Heart - Bonnie Tyler
+Eye of the Tiger - Survivor
+Footloose - Kenny Loggins
+Danger Zone - Kenny Loggins
+The Final Countdown - Europe
+Here I Go Again - Whitesnake
+Pour Some Sugar on Me - Def Leppard
+Another One Bites the Dust - Queen
+Under Pressure - Queen
+Don't Stop Believin' - Journey
+Once in a Lifetime - Talking Heads
+Just Can't Get Enough - Depeche Mode
+Enjoy the Silence - Depeche Mode
+Blue Monday - New Order
+Relax - Frankie Goes to Hollywood
+Karma Chameleon - Culture Club
+Come On Eileen - Dexys Midnight Runners
+Don't You Want Me - The Human League
+Walk Like an Egyptian - The Bangles
+Ghostbusters - Ray Parker Jr.
+I Wanna Dance with Somebody (Who Loves Me) - Whitney Houston
+Like a Virgin - Madonna
+Smooth Operator - Sade
+Need You Tonight - INXS
+With or Without You - U2
+Jump - Van Halen
+Should I Stay or Should I Go - The Clash
+Running Up That Hill (A Deal with God) - Kate Bush
+Everybody Wants to Rule the World - Tears for Fears
+Shout - Tears for Fears
+Hungry Like the Wolf - Duran Duran
+Down Under - Men at Work
+Video Killed the Radio Star - The Buggles

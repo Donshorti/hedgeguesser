@@ -1,0 +1,54 @@
+# id: latin
+# code: C2
+# name: Latin Hits
+# color: amber
+Despacito - Luis Fonsi
+Gasolina - Daddy Yankee
+Livin' la Vida Loca - Ricky Martin
+La Bamba - Ritchie Valens
+Macarena - Los Del Rio
+Bailando - Enrique Iglesias
+Hips Don't Lie - Shakira
+Whenever, Wherever - Shakira
+La Tortura - Shakira
+Waka Waka (This Time for Africa) - Shakira
+Mi Gente - J Balvin & Willy William
+Dura - Daddy Yankee
+Bailamos - Enrique Iglesias
+Hasta el Amanecer - Nicky Jam
+El Perdón - Nicky Jam & Enrique Iglesias
+Ginza - J Balvin
+Danza Kuduro - Don Omar
+Rakata - Wisin & Yandel
+Con Calma - Daddy Yankee
+Chantaje - Shakira
+Vivir Mi Vida - Marc Anthony
+La Gozadera - Gente de Zona
+Malamente - ROSALÍA
+Ai Se Eu Te Pego - Michel Teló
+Hawái - Maluma
+Felices los 4 - Maluma
+Sofia - Alvaro Soler
+El Mismo Sol - Alvaro Soler
+Ella Baila Sola - Eslabon Armado & Peso Pluma
+Mayores - Becky G
+Sin Pijama - Becky G & NATTI NATASHA
+La Camisa Negra - Juanes
+Bamboléo - Gipsy Kings
+Volare - Gipsy Kings
+Corazón Partío - Alejandro Sanz
+Asereje - Las Ketchup
+Suavemente - Elvis Crespo
+María - Ricky Martin
+La Copa de la Vida - Ricky Martin
+Rayando el Sol - Maná
+Oye Como Va - Santana
+Pepas - Farruko
+Propuesta Indecente - Romeo Santos
+Obsesión - Aventura
+Échame la Culpa - Luis Fonsi & Demi Lovato
+Vente Pa' Ca - Ricky Martin
+Provenza - KAROL G
+La Bicicleta - Carlos Vives
+Ojitos Lindos - Bad Bunny & Bomba Estéreo
+Baila Baila Baila - Ozuna

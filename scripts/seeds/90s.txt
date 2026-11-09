@@ -1,0 +1,55 @@
+# id: 90s
+# code: B1
+# name: The 90s
+# color: cyan
+Smells Like Teen Spirit - Nirvana
+Wonderwall - Oasis
+No Scrubs - TLC
+Waterfalls - TLC
+Wannabe - Spice Girls
+...Baby One More Time - Britney Spears
+I Want It That Way - Backstreet Boys
+Everybody (Backstreet's Back) - Backstreet Boys
+Bye Bye Bye - *NSYNC
+Losing My Religion - R.E.M.
+Creep - Radiohead
+Zombie - The Cranberries
+Linger - The Cranberries
+Torn - Natalie Imbruglia
+Ironic - Alanis Morissette
+Iris - The Goo Goo Dolls
+My Heart Will Go On - Celine Dion
+I Will Always Love You - Whitney Houston
+Vogue - Madonna
+Black or White - Michael Jackson
+Gangsta's Paradise - Coolio
+Under the Bridge - Red Hot Chili Peppers
+Basket Case - Green Day
+Semi-Charmed Life - Third Eye Blind
+Bitter Sweet Symphony - The Verve
+Song 2 - Blur
+Macarena - Los Del Rio
+Barbie Girl - Aqua
+Blue (Da Ba Dee) - Eiffel 65
+What Is Love - Haddaway
+Rhythm Is a Dancer - SNAP!
+The Rhythm of the Night - Corona
+Believe - Cher
+Genie in a Bottle - Christina Aguilera
+Livin' la Vida Loca - Ricky Martin
+Kiss from a Rose - Seal
+Killing Me Softly with His Song - Fugees
+Don't Speak - No Doubt
+Truly Madly Deeply - Savage Garden
+Mambo No. 5 (A Little Bit of...) - Lou Bega
+All Star - Smash Mouth
+Tubthumping - Chumbawamba
+MMMBop - Hanson
+Gettin' Jiggy Wit It - Will Smith
+Everybody Hurts - R.E.M.
+Enter Sandman - Metallica
+Jump Around - House of Pain
+Nothing Compares 2 U - Sinéad O'Connor
+U Can't Touch This - MC Hammer
+Ice Ice Baby - Vanilla Ice
+Smooth - Santana

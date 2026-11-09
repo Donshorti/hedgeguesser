@@ -1,0 +1,54 @@
+# id: pop
+# code: A1
+# name: Pop Hits
+# color: pink
+Shape of You - Ed Sheeran
+Blinding Lights - The Weeknd
+Bad Guy - Billie Eilish
+Shake It Off - Taylor Swift
+Rolling in the Deep - Adele
+Uptown Funk - Mark Ronson
+Single Ladies (Put a Ring on It) - Beyoncé
+Toxic - Britney Spears
+Since U Been Gone - Kelly Clarkson
+Firework - Katy Perry
+Poker Face - Lady Gaga
+Levitating - Dua Lipa
+As It Was - Harry Styles
+Drivers License - Olivia Rodrigo
+Flowers - Miley Cyrus
+Happy - Pharrell Williams
+Call Me Maybe - Carly Rae Jepsen
+Umbrella - Rihanna
+Sorry - Justin Bieber
+Can't Stop the Feeling! - Justin Timberlake
+Hips Don't Lie - Shakira
+Wrecking Ball - Miley Cyrus
+Royals - Lorde
+Someone Like You - Adele
+Bad Romance - Lady Gaga
+Teenage Dream - Katy Perry
+Watermelon Sugar - Harry Styles
+Anti-Hero - Taylor Swift
+Dance Monkey - Tones and I
+Señorita - Shawn Mendes & Camila Cabello
+Thank U, Next - Ariana Grande
+Love Story - Taylor Swift
+Roar - Katy Perry
+Halo - Beyoncé
+Stay With Me - Sam Smith
+Counting Stars - OneRepublic
+Viva la Vida - Coldplay
+Girls Just Want to Have Fun - Cyndi Lauper
+...Baby One More Time - Britney Spears
+Wannabe - Spice Girls
+Oops!... I Did It Again - Britney Spears
+Cheap Thrills - Sia
+Chandelier - Sia
+Stitches - Shawn Mendes
+Perfect - Ed Sheeran
+Espresso - Sabrina Carpenter
+Good 4 U - Olivia Rodrigo
+Don't Start Now - Dua Lipa
+Treasure - Bruno Mars
+Just the Way You Are - Bruno Mars

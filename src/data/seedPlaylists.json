@@ -1,0 +1,2592 @@
+[
+  {
+    "id": "pop",
+    "code": "A1",
+    "name": "Pop Hits",
+    "color": "pink",
+    "tracks": [
+      {
+        "id": 1193701392,
+        "title": "Shape of You",
+        "artist": "Ed Sheeran"
+      },
+      {
+        "id": 1676308593,
+        "title": "Blinding Lights (Live)",
+        "artist": "The Weeknd"
+      },
+      {
+        "id": 1450695739,
+        "title": "bad guy",
+        "artist": "Billie Eilish"
+      },
+      {
+        "id": 1440933651,
+        "title": "Shake It Off",
+        "artist": "Taylor Swift"
+      },
+      {
+        "id": 1544491233,
+        "title": "Rolling in the Deep",
+        "artist": "Adele"
+      },
+      {
+        "id": 943946671,
+        "title": "Uptown Funk (feat. Bruno Mars)",
+        "artist": "Mark Ronson"
+      },
+      {
+        "id": 296016899,
+        "title": "Single Ladies (Put a Ring on It)",
+        "artist": "Beyoncé"
+      },
+      {
+        "id": 251948354,
+        "title": "Toxic",
+        "artist": "Britney Spears"
+      },
+      {
+        "id": 275765380,
+        "title": "Since U Been Gone",
+        "artist": "Kelly Clarkson"
+      },
+      {
+        "id": 716192625,
+        "title": "Firework",
+        "artist": "Katy Perry"
+      },
+      {
+        "id": 1444310131,
+        "title": "Poker Face (Glam As You Radio Mix)",
+        "artist": "Lady Gaga"
+      },
+      {
+        "id": 1538003843,
+        "title": "Levitating",
+        "artist": "Dua Lipa"
+      },
+      {
+        "id": 1615585008,
+        "title": "As It Was",
+        "artist": "Harry Styles"
+      },
+      {
+        "id": 1560735480,
+        "title": "drivers license",
+        "artist": "Olivia Rodrigo"
+      },
+      {
+        "id": 1674691586,
+        "title": "Flowers",
+        "artist": "Miley Cyrus"
+      },
+      {
+        "id": 863835363,
+        "title": "Happy (From \"Despicable Me 2\")",
+        "artist": "Pharrell Williams"
+      },
+      {
+        "id": 1440874008,
+        "title": "Call Me Maybe",
+        "artist": "Carly Rae Jepsen"
+      },
+      {
+        "id": 1441154437,
+        "title": "Umbrella (feat. JAŸ-Z)",
+        "artist": "Rihanna"
+      },
+      {
+        "id": 1440829610,
+        "title": "Sorry",
+        "artist": "Justin Bieber"
+      },
+      {
+        "id": 1154239184,
+        "title": "CAN'T STOP THE FEELING!",
+        "artist": "Justin Timberlake"
+      },
+      {
+        "id": 1817217063,
+        "title": "Hips Don't Lie (feat. Wyclef Jean)",
+        "artist": "Shakira"
+      },
+      {
+        "id": 1460315319,
+        "title": "Wrecking Ball",
+        "artist": "Miley Cyrus"
+      },
+      {
+        "id": 1594982922,
+        "title": "Royals",
+        "artist": "Lorde"
+      },
+      {
+        "id": 1544491998,
+        "title": "Someone Like You",
+        "artist": "Adele"
+      },
+      {
+        "id": 1476095084,
+        "title": "Bad Romance",
+        "artist": "Lady Gaga"
+      },
+      {
+        "id": 716192601,
+        "title": "Teenage Dream",
+        "artist": "Katy Perry"
+      },
+      {
+        "id": 1485802967,
+        "title": "Watermelon Sugar",
+        "artist": "Harry Styles"
+      },
+      {
+        "id": 1649434293,
+        "title": "Anti-Hero",
+        "artist": "Taylor Swift"
+      },
+      {
+        "id": 1475930045,
+        "title": "Dance Monkey",
+        "artist": "Tones And I"
+      },
+      {
+        "id": 1468910018,
+        "title": "Señorita",
+        "artist": "Shawn Mendes & Camila Cabello"
+      },
+      {
+        "id": 1450334169,
+        "title": "thank u, next",
+        "artist": "Ariana Grande"
+      },
+      {
+        "id": 1440924808,
+        "title": "Love Story",
+        "artist": "Taylor Swift"
+      },
+      {
+        "id": 1440818897,
+        "title": "Roar",
+        "artist": "Katy Perry"
+      },
+      {
+        "id": 296016893,
+        "title": "Halo",
+        "artist": "Beyoncé"
+      },
+      {
+        "id": 1440814425,
+        "title": "Stay With Me",
+        "artist": "Sam Smith"
+      },
+      {
+        "id": 1471704175,
+        "title": "Counting Stars",
+        "artist": "OneRepublic"
+      },
+      {
+        "id": 1122773680,
+        "title": "Viva La Vida",
+        "artist": "Coldplay"
+      },
+      {
+        "id": 400603693,
+        "title": "Girls Just Want to Have Fun",
+        "artist": "Cyndi Lauper"
+      },
+      {
+        "id": 273143820,
+        "title": "...Baby One More Time",
+        "artist": "Britney Spears"
+      },
+      {
+        "id": 1573849255,
+        "title": "Wannabe",
+        "artist": "Spice Girls"
+      },
+      {
+        "id": 1806140836,
+        "title": "Oops!...I Did It Again",
+        "artist": "Britney Spears"
+      },
+      {
+        "id": 1082506273,
+        "title": "Cheap Thrills (feat. Sean Paul)",
+        "artist": "Sia"
+      },
+      {
+        "id": 882945383,
+        "title": "Chandelier",
+        "artist": "Sia"
+      },
+      {
+        "id": 1440843848,
+        "title": "Stitches",
+        "artist": "Shawn Mendes"
+      },
+      {
+        "id": 1193701400,
+        "title": "Perfect",
+        "artist": "Ed Sheeran"
+      },
+      {
+        "id": 1746801012,
+        "title": "Espresso (On Vacation Version)",
+        "artist": "Sabrina Carpenter"
+      },
+      {
+        "id": 1582277652,
+        "title": "good 4 u",
+        "artist": "Olivia Rodrigo"
+      },
+      {
+        "id": 1484636829,
+        "title": "Don't Start Now",
+        "artist": "Dua Lipa"
+      },
+      {
+        "id": 581806439,
+        "title": "Treasure",
+        "artist": "Bruno Mars"
+      },
+      {
+        "id": 576670459,
+        "title": "Just the Way You Are",
+        "artist": "Bruno Mars"
+      }
+    ]
+  },
+  {
+    "id": "rock",
+    "code": "A2",
+    "name": "Rock Classics",
+    "color": "red",
+    "tracks": [
+      {
+        "id": 6781024437,
+        "title": "Bohemian Rhapsody",
+        "artist": "Queen"
+      },
+      {
+        "id": 580708180,
+        "title": "Stairway to Heaven",
+        "artist": "Led Zeppelin"
+      },
+      {
+        "id": 635770202,
+        "title": "Hotel California",
+        "artist": "Eagles"
+      },
+      {
+        "id": 1440783625,
+        "title": "Smells Like Teen Spirit",
+        "artist": "Nirvana"
+      },
+      {
+        "id": 1377826892,
+        "title": "Sweet Child O' Mine",
+        "artist": "Guns N' Roses"
+      },
+      {
+        "id": 574050602,
+        "title": "Back In Black",
+        "artist": "AC/DC"
+      },
+      {
+        "id": 1422955211,
+        "title": "Livin' On a Prayer",
+        "artist": "Bon Jovi"
+      },
+      {
+        "id": 169003415,
+        "title": "Don't Stop Believin' (2024 Remaster)",
+        "artist": "Journey"
+      },
+      {
+        "id": 574044008,
+        "title": "Highway to Hell",
+        "artist": "AC/DC"
+      },
+      {
+        "id": 6781080737,
+        "title": "We Will Rock You",
+        "artist": "Queen"
+      },
+      {
+        "id": 1440745782,
+        "title": "Paint It, Black",
+        "artist": "The Rolling Stones"
+      },
+      {
+        "id": 1440765093,
+        "title": "(I Can't Get No) Satisfaction (Mono)",
+        "artist": "The Rolling Stones"
+      },
+      {
+        "id": 1045058681,
+        "title": "Born to Run",
+        "artist": "Bruce Springsteen"
+      },
+      {
+        "id": 1065976170,
+        "title": "Comfortably Numb",
+        "artist": "Pink Floyd"
+      },
+      {
+        "id": 1065975638,
+        "title": "Another Brick In the Wall, Pt. 2",
+        "artist": "Pink Floyd"
+      },
+      {
+        "id": 1533513537,
+        "title": "Seven Nation Army",
+        "artist": "The White Stripes"
+      },
+      {
+        "id": 1440891171,
+        "title": "Mr. Brightside",
+        "artist": "The Killers"
+      },
+      {
+        "id": 1517447333,
+        "title": "Wonderwall",
+        "artist": "Oasis"
+      },
+      {
+        "id": 1679849823,
+        "title": "Creep (Acoustic)",
+        "artist": "Radiohead"
+      },
+      {
+        "id": 1572051818,
+        "title": "Enter Sandman",
+        "artist": "Metallica"
+      },
+      {
+        "id": 1099335223,
+        "title": "Smoke On the Water",
+        "artist": "Deep Purple"
+      },
+      {
+        "id": 787845531,
+        "title": "Iron Man",
+        "artist": "Black Sabbath"
+      },
+      {
+        "id": 580708177,
+        "title": "Black Dog",
+        "artist": "Led Zeppelin"
+      },
+      {
+        "id": 948460560,
+        "title": "Under the Bridge",
+        "artist": "Red Hot Chili Peppers"
+      },
+      {
+        "id": 947688104,
+        "title": "Californication",
+        "artist": "Red Hot Chili Peppers"
+      },
+      {
+        "id": 1160082180,
+        "title": "Basket Case",
+        "artist": "Green Day"
+      },
+      {
+        "id": 1160082350,
+        "title": "When I Come Around",
+        "artist": "Green Day"
+      },
+      {
+        "id": 590431785,
+        "title": "In the End",
+        "artist": "LINKIN PARK"
+      },
+      {
+        "id": 362133505,
+        "title": "Everlong",
+        "artist": "Foo Fighters"
+      },
+      {
+        "id": 1440838661,
+        "title": "Free Bird",
+        "artist": "Lynyrd Skynyrd"
+      },
+      {
+        "id": 1413948381,
+        "title": "Sweet Home Alabama",
+        "artist": "Lynyrd Skynyrd"
+      },
+      {
+        "id": 913902137,
+        "title": "More Than a Feeling",
+        "artist": "Boston"
+      },
+      {
+        "id": 1658644941,
+        "title": "Dream On",
+        "artist": "Aerosmith"
+      },
+      {
+        "id": 1883816638,
+        "title": "Walk This Way",
+        "artist": "Aerosmith"
+      },
+      {
+        "id": 203708455,
+        "title": "Born In the U.S.A.",
+        "artist": "Bruce Springsteen"
+      },
+      {
+        "id": 576003085,
+        "title": "You Shook Me All Night Long",
+        "artist": "AC/DC"
+      },
+      {
+        "id": 1377826728,
+        "title": "Welcome To The Jungle",
+        "artist": "Guns N' Roses"
+      },
+      {
+        "id": 785232521,
+        "title": "Paranoid",
+        "artist": "Black Sabbath"
+      },
+      {
+        "id": 401864479,
+        "title": "Purple Haze (Anthology Version)",
+        "artist": "Jimi Hendrix"
+      },
+      {
+        "id": 1440663520,
+        "title": "Layla",
+        "artist": "Derek & The Dominos"
+      },
+      {
+        "id": 1500642840,
+        "title": "Gimme Shelter (Remastered 2019)",
+        "artist": "The Rolling Stones"
+      },
+      {
+        "id": 193520079,
+        "title": "Barracuda",
+        "artist": "Heart"
+      },
+      {
+        "id": 1440902023,
+        "title": "Rebel Yell",
+        "artist": "Billy Idol"
+      },
+      {
+        "id": 976832495,
+        "title": "Jump",
+        "artist": "Van Halen"
+      },
+      {
+        "id": 1828830887,
+        "title": "Zombie (2025 Remastered)",
+        "artist": "The Cranberries"
+      },
+      {
+        "id": 726416473,
+        "title": "Song 2 (2012 Remaster)",
+        "artist": "Blur"
+      },
+      {
+        "id": 1443258189,
+        "title": "Bitter Sweet Symphony",
+        "artist": "The Verve"
+      },
+      {
+        "id": 1440664900,
+        "title": "Kryptonite",
+        "artist": "3 Doors Down"
+      },
+      {
+        "id": 273714640,
+        "title": "Chop Suey!",
+        "artist": "System Of A Down"
+      },
+      {
+        "id": 1440881625,
+        "title": "The Kids Aren't Alright",
+        "artist": "The Offspring"
+      }
+    ]
+  },
+  {
+    "id": "70s",
+    "code": "A3",
+    "name": "The 70s",
+    "color": "amber",
+    "tracks": [
+      {
+        "id": 1422648513,
+        "title": "Dancing Queen",
+        "artist": "ABBA"
+      },
+      {
+        "id": 1440900114,
+        "title": "Stayin' Alive",
+        "artist": "Bee Gees"
+      },
+      {
+        "id": 1442990560,
+        "title": "Le Freak (2018 Remaster)",
+        "artist": "Chic"
+      },
+      {
+        "id": 1443818368,
+        "title": "I Will Survive",
+        "artist": "Gloria Gaynor"
+      },
+      {
+        "id": 1456623340,
+        "title": "September",
+        "artist": "Earth, Wind & Fire"
+      },
+      {
+        "id": 1440808985,
+        "title": "Superstition",
+        "artist": "Stevie Wonder"
+      },
+      {
+        "id": 594061859,
+        "title": "Go Your Own Way",
+        "artist": "Fleetwood Mac"
+      },
+      {
+        "id": 202272624,
+        "title": "Dreams",
+        "artist": "Fleetwood Mac"
+      },
+      {
+        "id": 1440930363,
+        "title": "Heart of Glass",
+        "artist": "Blondie"
+      },
+      {
+        "id": 1121329085,
+        "title": "Disco Inferno",
+        "artist": "The Trammps"
+      },
+      {
+        "id": 635770202,
+        "title": "Hotel California",
+        "artist": "Eagles"
+      },
+      {
+        "id": 1445668465,
+        "title": "Night Fever (From \"Saturday Night Fever\" Soundtrack)",
+        "artist": "Bee Gees"
+      },
+      {
+        "id": 6781079518,
+        "title": "Don't Stop Me Now",
+        "artist": "Queen"
+      },
+      {
+        "id": 6781024437,
+        "title": "Bohemian Rhapsody",
+        "artist": "Queen"
+      },
+      {
+        "id": 1440853776,
+        "title": "Imagine",
+        "artist": "John Lennon"
+      },
+      {
+        "id": 976362823,
+        "title": "Let's Stay Together",
+        "artist": "Al Green"
+      },
+      {
+        "id": 391725484,
+        "title": "Lean On Me",
+        "artist": "Bill Withers"
+      },
+      {
+        "id": 293521573,
+        "title": "Ain't No Sunshine",
+        "artist": "Bill Withers"
+      },
+      {
+        "id": 1440910931,
+        "title": "Rocket Man (I Think It's Going to Be a Long Long Time)",
+        "artist": "Elton John"
+      },
+      {
+        "id": 1434905339,
+        "title": "Tiny Dancer",
+        "artist": "Elton John"
+      },
+      {
+        "id": 1440926343,
+        "title": "Crocodile Rock",
+        "artist": "Elton John"
+      },
+      {
+        "id": 1440861294,
+        "title": "Mamma Mia",
+        "artist": "ABBA"
+      },
+      {
+        "id": 1422649021,
+        "title": "Waterloo",
+        "artist": "ABBA"
+      },
+      {
+        "id": 511074294,
+        "title": "Take Me Home, Country Roads (Original Version)",
+        "artist": "John Denver"
+      },
+      {
+        "id": 1440834619,
+        "title": "American Pie (Full Length Version)",
+        "artist": "Don Mclean"
+      },
+      {
+        "id": 158617575,
+        "title": "Piano Man",
+        "artist": "Billy Joel"
+      },
+      {
+        "id": 6781078353,
+        "title": "Killer Queen",
+        "artist": "Queen"
+      },
+      {
+        "id": 404333806,
+        "title": "Born to Be Alive (Extended Version)",
+        "artist": "Patrick Hernandez"
+      },
+      {
+        "id": 1440825374,
+        "title": "Y.M.C.A.",
+        "artist": "Village People"
+      },
+      {
+        "id": 147664822,
+        "title": "Ring My Bell",
+        "artist": "Anita Ward"
+      },
+      {
+        "id": 1618254459,
+        "title": "Kung Fu Fighting",
+        "artist": "Carl Douglas"
+      },
+      {
+        "id": 6793735690,
+        "title": "Hot Stuff",
+        "artist": "Donna Summer"
+      },
+      {
+        "id": 1442959426,
+        "title": "I Feel Love",
+        "artist": "Donna Summer"
+      },
+      {
+        "id": 1440796745,
+        "title": "Car Wash",
+        "artist": "Rose Royce"
+      },
+      {
+        "id": 534823344,
+        "title": "Boogie Wonderland",
+        "artist": "Earth, Wind & Fire"
+      },
+      {
+        "id": 250727833,
+        "title": "Rivers of Babylon (2007 Remastered Version)",
+        "artist": "Boney M."
+      },
+      {
+        "id": 553356946,
+        "title": "Rasputin",
+        "artist": "Boney M."
+      },
+      {
+        "id": 824787060,
+        "title": "Daddy Cool",
+        "artist": "Boney M."
+      },
+      {
+        "id": 1675380129,
+        "title": "Wuthering Heights",
+        "artist": "Kate Bush"
+      },
+      {
+        "id": 1347894092,
+        "title": "\"Heroes\" (2017 Remaster)",
+        "artist": "David Bowie"
+      },
+      {
+        "id": 1039798013,
+        "title": "Life On Mars?",
+        "artist": "David Bowie"
+      },
+      {
+        "id": 1843771261,
+        "title": "Rock And Roll All Nite (2025 Remaster)",
+        "artist": "Kiss"
+      },
+      {
+        "id": 1444090868,
+        "title": "Show Me the Way",
+        "artist": "Peter Frampton"
+      },
+      {
+        "id": 1442300589,
+        "title": "Love Will Keep Us Together",
+        "artist": "Captain & Tennille"
+      },
+      {
+        "id": 1838782096,
+        "title": "Brown Eyed Girl",
+        "artist": "Van Morrison"
+      },
+      {
+        "id": 1440788542,
+        "title": "Sir Duke",
+        "artist": "Stevie Wonder"
+      },
+      {
+        "id": 814050540,
+        "title": "Get Down Tonight",
+        "artist": "KC and the Sunshine Band"
+      },
+      {
+        "id": 814050537,
+        "title": "That's the Way (I Like It)",
+        "artist": "KC and the Sunshine Band"
+      },
+      {
+        "id": 198226129,
+        "title": "Play That Funky Music",
+        "artist": "Wild Cherry"
+      },
+      {
+        "id": 1442259374,
+        "title": "More Than A Woman",
+        "artist": "Bee Gees"
+      }
+    ]
+  },
+  {
+    "id": "80s",
+    "code": "A4",
+    "name": "The 80s",
+    "color": "pink",
+    "tracks": [
+      {
+        "id": 269573364,
+        "title": "Billie Jean",
+        "artist": "Michael Jackson"
+      },
+      {
+        "id": 380907765,
+        "title": "Take On Me",
+        "artist": "a-ha"
+      },
+      {
+        "id": 255966421,
+        "title": "Sweet Dreams (Are Made of This)",
+        "artist": "Eurythmics"
+      },
+      {
+        "id": 269573303,
+        "title": "Thriller",
+        "artist": "Michael Jackson"
+      },
+      {
+        "id": 83445997,
+        "title": "Like a Prayer",
+        "artist": "Madonna"
+      },
+      {
+        "id": 80815209,
+        "title": "Material Girl",
+        "artist": "Madonna"
+      },
+      {
+        "id": 400603693,
+        "title": "Girls Just Want to Have Fun",
+        "artist": "Cyndi Lauper"
+      },
+      {
+        "id": 1443234133,
+        "title": "Don't You (Forget About Me) [12\" Version]",
+        "artist": "Simple Minds"
+      },
+      {
+        "id": 1440882897,
+        "title": "Every Breath You Take",
+        "artist": "The Police"
+      },
+      {
+        "id": 269573341,
+        "title": "Beat It",
+        "artist": "Michael Jackson"
+      },
+      {
+        "id": 185717604,
+        "title": "Africa",
+        "artist": "Toto"
+      },
+      {
+        "id": 1422955211,
+        "title": "Livin' On a Prayer",
+        "artist": "Bon Jovi"
+      },
+      {
+        "id": 1393183796,
+        "title": "Purple Rain (Piano & a Microphone 1983 Version)",
+        "artist": "Prince"
+      },
+      {
+        "id": 212972932,
+        "title": "When Doves Cry",
+        "artist": "Prince"
+      },
+      {
+        "id": 1773293184,
+        "title": "Never Gonna Give You Up",
+        "artist": "Rick Astley"
+      },
+      {
+        "id": 1440517679,
+        "title": "Tainted Love",
+        "artist": "Soft Cell"
+      },
+      {
+        "id": 1466274459,
+        "title": "Wake Me Up Before You Go-Go",
+        "artist": "Wham!"
+      },
+      {
+        "id": 429945616,
+        "title": "Careless Whisper",
+        "artist": "George Michael"
+      },
+      {
+        "id": 1504111288,
+        "title": "Total Eclipse of the Heart",
+        "artist": "Bonnie Tyler"
+      },
+      {
+        "id": 254685026,
+        "title": "Eye of the Tiger",
+        "artist": "Survivor"
+      },
+      {
+        "id": 405600299,
+        "title": "Footloose",
+        "artist": "Kenny Loggins"
+      },
+      {
+        "id": 387193955,
+        "title": "Danger Zone",
+        "artist": "Kenny Loggins"
+      },
+      {
+        "id": 196480329,
+        "title": "The Final Countdown",
+        "artist": "Europe"
+      },
+      {
+        "id": 1862663152,
+        "title": "Here I Go Again (1987 Version / 2017 Remix)",
+        "artist": "Whitesnake"
+      },
+      {
+        "id": 1438626355,
+        "title": "Pour Some Sugar On Me",
+        "artist": "Def Leppard"
+      },
+      {
+        "id": 6781076397,
+        "title": "Another One Bites The Dust",
+        "artist": "Queen"
+      },
+      {
+        "id": 6781081192,
+        "title": "Under Pressure (feat. David Bowie) [Rah Mix]",
+        "artist": "Queen"
+      },
+      {
+        "id": 169003415,
+        "title": "Don't Stop Believin' (2024 Remaster)",
+        "artist": "Journey"
+      },
+      {
+        "id": 300948073,
+        "title": "Once In a Lifetime",
+        "artist": "Talking Heads"
+      },
+      {
+        "id": 665413042,
+        "title": "Just Can't Get Enough",
+        "artist": "Depeche Mode"
+      },
+      {
+        "id": 1612544004,
+        "title": "Enjoy the Silence",
+        "artist": "Depeche Mode"
+      },
+      {
+        "id": 264135997,
+        "title": "Blue Monday",
+        "artist": "New Order"
+      },
+      {
+        "id": 1365569655,
+        "title": "Relax",
+        "artist": "Frankie Goes to Hollywood"
+      },
+      {
+        "id": 724214046,
+        "title": "Karma Chameleon",
+        "artist": "Culture Club"
+      },
+      {
+        "id": 1490914106,
+        "title": "Come On Eileen",
+        "artist": "Dexys Midnight Runners"
+      },
+      {
+        "id": 724437870,
+        "title": "Don't You Want Me",
+        "artist": "The Human League"
+      },
+      {
+        "id": 200008030,
+        "title": "Walk Like an Egyptian",
+        "artist": "The Bangles"
+      },
+      {
+        "id": 1484413134,
+        "title": "Ghostbusters",
+        "artist": "Ray Parker Jr."
+      },
+      {
+        "id": 1334780224,
+        "title": "I Wanna Dance with Somebody (Who Loves Me)",
+        "artist": "Whitney Houston"
+      },
+      {
+        "id": 80815215,
+        "title": "Like a Virgin",
+        "artist": "Madonna"
+      },
+      {
+        "id": 604770244,
+        "title": "Smooth Operator (Single Version)",
+        "artist": "Sade"
+      },
+      {
+        "id": 1614037653,
+        "title": "Need You Tonight (2017 Remaster)",
+        "artist": "INXS"
+      },
+      {
+        "id": 1440729860,
+        "title": "With or Without You",
+        "artist": "U2"
+      },
+      {
+        "id": 976832495,
+        "title": "Jump",
+        "artist": "Van Halen"
+      },
+      {
+        "id": 685585941,
+        "title": "Should I Stay or Should I Go",
+        "artist": "The Clash"
+      },
+      {
+        "id": 1841432125,
+        "title": "Running Up That Hill (A Deal With God) [12\" Mix]",
+        "artist": "Kate Bush"
+      },
+      {
+        "id": 1440813515,
+        "title": "Everybody Wants to Rule the World",
+        "artist": "Tears for Fears"
+      },
+      {
+        "id": 1440813509,
+        "title": "Shout",
+        "artist": "Tears for Fears"
+      },
+      {
+        "id": 693610779,
+        "title": "Hungry Like the Wolf",
+        "artist": "Duran Duran"
+      },
+      {
+        "id": 282960968,
+        "title": "Down Under",
+        "artist": "Men At Work"
+      },
+      {
+        "id": 1444090128,
+        "title": "Video Killed the Radio Star",
+        "artist": "The Buggles"
+      }
+    ]
+  },
+  {
+    "id": "90s",
+    "code": "B1",
+    "name": "The 90s",
+    "color": "cyan",
+    "tracks": [
+      {
+        "id": 1440783625,
+        "title": "Smells Like Teen Spirit",
+        "artist": "Nirvana"
+      },
+      {
+        "id": 1517447333,
+        "title": "Wonderwall",
+        "artist": "Oasis"
+      },
+      {
+        "id": 298575248,
+        "title": "No Scrubs",
+        "artist": "TLC"
+      },
+      {
+        "id": 270246724,
+        "title": "Waterfalls",
+        "artist": "TLC"
+      },
+      {
+        "id": 1573849255,
+        "title": "Wannabe",
+        "artist": "Spice Girls"
+      },
+      {
+        "id": 273143820,
+        "title": "...Baby One More Time",
+        "artist": "Britney Spears"
+      },
+      {
+        "id": 283567164,
+        "title": "I Want It That Way",
+        "artist": "Backstreet Boys"
+      },
+      {
+        "id": 308611114,
+        "title": "Everybody (Backstreet's Back) [Extended Version]",
+        "artist": "Backstreet Boys"
+      },
+      {
+        "id": 303171368,
+        "title": "Bye Bye Bye",
+        "artist": "*NSYNC"
+      },
+      {
+        "id": 1422693816,
+        "title": "Losing My Religion",
+        "artist": "R.E.M."
+      },
+      {
+        "id": 1679849823,
+        "title": "Creep (Acoustic)",
+        "artist": "Radiohead"
+      },
+      {
+        "id": 1828830887,
+        "title": "Zombie (2025 Remastered)",
+        "artist": "The Cranberries"
+      },
+      {
+        "id": 1440735263,
+        "title": "Linger",
+        "artist": "The Cranberries"
+      },
+      {
+        "id": 286006506,
+        "title": "Torn",
+        "artist": "Natalie Imbruglia"
+      },
+      {
+        "id": 1031419968,
+        "title": "Ironic",
+        "artist": "Alanis Morissette"
+      },
+      {
+        "id": 1109658204,
+        "title": "Iris",
+        "artist": "The Goo Goo Dolls"
+      },
+      {
+        "id": 479204873,
+        "title": "My Heart Will Go On (Love Theme from \"Titanic\")",
+        "artist": "Céline Dion"
+      },
+      {
+        "id": 388151901,
+        "title": "I Will Always Love You",
+        "artist": "Whitney Houston"
+      },
+      {
+        "id": 80812397,
+        "title": "Vogue",
+        "artist": "Madonna"
+      },
+      {
+        "id": 159294814,
+        "title": "Black or White",
+        "artist": "Michael Jackson"
+      },
+      {
+        "id": 1604646670,
+        "title": "Gangsta's Paradise (feat. L.V.)",
+        "artist": "Coolio"
+      },
+      {
+        "id": 948460560,
+        "title": "Under the Bridge",
+        "artist": "Red Hot Chili Peppers"
+      },
+      {
+        "id": 1160082180,
+        "title": "Basket Case",
+        "artist": "Green Day"
+      },
+      {
+        "id": 164394654,
+        "title": "Semi-Charmed Life",
+        "artist": "Third Eye Blind"
+      },
+      {
+        "id": 1443258189,
+        "title": "Bitter Sweet Symphony",
+        "artist": "The Verve"
+      },
+      {
+        "id": 726416473,
+        "title": "Song 2 (2012 Remaster)",
+        "artist": "Blur"
+      },
+      {
+        "id": 258647542,
+        "title": "Macarena (Original Version)",
+        "artist": "Los del Río"
+      },
+      {
+        "id": 1443758761,
+        "title": "Barbie Girl",
+        "artist": "Aqua"
+      },
+      {
+        "id": 257425447,
+        "title": "Blue (Da Ba Dee) [Gabry Ponte Video Edit]",
+        "artist": "Eiffel 65"
+      },
+      {
+        "id": 1731384547,
+        "title": "What Is Love (7\" Mix)",
+        "artist": "Haddaway"
+      },
+      {
+        "id": 1437353056,
+        "title": "Rhythm Is a Dancer",
+        "artist": "Snap!"
+      },
+      {
+        "id": 880365276,
+        "title": "Rhythm of the Night",
+        "artist": "Corona"
+      },
+      {
+        "id": 73273491,
+        "title": "Believe",
+        "artist": "Cher"
+      },
+      {
+        "id": 1308542773,
+        "title": "Genie in a Bottle",
+        "artist": "Christina Aguilera"
+      },
+      {
+        "id": 192821659,
+        "title": "Livin' la Vida Loca",
+        "artist": "Ricky Martin"
+      },
+      {
+        "id": 30475379,
+        "title": "Kiss from a Rose",
+        "artist": "Seal"
+      },
+      {
+        "id": 1054461710,
+        "title": "Killing Me Softly with His Song",
+        "artist": "Fugees"
+      },
+      {
+        "id": 1440845557,
+        "title": "Don't Speak",
+        "artist": "No Doubt"
+      },
+      {
+        "id": 157485088,
+        "title": "Truly Madly Deeply",
+        "artist": "Savage Garden"
+      },
+      {
+        "id": 1322068804,
+        "title": "Mambo No. 5 (a Little Bit of...)",
+        "artist": "Lou Bega"
+      },
+      {
+        "id": 1440915693,
+        "title": "All Star",
+        "artist": "Smash Mouth"
+      },
+      {
+        "id": 713773457,
+        "title": "Tubthumping",
+        "artist": "Chumbawamba"
+      },
+      {
+        "id": 1440790544,
+        "title": "MMMBop",
+        "artist": "Hanson"
+      },
+      {
+        "id": 161525098,
+        "title": "Gettin' Jiggy Wit It",
+        "artist": "Will Smith"
+      },
+      {
+        "id": 1440949865,
+        "title": "Everybody Hurts",
+        "artist": "R.E.M."
+      },
+      {
+        "id": 1572051818,
+        "title": "Enter Sandman",
+        "artist": "Metallica"
+      },
+      {
+        "id": 1604628161,
+        "title": "Jump Around",
+        "artist": "House of Pain"
+      },
+      {
+        "id": 1629185307,
+        "title": "Nothing Compares 2 U",
+        "artist": "Sinéad O'Connor"
+      },
+      {
+        "id": 724647729,
+        "title": "U Can't Touch This",
+        "artist": "MC Hammer"
+      },
+      {
+        "id": 716691562,
+        "title": "Ice Ice Baby",
+        "artist": "Vanilla Ice"
+      },
+      {
+        "id": 265816505,
+        "title": "Smooth (feat. Rob Thomas)",
+        "artist": "Santana"
+      }
+    ]
+  },
+  {
+    "id": "2000s",
+    "code": "B2",
+    "name": "The 2000s",
+    "color": "cyan",
+    "tracks": [
+      {
+        "id": 201274644,
+        "title": "Crazy in Love (feat. JAŸ-Z)",
+        "artist": "Beyoncé"
+      },
+      {
+        "id": 1774799818,
+        "title": "Hey Ya!",
+        "artist": "Outkast"
+      },
+      {
+        "id": 1440891171,
+        "title": "Mr. Brightside",
+        "artist": "The Killers"
+      },
+      {
+        "id": 251948354,
+        "title": "Toxic",
+        "artist": "Britney Spears"
+      },
+      {
+        "id": 1441154437,
+        "title": "Umbrella (feat. JAŸ-Z)",
+        "artist": "Rihanna"
+      },
+      {
+        "id": 1817217063,
+        "title": "Hips Don't Lie (feat. Wyclef Jean)",
+        "artist": "Shakira"
+      },
+      {
+        "id": 1440907550,
+        "title": "In da Club",
+        "artist": "50 Cent"
+      },
+      {
+        "id": 386153478,
+        "title": "Yeah! (feat. Lil Jon & Ludacris)",
+        "artist": "USHER"
+      },
+      {
+        "id": 275765380,
+        "title": "Since U Been Gone",
+        "artist": "Kelly Clarkson"
+      },
+      {
+        "id": 315025823,
+        "title": "Complicated",
+        "artist": "Avril Lavigne"
+      },
+      {
+        "id": 315025826,
+        "title": "Sk8er Boi",
+        "artist": "Avril Lavigne"
+      },
+      {
+        "id": 1533513537,
+        "title": "Seven Nation Army",
+        "artist": "The White Stripes"
+      },
+      {
+        "id": 1122776156,
+        "title": "Clocks",
+        "artist": "Coldplay"
+      },
+      {
+        "id": 1122773680,
+        "title": "Viva La Vida",
+        "artist": "Coldplay"
+      },
+      {
+        "id": 1422677781,
+        "title": "Rehab",
+        "artist": "Amy Winehouse"
+      },
+      {
+        "id": 259214627,
+        "title": "Valerie (feat. Amy Winehouse)",
+        "artist": "Mark Ronson"
+      },
+      {
+        "id": 1741403966,
+        "title": "Crazy",
+        "artist": "Gnarls Barkley"
+      },
+      {
+        "id": 1444310131,
+        "title": "Poker Face (Glam As You Radio Mix)",
+        "artist": "Lady Gaga"
+      },
+      {
+        "id": 1440818653,
+        "title": "Just Dance (feat. Colby O'Donis)",
+        "artist": "Lady Gaga"
+      },
+      {
+        "id": 1446016735,
+        "title": "I Gotta Feeling",
+        "artist": "Black Eyed Peas"
+      },
+      {
+        "id": 1615142635,
+        "title": "Where Is The Love?",
+        "artist": "Black Eyed Peas"
+      },
+      {
+        "id": 1440903439,
+        "title": "Lose Yourself",
+        "artist": "Eminem"
+      },
+      {
+        "id": 1440821643,
+        "title": "Without Me",
+        "artist": "Eminem"
+      },
+      {
+        "id": 1440735156,
+        "title": "Hot in Herre",
+        "artist": "Nelly"
+      },
+      {
+        "id": 400946435,
+        "title": "SexyBack (feat. Timbaland)",
+        "artist": "Justin Timberlake"
+      },
+      {
+        "id": 252606592,
+        "title": "Cry Me a River",
+        "artist": "Justin Timberlake"
+      },
+      {
+        "id": 726320692,
+        "title": "Can't Get You Out of My Head",
+        "artist": "Kylie Minogue"
+      },
+      {
+        "id": 303682849,
+        "title": "Bleeding Love",
+        "artist": "Leona Lewis"
+      },
+      {
+        "id": 1491226770,
+        "title": "Hollaback Girl",
+        "artist": "Gwen Stefani"
+      },
+      {
+        "id": 1440763833,
+        "title": "Gold Digger (feat. Jamie Foxx)",
+        "artist": "Kanye West"
+      },
+      {
+        "id": 1442846328,
+        "title": "Stronger",
+        "artist": "Kanye West"
+      },
+      {
+        "id": 1161539473,
+        "title": "Holiday",
+        "artist": "Green Day"
+      },
+      {
+        "id": 590431785,
+        "title": "In the End",
+        "artist": "LINKIN PARK"
+      },
+      {
+        "id": 590423552,
+        "title": "Numb",
+        "artist": "LINKIN PARK"
+      },
+      {
+        "id": 1440758864,
+        "title": "Chasing Cars",
+        "artist": "Snow Patrol"
+      },
+      {
+        "id": 1440666111,
+        "title": "Bring Me to Life",
+        "artist": "Evanescence"
+      },
+      {
+        "id": 6794032435,
+        "title": "Hey There Delilah (feat. LØLØ)",
+        "artist": "Plain White T's"
+      },
+      {
+        "id": 715891620,
+        "title": "I Kissed a Girl",
+        "artist": "Katy Perry"
+      },
+      {
+        "id": 261707067,
+        "title": "Irreplaceable",
+        "artist": "Beyoncé"
+      },
+      {
+        "id": 1568362821,
+        "title": "Promiscuous (feat. Timbaland)",
+        "artist": "Nelly Furtado"
+      },
+      {
+        "id": 1442463828,
+        "title": "Maneater",
+        "artist": "Nelly Furtado"
+      },
+      {
+        "id": 1443100723,
+        "title": "Beautiful Day",
+        "artist": "U2"
+      },
+      {
+        "id": 850583586,
+        "title": "Feel Good Inc",
+        "artist": "Gorillaz"
+      },
+      {
+        "id": 884147521,
+        "title": "Clint Eastwood (Phi Life Cypher Version)",
+        "artist": "Gorillaz"
+      },
+      {
+        "id": 1649572914,
+        "title": "Dirrty (feat. Redman)",
+        "artist": "Christina Aguilera"
+      },
+      {
+        "id": 1440924808,
+        "title": "Love Story",
+        "artist": "Taylor Swift"
+      },
+      {
+        "id": 425320500,
+        "title": "Hey, Soul Sister",
+        "artist": "Train"
+      },
+      {
+        "id": 290303018,
+        "title": "Use Somebody",
+        "artist": "Kings of Leon"
+      },
+      {
+        "id": 290303003,
+        "title": "Sex On Fire",
+        "artist": "Kings of Leon"
+      },
+      {
+        "id": 1123076826,
+        "title": "Fix You",
+        "artist": "Coldplay"
+      }
+    ]
+  },
+  {
+    "id": "2010s",
+    "code": "B3",
+    "name": "The 2010s",
+    "color": "pink",
+    "tracks": [
+      {
+        "id": 1544491233,
+        "title": "Rolling in the Deep",
+        "artist": "Adele"
+      },
+      {
+        "id": 1544491998,
+        "title": "Someone Like You",
+        "artist": "Adele"
+      },
+      {
+        "id": 1440754487,
+        "title": "Somebody That I Used to Know (feat. Kimbra)",
+        "artist": "Gotye"
+      },
+      {
+        "id": 1440874008,
+        "title": "Call Me Maybe",
+        "artist": "Carly Rae Jepsen"
+      },
+      {
+        "id": 664332744,
+        "title": "Get Lucky (feat. Pharrell Williams & Nile Rodgers) [Daft Punk Remix]",
+        "artist": "Daft Punk"
+      },
+      {
+        "id": 863835363,
+        "title": "Happy (From \"Despicable Me 2\")",
+        "artist": "Pharrell Williams"
+      },
+      {
+        "id": 943946671,
+        "title": "Uptown Funk (feat. Bruno Mars)",
+        "artist": "Mark Ronson"
+      },
+      {
+        "id": 1440933651,
+        "title": "Shake It Off",
+        "artist": "Taylor Swift"
+      },
+      {
+        "id": 1440933517,
+        "title": "Blank Space",
+        "artist": "Taylor Swift"
+      },
+      {
+        "id": 1594982922,
+        "title": "Royals",
+        "artist": "Lorde"
+      },
+      {
+        "id": 1471704175,
+        "title": "Counting Stars",
+        "artist": "OneRepublic"
+      },
+      {
+        "id": 1440873126,
+        "title": "Radioactive",
+        "artist": "Imagine Dragons"
+      },
+      {
+        "id": 1411628233,
+        "title": "Believer",
+        "artist": "Imagine Dragons"
+      },
+      {
+        "id": 1050204631,
+        "title": "Thinking Out Loud",
+        "artist": "Ed Sheeran"
+      },
+      {
+        "id": 1193701392,
+        "title": "Shape of You",
+        "artist": "Ed Sheeran"
+      },
+      {
+        "id": 1445025224,
+        "title": "Despacito (Versión Pop)",
+        "artist": "Luis Fonsi"
+      },
+      {
+        "id": 1544494392,
+        "title": "Hello",
+        "artist": "Adele"
+      },
+      {
+        "id": 1440841730,
+        "title": "Hotline Bling",
+        "artist": "Drake"
+      },
+      {
+        "id": 1406109863,
+        "title": "God's Plan",
+        "artist": "Drake"
+      },
+      {
+        "id": 1468166468,
+        "title": "Old Town Road",
+        "artist": "Lil Nas X"
+      },
+      {
+        "id": 1450695739,
+        "title": "bad guy",
+        "artist": "Billie Eilish"
+      },
+      {
+        "id": 1445949267,
+        "title": "Sunflower (Spider-Man: Into the Spider-Verse)",
+        "artist": "Post Malone & Swae Lee"
+      },
+      {
+        "id": 1373506170,
+        "title": "rockstar (feat. 21 Savage)",
+        "artist": "Post Malone"
+      },
+      {
+        "id": 1440870375,
+        "title": "Starboy (feat. Daft Punk)",
+        "artist": "The Weeknd"
+      },
+      {
+        "id": 1440858500,
+        "title": "Can't Feel My Face",
+        "artist": "The Weeknd"
+      },
+      {
+        "id": 1440872929,
+        "title": "Wake Me Up",
+        "artist": "Avicii"
+      },
+      {
+        "id": 1440787349,
+        "title": "Levels",
+        "artist": "Avicii"
+      },
+      {
+        "id": 693226464,
+        "title": "Titanium (feat. Sia)",
+        "artist": "David Guetta"
+      },
+      {
+        "id": 6798736833,
+        "title": "Don't You Worry Child (feat. John Martin)",
+        "artist": "Swedish House Mafia"
+      },
+      {
+        "id": 1440858321,
+        "title": "Pompeii",
+        "artist": "Bastille"
+      },
+      {
+        "id": 1022164261,
+        "title": "Riptide",
+        "artist": "Vance Joy"
+      },
+      {
+        "id": 1754031516,
+        "title": "Ho Hey",
+        "artist": "The Lumineers"
+      },
+      {
+        "id": 1440809330,
+        "title": "Little Talks",
+        "artist": "Of Monsters and Men"
+      },
+      {
+        "id": 435761212,
+        "title": "Pumped Up Kicks",
+        "artist": "Foster the People"
+      },
+      {
+        "id": 486040195,
+        "title": "We Are Young (feat. Janelle Monáe)",
+        "artist": "Fun."
+      },
+      {
+        "id": 1440859510,
+        "title": "Moves Like Jagger (feat. Christina Aguilera)",
+        "artist": "Maroon 5"
+      },
+      {
+        "id": 1443124961,
+        "title": "Party Rock Anthem (feat. Lauren Bennett & GoonRock)",
+        "artist": "LMFAO"
+      },
+      {
+        "id": 1445144527,
+        "title": "Gangnam Style",
+        "artist": "PSY"
+      },
+      {
+        "id": 560097550,
+        "title": "Thrift Shop (feat. Wanz)",
+        "artist": "Macklemore & Ryan Lewis"
+      },
+      {
+        "id": 1791794659,
+        "title": "All About That Bass (Live from Spotify London)",
+        "artist": "Meghan Trainor"
+      },
+      {
+        "id": 882945383,
+        "title": "Chandelier",
+        "artist": "Sia"
+      },
+      {
+        "id": 1440829613,
+        "title": "Love Yourself",
+        "artist": "Justin Bieber"
+      },
+      {
+        "id": 1170699703,
+        "title": "Closer (feat. Halsey)",
+        "artist": "The Chainsmokers"
+      },
+      {
+        "id": 1696639397,
+        "title": "Lean On (feat. DJ Snake & MØ)",
+        "artist": "Major Lazer"
+      },
+      {
+        "id": 974485474,
+        "title": "Stressed Out",
+        "artist": "twenty one pilots"
+      },
+      {
+        "id": 900672609,
+        "title": "Take Me to Church",
+        "artist": "Hozier"
+      },
+      {
+        "id": 1440626764,
+        "title": "Let It Go",
+        "artist": "Idina Menzel"
+      },
+      {
+        "id": 1444321282,
+        "title": "Diamonds",
+        "artist": "Rihanna"
+      },
+      {
+        "id": 1440818897,
+        "title": "Roar",
+        "artist": "Katy Perry"
+      },
+      {
+        "id": 1321217032,
+        "title": "Havana (feat. Young Thug)",
+        "artist": "Camila Cabello"
+      }
+    ]
+  },
+  {
+    "id": "hiphop",
+    "code": "B4",
+    "name": "Hip-Hop",
+    "color": "amber",
+    "tracks": [
+      {
+        "id": 1440903439,
+        "title": "Lose Yourself",
+        "artist": "Eminem"
+      },
+      {
+        "id": 1815859197,
+        "title": "The Real Slim Shady (Live From MTV VMAs / 2000)",
+        "artist": "Eminem"
+      },
+      {
+        "id": 217613305,
+        "title": "Juicy",
+        "artist": "The Notorious B.I.G."
+      },
+      {
+        "id": 901282155,
+        "title": "Hypnotize (Radio Mix)",
+        "artist": "The Notorious B.I.G."
+      },
+      {
+        "id": 1588493576,
+        "title": "California Love (feat. Dr. Dre & Roger Troutman) [Remix]",
+        "artist": "2Pac"
+      },
+      {
+        "id": 1440662037,
+        "title": "Changes (1998 Greatest Hits) [Edit] [feat. Talent]",
+        "artist": "2Pac"
+      },
+      {
+        "id": 1683195628,
+        "title": "Gin and Juice",
+        "artist": "Snoop Dogg"
+      },
+      {
+        "id": 1444156738,
+        "title": "Still D.R.E. (feat. Snoop Dogg)",
+        "artist": "Dr. Dre"
+      },
+      {
+        "id": 1440836236,
+        "title": "Nuthin' but a \"G\" Thang (feat. Snoop Dogg)",
+        "artist": "Dr. Dre"
+      },
+      {
+        "id": 1439215037,
+        "title": "C.R.E.A.M. (Cash Rules Everything Around Me) [Radio Edit]",
+        "artist": "Wu-Tang Clan"
+      },
+      {
+        "id": 1223060392,
+        "title": "N.Y. State of Mind",
+        "artist": "Nas"
+      },
+      {
+        "id": 1536682928,
+        "title": "Ms. Jackson (Radio Mix)",
+        "artist": "Outkast"
+      },
+      {
+        "id": 1774799818,
+        "title": "Hey Ya!",
+        "artist": "Outkast"
+      },
+      {
+        "id": 1440907550,
+        "title": "In da Club",
+        "artist": "50 Cent"
+      },
+      {
+        "id": 1440763833,
+        "title": "Gold Digger (feat. Jamie Foxx)",
+        "artist": "Kanye West"
+      },
+      {
+        "id": 1442846328,
+        "title": "Stronger",
+        "artist": "Kanye West"
+      },
+      {
+        "id": 1443160563,
+        "title": "Power",
+        "artist": "Kanye West"
+      },
+      {
+        "id": 1440882165,
+        "title": "HUMBLE.",
+        "artist": "Kendrick Lamar"
+      },
+      {
+        "id": 1440871886,
+        "title": "Alright",
+        "artist": "Kendrick Lamar"
+      },
+      {
+        "id": 1440881990,
+        "title": "DNA.",
+        "artist": "Kendrick Lamar"
+      },
+      {
+        "id": 1406109863,
+        "title": "God's Plan",
+        "artist": "Drake"
+      },
+      {
+        "id": 1440841730,
+        "title": "Hotline Bling",
+        "artist": "Drake"
+      },
+      {
+        "id": 1440821277,
+        "title": "Started From the Bottom",
+        "artist": "Drake"
+      },
+      {
+        "id": 1421658123,
+        "title": "SICKO MODE",
+        "artist": "Travis Scott"
+      },
+      {
+        "id": 1151481750,
+        "title": "goosebumps",
+        "artist": "Travis Scott"
+      },
+      {
+        "id": 1440932018,
+        "title": "Empire State Of Mind (feat. Alicia Keys)",
+        "artist": "JAŸ-Z"
+      },
+      {
+        "id": 1440632660,
+        "title": "99 Problems",
+        "artist": "JAŸ-Z"
+      },
+      {
+        "id": 1440777314,
+        "title": "Big Pimpin' (feat. UGK) [Edited]",
+        "artist": "JAŸ-Z"
+      },
+      {
+        "id": 52310973,
+        "title": "Rapper's Delight",
+        "artist": "The Sugarhill Gang"
+      },
+      {
+        "id": 59389711,
+        "title": "The Message",
+        "artist": "Grandmaster Flash & The Furious Five"
+      },
+      {
+        "id": 254344996,
+        "title": "Walk This Way (feat. Aerosmith)",
+        "artist": "Run-DMC"
+      },
+      {
+        "id": 871784538,
+        "title": "It Takes Two",
+        "artist": "Rob Base & DJ EZ Rock"
+      },
+      {
+        "id": 1440838444,
+        "title": "Fight the Power",
+        "artist": "Public Enemy"
+      },
+      {
+        "id": 1604646670,
+        "title": "Gangsta's Paradise (feat. L.V.)",
+        "artist": "Coolio"
+      },
+      {
+        "id": 1440735156,
+        "title": "Hot in Herre",
+        "artist": "Nelly"
+      },
+      {
+        "id": 275496141,
+        "title": "Low (feat. T-Pain)",
+        "artist": "Flo Rida"
+      },
+      {
+        "id": 1440910489,
+        "title": "Super Bass",
+        "artist": "Nicki Minaj"
+      },
+      {
+        "id": 1468166468,
+        "title": "Old Town Road",
+        "artist": "Lil Nas X"
+      },
+      {
+        "id": 1248449699,
+        "title": "Mask Off (Marshmello Remix)",
+        "artist": "Future"
+      },
+      {
+        "id": 1274598339,
+        "title": "XO TOUR Llif3",
+        "artist": "Lil Uzi Vert"
+      },
+      {
+        "id": 1615488589,
+        "title": "Bad and Boujee (feat. Lil Uzi Vert)",
+        "artist": "Migos"
+      },
+      {
+        "id": 1373506170,
+        "title": "rockstar (feat. 21 Savage)",
+        "artist": "Post Malone"
+      },
+      {
+        "id": 1447177630,
+        "title": "Lucid Dreams",
+        "artist": "Juice WRLD"
+      },
+      {
+        "id": 1440860400,
+        "title": "Money Trees (feat. Jay Rock)",
+        "artist": "Kendrick Lamar"
+      },
+      {
+        "id": 1450406398,
+        "title": "MIDDLE CHILD",
+        "artist": "J. Cole"
+      },
+      {
+        "id": 1600773036,
+        "title": "No Role Modelz",
+        "artist": "J. Cole"
+      },
+      {
+        "id": 1440842851,
+        "title": "Black Beatles (feat. Gucci Mane)",
+        "artist": "Rae Sremmurd"
+      },
+      {
+        "id": 1445306492,
+        "title": "Panda",
+        "artist": "Desiigner"
+      },
+      {
+        "id": 1802047386,
+        "title": "Get Low (Radio Edit)",
+        "artist": "Lil Jon & The East Side Boyz"
+      },
+      {
+        "id": 1440821643,
+        "title": "Without Me",
+        "artist": "Eminem"
+      }
+    ]
+  },
+  {
+    "id": "dance",
+    "code": "C1",
+    "name": "Dance & Electronic",
+    "color": "cyan",
+    "tracks": [
+      {
+        "id": 697195462,
+        "title": "One More Time",
+        "artist": "Daft Punk"
+      },
+      {
+        "id": 696886431,
+        "title": "Around the World",
+        "artist": "Daft Punk"
+      },
+      {
+        "id": 664332744,
+        "title": "Get Lucky (feat. Pharrell Williams & Nile Rodgers) [Daft Punk Remix]",
+        "artist": "Daft Punk"
+      },
+      {
+        "id": 1440787349,
+        "title": "Levels",
+        "artist": "Avicii"
+      },
+      {
+        "id": 1440872929,
+        "title": "Wake Me Up",
+        "artist": "Avicii"
+      },
+      {
+        "id": 693226464,
+        "title": "Titanium (feat. Sia)",
+        "artist": "David Guetta"
+      },
+      {
+        "id": 6798736833,
+        "title": "Don't You Worry Child (feat. John Martin)",
+        "artist": "Swedish House Mafia"
+      },
+      {
+        "id": 1813489559,
+        "title": "Strobe",
+        "artist": "deadmau5"
+      },
+      {
+        "id": 338349243,
+        "title": "Sandstorm",
+        "artist": "Darude"
+      },
+      {
+        "id": 257425447,
+        "title": "Blue (Da Ba Dee) [Gabry Ponte Video Edit]",
+        "artist": "Eiffel 65"
+      },
+      {
+        "id": 557828921,
+        "title": "Insomnia",
+        "artist": "Faithless"
+      },
+      {
+        "id": 1499501875,
+        "title": "Children (Original Version)",
+        "artist": "Robert Miles"
+      },
+      {
+        "id": 1027563268,
+        "title": "Rather Be (feat. Jess Glynne)",
+        "artist": "Clean Bandit"
+      },
+      {
+        "id": 1731384547,
+        "title": "What Is Love (7\" Mix)",
+        "artist": "Haddaway"
+      },
+      {
+        "id": 1437353056,
+        "title": "Rhythm Is a Dancer",
+        "artist": "Snap!"
+      },
+      {
+        "id": 301002607,
+        "title": "Show Me Love",
+        "artist": "Robin S."
+      },
+      {
+        "id": 1443769846,
+        "title": "Finally",
+        "artist": "CeCe Peniston"
+      },
+      {
+        "id": 1761396658,
+        "title": "One Kiss",
+        "artist": "Calvin Harris & Dua Lipa"
+      },
+      {
+        "id": 1790978759,
+        "title": "Lola's Theme (Tripolism Extended Remix)",
+        "artist": "The Shapeshifters"
+      },
+      {
+        "id": 1216951257,
+        "title": "Call on Me",
+        "artist": "Eric Prydz"
+      },
+      {
+        "id": 1712041112,
+        "title": "Satisfaction",
+        "artist": "Benny Benassi & The Biz"
+      },
+      {
+        "id": 450132719,
+        "title": "Feel So Close (Radio Edit)",
+        "artist": "Calvin Harris"
+      },
+      {
+        "id": 922876189,
+        "title": "Summer",
+        "artist": "Calvin Harris"
+      },
+      {
+        "id": 1108212668,
+        "title": "This Is What You Came For",
+        "artist": "Calvin Harris & Rihanna"
+      },
+      {
+        "id": 1696639397,
+        "title": "Lean On (feat. DJ Snake & MØ)",
+        "artist": "Major Lazer"
+      },
+      {
+        "id": 1670593167,
+        "title": "Animals",
+        "artist": "Martin Garrix"
+      },
+      {
+        "id": 1440861976,
+        "title": "Clarity (feat. Foxes)",
+        "artist": "Zedd"
+      },
+      {
+        "id": 1444443675,
+        "title": "Latch (feat. Sam Smith) [Jamie Jones Remix]",
+        "artist": "Disclosure"
+      },
+      {
+        "id": 1440828918,
+        "title": "Omen (feat. Sam Smith)",
+        "artist": "Disclosure"
+      },
+      {
+        "id": 786489670,
+        "title": "Turn Down for What",
+        "artist": "DJ Snake & Lil Jon"
+      },
+      {
+        "id": 971262282,
+        "title": "Where Are Ü Now (with Justin Bieber) [feat. Justin Bieber]",
+        "artist": "Jack Ü, Skrillex & Diplo"
+      },
+      {
+        "id": 1196294581,
+        "title": "Faded",
+        "artist": "Alan Walker"
+      },
+      {
+        "id": 500162235,
+        "title": "Firestarter",
+        "artist": "The Prodigy"
+      },
+      {
+        "id": 500162140,
+        "title": "Breathe",
+        "artist": "The Prodigy"
+      },
+      {
+        "id": 714366406,
+        "title": "Block Rockin' Beats",
+        "artist": "The Chemical Brothers"
+      },
+      {
+        "id": 714928246,
+        "title": "Praise You",
+        "artist": "Fatboy Slim"
+      },
+      {
+        "id": 714928145,
+        "title": "The Rockafeller Skank",
+        "artist": "Fatboy Slim"
+      },
+      {
+        "id": 281242336,
+        "title": "Porcelain",
+        "artist": "Moby"
+      },
+      {
+        "id": 306462355,
+        "title": "Silence (feat. Sarah McLachlan)",
+        "artist": "Delerium"
+      },
+      {
+        "id": 129611482,
+        "title": "Kernkraft 400 (Sport Chant Stadium Remix)",
+        "artist": "Zombie Nation"
+      },
+      {
+        "id": 287592533,
+        "title": "Freed from Desire",
+        "artist": "Gala"
+      },
+      {
+        "id": 1440800296,
+        "title": "Pump Up the Jam",
+        "artist": "Technotronic"
+      },
+      {
+        "id": 163357172,
+        "title": "Gonna Make You Sweat (Everybody Dance Now) [Rasio Edit]",
+        "artist": "C+C Music Factory"
+      },
+      {
+        "id": 72784339,
+        "title": "Groove Is In the Heart",
+        "artist": "Deee-Lite"
+      },
+      {
+        "id": 690357445,
+        "title": "Ride On Time",
+        "artist": "Black Box"
+      },
+      {
+        "id": 1674217008,
+        "title": "Midnight City",
+        "artist": "M83"
+      },
+      {
+        "id": 1831205266,
+        "title": "Cola (Artbat Extended Remix)",
+        "artist": "CamelPhat"
+      },
+      {
+        "id": 1408454985,
+        "title": "Losing It",
+        "artist": "FISHER"
+      },
+      {
+        "id": 1489005963,
+        "title": "On My Mind",
+        "artist": "Diplo & SIDEPIECE"
+      },
+      {
+        "id": 1698551200,
+        "title": "Baddadan (feat. IRah, Flowdan, Trigga & Takura)",
+        "artist": "Chase & Status & Bou"
+      }
+    ]
+  },
+  {
+    "id": "latin",
+    "code": "C2",
+    "name": "Latin Hits",
+    "color": "amber",
+    "tracks": [
+      {
+        "id": 1445025224,
+        "title": "Despacito (Versión Pop)",
+        "artist": "Luis Fonsi"
+      },
+      {
+        "id": 1786000124,
+        "title": "Gasolina",
+        "artist": "Daddy Yankee"
+      },
+      {
+        "id": 192821659,
+        "title": "Livin' la Vida Loca",
+        "artist": "Ricky Martin"
+      },
+      {
+        "id": 118142371,
+        "title": "La Bamba",
+        "artist": "Ritchie Valens"
+      },
+      {
+        "id": 258647542,
+        "title": "Macarena (Original Version)",
+        "artist": "Los del Río"
+      },
+      {
+        "id": 1440819669,
+        "title": "Bailando (English Version) [feat. Sean Paul, Descemer Bueno & Gente de Zona]",
+        "artist": "Enrique Iglesias"
+      },
+      {
+        "id": 1817217063,
+        "title": "Hips Don't Lie (feat. Wyclef Jean)",
+        "artist": "Shakira"
+      },
+      {
+        "id": 188261029,
+        "title": "Whenever, Wherever",
+        "artist": "Shakira"
+      },
+      {
+        "id": 1817217220,
+        "title": "La Tortura (feat. Alejandro Sanz)",
+        "artist": "Shakira"
+      },
+      {
+        "id": 888878529,
+        "title": "Waka Waka (This Time for Africa) [K-Mix]",
+        "artist": "Shakira"
+      },
+      {
+        "id": 1368816792,
+        "title": "Mi Gente",
+        "artist": "J Balvin & Willy William"
+      },
+      {
+        "id": 1444855250,
+        "title": "Dura",
+        "artist": "Daddy Yankee"
+      },
+      {
+        "id": 1440915543,
+        "title": "Bailamos",
+        "artist": "Enrique Iglesias"
+      },
+      {
+        "id": 1189391898,
+        "title": "Hasta el Amanecer",
+        "artist": "Nicky Jam"
+      },
+      {
+        "id": 1585690495,
+        "title": "El Perdón (with Enrique Iglesias)",
+        "artist": "Nicky Jam & Enrique Iglesias"
+      },
+      {
+        "id": 1440835180,
+        "title": "Ginza",
+        "artist": "J Balvin"
+      },
+      {
+        "id": 1440636498,
+        "title": "Danza Kuduro (feat. Lucenzo)",
+        "artist": "Don Omar"
+      },
+      {
+        "id": 1467933609,
+        "title": "Rakata",
+        "artist": "Wisin & Yandel"
+      },
+      {
+        "id": 1449106558,
+        "title": "Con Calma (feat. Snow)",
+        "artist": "Daddy Yankee"
+      },
+      {
+        "id": 1234665569,
+        "title": "Chantaje (feat. Maluma)",
+        "artist": "Shakira"
+      },
+      {
+        "id": 668743167,
+        "title": "Vivir Mi Vida",
+        "artist": "Marc Anthony"
+      },
+      {
+        "id": 1097132802,
+        "title": "La Gozadera (feat. Marc Anthony)",
+        "artist": "Gente de Zona"
+      },
+      {
+        "id": 1386337708,
+        "title": "MALAMENTE (Cap.1: Augurio)",
+        "artist": "ROSALÍA"
+      },
+      {
+        "id": 1475774671,
+        "title": "Ai Se Eu Te Pego",
+        "artist": "Michel Teló"
+      },
+      {
+        "id": 1523698843,
+        "title": "Hawái",
+        "artist": "Maluma"
+      },
+      {
+        "id": 1377817653,
+        "title": "Felices los 4 (feat. Marc Anthony) [Salsa Version]",
+        "artist": "Maluma"
+      },
+      {
+        "id": 1534111691,
+        "title": "Sofia",
+        "artist": "Alvaro Soler"
+      },
+      {
+        "id": 1534111696,
+        "title": "El Mismo Sol",
+        "artist": "Alvaro Soler"
+      },
+      {
+        "id": 1677446410,
+        "title": "Ella Baila Sola",
+        "artist": "Eslabon Armado & Peso Pluma"
+      },
+      {
+        "id": 1280031735,
+        "title": "Mayores (Urban Tropical)",
+        "artist": "Becky G"
+      },
+      {
+        "id": 1391301208,
+        "title": "Sin Pijama (Kumbia Remix)",
+        "artist": "Becky G & NATTI NATASHA"
+      },
+      {
+        "id": 1440652265,
+        "title": "La Camisa Negra",
+        "artist": "Juanes"
+      },
+      {
+        "id": 316136220,
+        "title": "Bamboleo",
+        "artist": "Gipsy Kings"
+      },
+      {
+        "id": 31739283,
+        "title": "Volaré",
+        "artist": "Gipsy Kings"
+      },
+      {
+        "id": 193410897,
+        "title": "Corazón Partío",
+        "artist": "Alejandro Sanz"
+      },
+      {
+        "id": 1807858077,
+        "title": "Asereje",
+        "artist": "Las Ketchup"
+      },
+      {
+        "id": 187429633,
+        "title": "Suavemente",
+        "artist": "Elvis Crespo"
+      },
+      {
+        "id": 192822985,
+        "title": "María (Pablo Flores Spanglish Radio Edit)",
+        "artist": "Ricky Martin"
+      },
+      {
+        "id": 185391878,
+        "title": "La Copa de la Vída (La Canción Oficial de la Copa Mundíal, Francia '98)",
+        "artist": "Ricky Martin"
+      },
+      {
+        "id": 42017785,
+        "title": "Rayando el Sol",
+        "artist": "Maná"
+      },
+      {
+        "id": 265816671,
+        "title": "Oye Como Va",
+        "artist": "Santana"
+      },
+      {
+        "id": 1583180586,
+        "title": "Pepas (Original Radio Version)",
+        "artist": "Farru Co"
+      },
+      {
+        "id": 804145428,
+        "title": "Propuesta Indecente",
+        "artist": "Romeo Santos"
+      },
+      {
+        "id": 211280101,
+        "title": "Obsesión",
+        "artist": "Aventura"
+      },
+      {
+        "id": 1447401618,
+        "title": "Échame La Culpa",
+        "artist": "Luis Fonsi & Demi Lovato"
+      },
+      {
+        "id": 1155192291,
+        "title": "Vente Pa' Ca (feat. Maluma)",
+        "artist": "Ricky Martin"
+      },
+      {
+        "id": 1670245875,
+        "title": "PROVENZA",
+        "artist": "KAROL G"
+      },
+      {
+        "id": 1299332776,
+        "title": "La Bicicleta",
+        "artist": "Carlos Vives & Shakira"
+      },
+      {
+        "id": 1622045962,
+        "title": "Ojitos Lindos",
+        "artist": "Bad Bunny & Bomba Estéreo"
+      },
+      {
+        "id": 1489408308,
+        "title": "Baila Baila Baila",
+        "artist": "Ozuna"
+      }
+    ]
+  }
+]

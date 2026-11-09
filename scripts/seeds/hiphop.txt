@@ -1,0 +1,54 @@
+# id: hiphop
+# code: B4
+# name: Hip-Hop
+# color: amber
+Lose Yourself - Eminem
+The Real Slim Shady - Eminem
+Juicy - The Notorious B.I.G.
+Hypnotize - The Notorious B.I.G.
+California Love - 2Pac
+Changes - 2Pac
+Gin and Juice - Snoop Dogg
+Still D.R.E. - Dr. Dre
+Nuthin' But a "G" Thang - Dr. Dre
+C.R.E.A.M. - Wu-Tang Clan
+N.Y. State of Mind - Nas
+Ms. Jackson - Outkast
+Hey Ya! - Outkast
+In da Club - 50 Cent
+Gold Digger - Kanye West
+Stronger - Kanye West
+Power - Kanye West
+HUMBLE. - Kendrick Lamar
+Alright - Kendrick Lamar
+DNA. - Kendrick Lamar
+God's Plan - Drake
+Hotline Bling - Drake
+Started From the Bottom - Drake
+SICKO MODE - Travis Scott
+Goosebumps - Travis Scott
+Empire State of Mind - JAY-Z
+99 Problems - JAY-Z
+Big Pimpin' - JAY-Z
+Rapper's Delight - The Sugarhill Gang
+The Message - Grandmaster Flash & The Furious Five
+Walk This Way - Run-D.M.C.
+It Takes Two - Rob Base & DJ E-Z Rock
+Fight the Power - Public Enemy
+Gangsta's Paradise - Coolio
+Hot in Herre - Nelly
+Low - Flo Rida
+Super Bass - Nicki Minaj
+Old Town Road - Lil Nas X
+Mask Off - Future
+XO Tour Llif3 - Lil Uzi Vert
+Bad and Boujee - Migos
+Rockstar - Post Malone
+Lucid Dreams - Juice WRLD
+Money Trees - Kendrick Lamar
+Middle Child - J. Cole
+No Role Modelz - J. Cole
+Black Beatles - Rae Sremmurd
+Panda - Desiigner
+Get Low - Lil Jon & The East Side Boyz
+Without Me - Eminem

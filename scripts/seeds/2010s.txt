@@ -1,0 +1,54 @@
+# id: 2010s
+# code: B3
+# name: The 2010s
+# color: pink
+Rolling in the Deep - Adele
+Someone Like You - Adele
+Somebody That I Used to Know - Gotye
+Call Me Maybe - Carly Rae Jepsen
+Get Lucky - Daft Punk
+Happy - Pharrell Williams
+Uptown Funk - Mark Ronson
+Shake It Off - Taylor Swift
+Blank Space - Taylor Swift
+Royals - Lorde
+Counting Stars - OneRepublic
+Radioactive - Imagine Dragons
+Believer - Imagine Dragons
+Thinking Out Loud - Ed Sheeran
+Shape of You - Ed Sheeran
+Despacito - Luis Fonsi
+Hello - Adele
+Hotline Bling - Drake
+God's Plan - Drake
+Old Town Road - Lil Nas X
+Bad Guy - Billie Eilish
+Sunflower - Post Malone & Swae Lee
+Rockstar - Post Malone
+Starboy - The Weeknd
+Can't Feel My Face - The Weeknd
+Wake Me Up - Avicii
+Levels - Avicii
+Titanium - David Guetta
+Don't You Worry Child - Swedish House Mafia
+Pompeii - Bastille
+Riptide - Vance Joy
+Ho Hey - The Lumineers
+Little Talks - Of Monsters and Men
+Pumped Up Kicks - Foster the People
+We Are Young - fun.
+Moves Like Jagger - Maroon 5
+Party Rock Anthem - LMFAO
+Gangnam Style - PSY
+Thrift Shop - Macklemore & Ryan Lewis
+All About That Bass - Meghan Trainor
+Chandelier - Sia
+Love Yourself - Justin Bieber
+Closer - The Chainsmokers
+Lean On - Major Lazer
+Stressed Out - twenty one pilots
+Take Me to Church - Hozier
+Let It Go - Idina Menzel
+Diamonds - Rihanna
+Roar - Katy Perry
+Havana - Camila Cabello

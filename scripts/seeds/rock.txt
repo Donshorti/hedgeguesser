@@ -1,0 +1,54 @@
+# id: rock
+# code: A2
+# name: Rock Classics
+# color: red
+Bohemian Rhapsody - Queen
+Stairway to Heaven - Led Zeppelin
+Hotel California - Eagles
+Smells Like Teen Spirit - Nirvana
+Sweet Child O' Mine - Guns N' Roses
+Back in Black - AC/DC
+Livin' on a Prayer - Bon Jovi
+Don't Stop Believin' - Journey
+Highway to Hell - AC/DC
+We Will Rock You - Queen
+Paint It Black - The Rolling Stones
+(I Can't Get No) Satisfaction - The Rolling Stones
+Born to Run - Bruce Springsteen
+Comfortably Numb - Pink Floyd
+Another Brick in the Wall, Pt. 2 - Pink Floyd
+Seven Nation Army - The White Stripes
+Mr. Brightside - The Killers
+Wonderwall - Oasis
+Creep - Radiohead
+Enter Sandman - Metallica
+Smoke on the Water - Deep Purple
+Iron Man - Black Sabbath
+Black Dog - Led Zeppelin
+Under the Bridge - Red Hot Chili Peppers
+Californication - Red Hot Chili Peppers
+Basket Case - Green Day
+When I Come Around - Green Day
+In the End - Linkin Park
+Everlong - Foo Fighters
+Free Bird - Lynyrd Skynyrd
+Sweet Home Alabama - Lynyrd Skynyrd
+More Than a Feeling - Boston
+Dream On - Aerosmith
+Walk This Way - Aerosmith
+Born in the U.S.A. - Bruce Springsteen
+You Shook Me All Night Long - AC/DC
+Welcome to the Jungle - Guns N' Roses
+Paranoid - Black Sabbath
+Purple Haze - Jimi Hendrix
+Layla - Derek & The Dominos
+Gimme Shelter - The Rolling Stones
+Barracuda - Heart
+Rebel Yell - Billy Idol
+Jump - Van Halen
+Zombie - The Cranberries
+Song 2 - Blur
+Bitter Sweet Symphony - The Verve
+Kryptonite - 3 Doors Down
+Chop Suey! - System of a Down
+The Kids Aren't Alright - The Offspring
