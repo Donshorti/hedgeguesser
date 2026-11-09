@@ -96,9 +96,13 @@ function writeCache(country, cache) {
 /**
  * Resolve a playlist's tracks to playable iTunes tracks.
  *
- * Ids are looked up in one batch; a track without an id, or whose id the lookup did not
- * return, falls back to a title search when it has a title and artist. A failed lookup is
- * not fatal: loading continues with cached tracks and title search. After
+ * Ids are looked up in one batch. A track without an id falls back to a title search when
+ * it has a title and artist. So does a track whose id a *successful* lookup chunk did not
+ * return (e.g. not sold in this country), unless `searchMissing` is false; ids from failed
+ * chunks are never searched, so an outage cannot trigger hundreds of throttled searches.
+ * A title-resolved track is cached under the playlist's original id, so with `useCache`
+ * the search runs once per cache TTL. A failed lookup is not fatal: loading continues
+ * with cached tracks and title search for id-less tracks. After
  * MAX_RESOLVE_FAILURES consecutive title-search errors (a "no match" is not an error),
  * searching stops and `error` gets `code: 'unreachable'`. An aborted `signal` rejects
  * with an AbortError.
@@ -114,6 +118,7 @@ export async function loadPlaylistTracks(
     resolve = resolveByTitle,
     onProgress,
     useCache = false,
+    searchMissing = true,
     signal,
     now = Date.now,
   } = {}
@@ -122,12 +127,15 @@ export async function loadPlaylistTracks(
   const total = playlist.tracks.length;
   let done = 0;
   let error = null;
+  /** Ids whose lookup failed (as opposed to ids the lookup answered without). */
+  let lookupFailed = new Set();
   const cache = useCache ? readCache(country, now()) : new Map();
   const ids = [...new Set(playlist.tracks.filter((t) => t.id && !cache.has(t.id)).map((t) => t.id))];
   if (ids.length) {
     try {
       const fetched = await lookup(ids, { country, signal });
       error = fetched.errors?.[0] ?? null;
+      lookupFailed = fetched.failedIds ?? lookupFailed;
       const at = now();
       for (const [id, t] of fetched) {
         cache.delete(id); // re-insert so the newest entries sit at the end
@@ -136,18 +144,25 @@ export async function loadPlaylistTracks(
     } catch (err) {
       if (isAbortError(err)) throw err;
       error = err;
+      lookupFailed = new Set(ids);
     }
   }
+  const searchable = (t) =>
+    validTrack(t) && (!t.id || (searchMissing && !lookupFailed.has(t.id)));
 
   const out = [];
   let failures = 0;
   for (const t of playlist.tracks) {
     let track = t.id ? cache.get(t.id)?.t ?? null : null;
-    if (!track && failures < MAX_RESOLVE_FAILURES && validTrack(t)) {
+    if (!track && failures < MAX_RESOLVE_FAILURES && searchable(t)) {
       if (signal?.aborted) throw abortError();
       try {
         track = await resolve(t, { country, signal });
         failures = 0;
+        if (track && t.id) {
+          cache.delete(t.id);
+          cache.set(t.id, { t: track, at: now() });
+        }
       } catch (err) {
         if (isAbortError(err)) throw err;
         track = null;

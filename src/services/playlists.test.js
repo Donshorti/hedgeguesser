@@ -233,3 +233,50 @@ describe('loadPlaylistTracks cancellation', () => {
     expect(resolve).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ signal: ctrl.signal }));
   });
 });
+
+describe('loadPlaylistTracks id fallback limits', () => {
+  const withFailed = (tracks, failedIds) =>
+    Object.assign(mapOf(tracks, [new Error('chunk failed')]), { failedIds: new Set(failedIds) });
+
+  it('does not title-search ids whose lookup chunk failed', async () => {
+    const resolve = vi.fn(async () => playable(70));
+    const { tracks, error } = await loadPlaylistTracks(
+      { tracks: [{ id: 1, title: 'T1', artist: 'A' }, { id: 2, title: 'T2', artist: 'A' }] },
+      { lookup: async () => withFailed([playable(1)], [2]), resolve }
+    );
+    expect(resolve).not.toHaveBeenCalled();
+    expect(tracks.map((t) => t.id)).toEqual([1]);
+    expect(error).toMatchObject({ message: 'chunk failed' });
+  });
+  it('does not title-search any id when the whole lookup throws, but still resolves id-less tracks', async () => {
+    const resolve = vi.fn(async (t) => playable(80, t.title));
+    const { tracks } = await loadPlaylistTracks(
+      { tracks: [{ id: 1, title: 'T1', artist: 'A' }, { title: 'Loose', artist: 'A' }] },
+      { lookup: async () => { throw new Error('offline'); }, resolve }
+    );
+    expect(resolve).toHaveBeenCalledTimes(1);
+    expect(resolve).toHaveBeenCalledWith({ title: 'Loose', artist: 'A' }, expect.anything());
+    expect(tracks.map((t) => t.id)).toEqual([80]);
+  });
+  it('searchMissing: false skips the id fallback but still resolves id-less tracks', async () => {
+    const resolve = vi.fn(async (t) => playable(81, t.title));
+    const { tracks } = await loadPlaylistTracks(
+      { tracks: [{ id: 5, title: 'Gone', artist: 'A' }, { title: 'Loose', artist: 'A' }] },
+      { lookup: async () => mapOf([]), resolve, searchMissing: false }
+    );
+    expect(resolve).toHaveBeenCalledTimes(1);
+    expect(tracks.map((t) => t.id)).toEqual([81]);
+  });
+  it('caches a title-resolved track under the original id so the search runs once per TTL', async () => {
+    const resolve = vi.fn(async () => playable(7, 'Moved'));
+    const lookup = vi.fn(async () => mapOf([]));
+    const playlist = { tracks: [{ id: 5, title: 'Moved', artist: 'A' }] };
+    const opts = { useCache: true, lookup, resolve, now: () => 1000 };
+    await loadPlaylistTracks(playlist, opts);
+    expect(load('trackCache:US', null).entries).toEqual([[5, { t: playable(7, 'Moved'), at: 1000 }]]);
+    const again = await loadPlaylistTracks(playlist, opts);
+    expect(lookup).toHaveBeenCalledTimes(1);
+    expect(resolve).toHaveBeenCalledTimes(1);
+    expect(again.tracks.map((t) => t.id)).toEqual([7]);
+  });
+});
