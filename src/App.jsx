@@ -1,3 +1,9 @@
+import Marquee from './components/Marquee.jsx';
+
 export default function App() {
-  return <h1>HedgeGuesser</h1>;
+  return (
+    <main style={{ padding: 'var(--s-8) var(--gutter)' }}>
+      <Marquee />
+    </main>
+  );
 }

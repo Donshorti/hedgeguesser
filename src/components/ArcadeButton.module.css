@@ -1,0 +1,174 @@
+/* ---- role colours ---- */
+.pink {
+  --c: var(--pink);
+  --c-hi: var(--pink-hi);
+  --c-lo: var(--pink-lo);
+  --c-off: var(--pink-off);
+  --glow: var(--pink-glow);
+  --shade: 70, 0, 38;
+}
+.cyan {
+  --c: var(--cyan);
+  --c-hi: var(--cyan-hi);
+  --c-lo: var(--cyan-lo);
+  --c-off: var(--cyan-off);
+  --glow: var(--cyan-glow);
+  --shade: 0, 46, 66;
+}
+.amber {
+  --c: var(--amber);
+  --c-hi: var(--amber-hi);
+  --c-lo: var(--amber-lo);
+  --c-off: var(--amber-off);
+  --glow: var(--amber-glow);
+  --shade: 74, 38, 0;
+}
+
+/* ---- housing: the black plastic collar bolted into the cabinet ---- */
+.btn {
+  --rim: 5px;
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  padding: var(--rim);
+  border: 0;
+  border-radius: var(--r-pill);
+  background: linear-gradient(180deg, #2b1742 0%, var(--bezel) 62%);
+  box-shadow:
+    var(--shadow-housing),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.6);
+  color: var(--on-lit);
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+/* ---- cap: concave dish — shaded under the top lip, light pooling low ---- */
+.cap {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  border-radius: inherit;
+  background:
+    radial-gradient(85% 70% at 50% 100%, var(--c-hi) 0%, transparent 72%),
+    linear-gradient(180deg, var(--c-lo) 0%, var(--c) 34%, var(--c) 100%);
+  box-shadow:
+    inset 0 4px 7px rgba(var(--shade), 0.55),
+    inset 0 -2px 2px rgba(255, 255, 255, 0.4),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.25),
+    var(--glow);
+  font-family: var(--font-sign);
+  line-height: 1;
+  letter-spacing: var(--track-sign);
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    transform var(--t-fast) var(--ease-press),
+    box-shadow var(--t-fast) var(--ease-out),
+    filter var(--t-med) var(--ease-out);
+}
+
+.label {
+  /* printed on the cap: a hairline highlight below the ink */
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.icon {
+  display: inline-flex;
+  font-size: 1.15em;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.3));
+}
+
+@media (hover: hover) {
+  .btn:hover:not(:disabled) .cap {
+    filter: brightness(1.08) saturate(1.05);
+  }
+}
+
+/* ---- the press: cap drops 1px into the collar, the dish deepens ---- */
+.btn:active:not(:disabled) .cap {
+  transform: translateY(1px);
+  filter: brightness(0.96);
+  box-shadow:
+    inset 0 7px 12px rgba(var(--shade), 0.75),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.25),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.3),
+    var(--glow);
+  transition-duration: 40ms;
+}
+
+/* ---- unlit ---- */
+.btn:disabled .cap {
+  background:
+    radial-gradient(85% 70% at 50% 100%, rgba(255, 255, 255, 0.06) 0%, transparent 72%),
+    linear-gradient(180deg, #0d0418 0%, var(--c-off) 40%, var(--c-off) 100%);
+  box-shadow:
+    inset 0 4px 8px rgba(0, 0, 0, 0.55),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.07);
+  color: var(--ink-dim);
+}
+.btn:disabled .label,
+.btn:disabled .icon {
+  text-shadow: none;
+  filter: none;
+}
+
+/* ---- sizes ---- */
+.sm {
+  --rim: 4px;
+}
+.sm .cap {
+  min-height: 40px;           /* 48px with the collar */
+  padding: 0 var(--s-4);
+  font-size: var(--fs-xs);
+}
+
+.md {
+  --rim: 5px;
+}
+.md .cap {
+  min-height: 50px;
+  padding: 0 var(--s-6);
+  font-size: var(--fs-label);
+}
+
+.xl {
+  --rim: clamp(7px, 0.9vw, 12px);
+  width: clamp(9.5rem, 6rem + 13vw, 13.5rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+.xl .cap {
+  flex-direction: column;
+  gap: 0.35em;
+  padding: var(--s-4);
+  font-size: clamp(1.125rem, 0.85rem + 1.1vw, 1.875rem);
+  box-shadow:
+    inset 0 9px 16px rgba(var(--shade), 0.6),
+    inset 0 -3px 3px rgba(255, 255, 255, 0.4),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.25),
+    var(--glow);
+}
+.xl .icon {
+  font-size: 1.9em;
+}
+.xl:active:not(:disabled) .cap {
+  box-shadow:
+    inset 0 14px 22px rgba(var(--shade), 0.78),
+    inset 0 -2px 2px rgba(255, 255, 255, 0.25),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.3),
+    var(--glow);
+}
+.xl:disabled .cap {
+  box-shadow:
+    inset 0 9px 16px rgba(0, 0, 0, 0.55),
+    inset 0 -2px 2px rgba(255, 255, 255, 0.07);
+}
+
+/* the ring sits outside the collar, following its shape */
+.btn:focus-visible {
+  outline-offset: 4px;
+}

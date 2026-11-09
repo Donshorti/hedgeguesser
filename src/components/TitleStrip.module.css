@@ -1,0 +1,148 @@
+/* A jukebox title strip: a printed card behind the selector glass. */
+.strip {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--s-3);
+  width: 100%;
+  min-height: 64px;
+  padding: calc(var(--s-3) + 4px) var(--s-4) var(--s-3) var(--s-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-strip);
+  background: linear-gradient(180deg, var(--bg-3) 0%, var(--bg-2) 100%);
+  box-shadow: var(--shadow-panel), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  color: var(--ink);
+  text-align: left;
+  overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+  transition:
+    transform var(--t-fast) var(--ease-press),
+    border-color var(--t-med) var(--ease-out),
+    box-shadow var(--t-med) var(--ease-out),
+    background-color var(--t-med) var(--ease-out);
+}
+
+/* genre colour band printed across the top of the card */
+.band {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 5px;
+  background: var(--band);
+  opacity: 0.85;
+}
+
+/* selection code plate: A1, B4 … */
+.code {
+  display: grid;
+  place-items: center;
+  min-width: 2.6em;
+  height: 2.6em;
+  padding: 0 0.3em;
+  border-radius: 4px;
+  background: var(--bezel);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8), 0 1px 0 rgba(255, 255, 255, 0.07);
+  font-family: var(--font-sign);
+  font-size: var(--fs-sm);
+  line-height: 1;
+  color: var(--amber);
+  transition: background-color var(--t-med) var(--ease-out), color var(--t-med) var(--ease-out);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.name {
+  overflow: hidden;
+  font-size: var(--fs-body);
+  font-weight: 600;
+  line-height: var(--lh-snug);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--s-3);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-snug);
+  color: var(--ink-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.status {
+  color: var(--cyan);
+}
+.statusBad {
+  color: var(--red-hi);
+}
+
+/* selection lamp, unlit until the strip is picked */
+.lamp {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.14), transparent 45%), var(--pink-off);
+  box-shadow: inset 0 -1px 2px rgba(0, 0, 0, 0.6);
+  transition: box-shadow var(--t-med) var(--ease-out), background-color var(--t-med) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .strip:hover:not(:disabled) {
+    border-color: var(--line-strong);
+    background-color: var(--bg-3);
+    transform: translateY(-1px);
+  }
+}
+
+.strip:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 4px 10px -6px rgba(0, 0, 0, 0.8), inset 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition-duration: 40ms;
+}
+
+/* ---- picked: the card lights up behind the glass ---- */
+.selected {
+  border-color: var(--pink);
+  background: linear-gradient(180deg, #3a1450 0%, #24103d 100%);
+  box-shadow: var(--pink-glow), var(--shadow-panel);
+}
+.selected .code {
+  background: var(--pink);
+  color: var(--on-lit);
+  box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.35), 0 0 10px rgba(255, 46, 151, 0.5);
+}
+.selected .lamp {
+  background: radial-gradient(circle at 35% 30%, var(--pink-hi) 0%, var(--pink) 55%);
+  box-shadow: var(--pink-glow);
+}
+.selected .band {
+  opacity: 1;
+}
+@media (hover: hover) {
+  .selected:hover:not(:disabled) {
+    border-color: var(--pink-hi);
+  }
+}
+
+/* ---- unavailable: the card is there, the light behind it is out ---- */
+.unavailable .band {
+  opacity: 0.3;
+}
+.unavailable .code {
+  color: var(--ink-dim);
+}
+.unavailable .name {
+  color: var(--ink-dim);
+}
+
+.strip:disabled {
+  cursor: not-allowed;
+}

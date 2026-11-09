@@ -1,0 +1,95 @@
+/* The sign is a width container so the lettering always fits the cabinet. */
+.sign {
+  container-type: inline-size;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  font-family: var(--font-marquee);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+/* backboard: dark glass with a cyan tube run around the edge */
+.board {
+  position: relative;
+  display: inline-flex;
+  max-width: 100%;
+  padding: 0.32em 0.5em 0.26em;
+  font-size: min(var(--fs-marquee), 9.2cqi);   /* board ≈ 10.5em wide: never overflows */
+  border-radius: 0.3em;
+  background:
+    radial-gradient(80% 120% at 50% 50%, rgba(255, 46, 151, 0.1), transparent 70%),
+    linear-gradient(180deg, rgba(10, 3, 20, 0.85), rgba(10, 3, 20, 0.6));
+  box-shadow:
+    0 0 0 1px var(--bezel),
+    var(--shadow-panel);
+}
+
+/* the cyan outline tube, inset from the board edge */
+.board::before {
+  content: '';
+  position: absolute;
+  inset: 0.11em;
+  border: max(2px, 0.04em) solid var(--cyan);
+  border-radius: 0.22em;
+  box-shadow: var(--cyan-glow), inset 0 0 12px rgba(32, 227, 255, 0.25);
+  pointer-events: none;
+}
+
+.tube {
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.ch {
+  color: var(--pink-hi);
+  text-shadow: var(--pink-glow-text);
+}
+
+/* irregular flicker: long steady stretches, then a stutter. Ends lit. */
+.f1 { animation: flicker-a 5.3s linear 0.8s infinite; }
+.f2 { animation: flicker-b 7.9s linear 2.1s infinite; }
+.f3 { animation: flicker-a 11.7s linear 4.4s infinite; }
+
+@keyframes flicker-a {
+  0%, 61%, 63.5%, 65%, 100% { color: var(--pink-hi); text-shadow: var(--pink-glow-text); }
+  62%, 64% { color: #5c1846; text-shadow: none; }
+  64.5% { color: #a03274; text-shadow: 0 0 6px rgba(255, 46, 151, 0.3); }
+}
+
+@keyframes flicker-b {
+  0%, 22%, 23.4%, 80%, 82.6%, 100% { color: var(--pink-hi); text-shadow: var(--pink-glow-text); }
+  22.6%, 81%, 82% { color: #5c1846; text-shadow: none; }
+  81.5% { color: #b23a80; text-shadow: 0 0 8px rgba(255, 46, 151, 0.35); }
+}
+
+/* ---- the hit flash ---- */
+.flashing .board {
+  animation: board-flash 600ms var(--ease-out);
+}
+.flashing .ch {
+  animation: tube-flash 600ms var(--ease-out);
+}
+
+@keyframes tube-flash {
+  0% { color: #fff; text-shadow: 0 0 2px #fff, 0 0 14px var(--pink-hi), 0 0 40px var(--pink), 0 0 80px rgba(255, 46, 151, 0.6); }
+  18% { color: #fff; text-shadow: 0 0 2px #fff, 0 0 18px var(--pink-hi), 0 0 50px var(--pink), 0 0 100px rgba(255, 46, 151, 0.7); }
+  100% { color: var(--pink-hi); text-shadow: var(--pink-glow-text); }
+}
+
+@keyframes board-flash {
+  0%, 18% { box-shadow: 0 0 0 1px var(--bezel), 0 0 60px rgba(255, 46, 151, 0.45), var(--shadow-panel); }
+  100% { box-shadow: 0 0 0 1px var(--bezel), var(--shadow-panel); }
+}
+
+/* reduced motion: no flicker, and the flash is a held glow, not a pulse */
+@media (prefers-reduced-motion: reduce) {
+  .ch {
+    animation: none !important;
+  }
+  .flashing .ch {
+    color: #fff;
+    text-shadow: 0 0 2px #fff, 0 0 14px var(--pink-hi), 0 0 40px var(--pink);
+  }
+}
