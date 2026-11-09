@@ -155,16 +155,72 @@ export async function lookupTracks(ids, { country, chunk = 150, getJsonImpl = ge
   return map;
 }
 
+/** Words that mark an alternate recording. Matched on normalized text (accents stripped). */
+const VERSION_MARKERS = [
+  'live', 'remix', 'mix', 'demo', 'acoustic', 'version', 'edit', 'extended', 'instrumental',
+  'karaoke', 'cover', 'sped up', 'slowed', 'radio', 'session', 'sessions', 'anthology',
+  'spanglish', 'piano', 'stripped',
+].map((w) => [w, new RegExp(`\\b${w}\\b`)]);
+const TWELVE_INCH = /\b12\s*(?:"|”|''|-?\s*inch)/i;
+/** Bracketed or " - " qualifiers that still describe the original recording. */
+const NEUTRAL_QUALIFIER = /\b(remaster(ed)?|feat|ft|featuring|with|from|soundtrack|original|mono|stereo|single|album)\b/;
+const ARTIST_SEPARATORS = /\s*(?:,|&|\bx\b|\bfeat\.?|\bft\.?|\bwith\b|\band\b)\s*/i;
+
+/** Penalties and bonus are sized so an original with equal title similarity always wins. */
+const VERSION_PENALTY = 0.5;
+const QUALIFIER_PENALTY = 0.1;
+const EXACT_TITLE_BONUS = 0.05;
+
+function versionMarkers(rawTitle) {
+  const text = normalizeText(rawTitle);
+  const found = new Set(VERSION_MARKERS.filter(([, re]) => re.test(text)).map(([w]) => w));
+  if (TWELVE_INCH.test(String(rawTitle ?? ''))) found.add('12 inch');
+  return found;
+}
+
+/** Normalized bracket and " - " tail qualifiers that are not neutral (e.g. "urban tropical"). */
+function qualifiers(rawTitle) {
+  const raw = String(rawTitle ?? '');
+  const parts = [...raw.matchAll(/[([]([^)\]]*)[)\]]/g)].map((m) => m[1]);
+  const tail = raw.match(/\s+[-–—]\s+(.+)$/);
+  if (tail) parts.push(tail[1]);
+  return parts.map(normalizeText).filter((q) => q && !NEUTRAL_QUALIFIER.test(q));
+}
+
+/** Best similarity between the wanted artist and the full credit or any credited artist. */
+function artistSimilarity(credit, wantArtist) {
+  const names = [credit, ...String(credit ?? '').split(ARTIST_SEPARATORS)]
+    .map(normalizeText)
+    .filter(Boolean);
+  return Math.max(0, ...names.map((n) => similarity(n, wantArtist)));
+}
+
+/**
+ * Pick the search result that is the wanted song by the wanted artist, preferring the
+ * original recording: a candidate whose version markers (live, remix, acoustic...) differ
+ * from the wanted title's is penalised, both ways, but still returned if nothing else
+ * matches. Covers by other artists are
+ * rejected by the artist threshold.
+ */
 export function pickBestMatch(tracks, { title, artist }) {
   const wantTitle = normalizeTitle(title);
   const wantArtist = normalizeText(artist);
+  const wantMarkers = versionMarkers(title);
+  const wantQualifiers = new Set(qualifiers(title));
   let best = null;
-  let bestScore = -1;
+  let bestScore = -Infinity;
   for (const t of tracks) {
-    const ts = similarity(normalizeTitle(t.title), wantTitle);
-    const as = wantArtist ? similarity(normalizeText(t.artist), wantArtist) : 1;
+    const candTitle = normalizeTitle(t.title);
+    const ts = similarity(candTitle, wantTitle);
+    const as = wantArtist ? artistSimilarity(t.artist, wantArtist) : 1;
     if (ts < 0.7 || as < 0.5) continue;
-    const score = ts * 0.6 + as * 0.4;
+    let score = ts * 0.6 + as * 0.4;
+    if (candTitle === wantTitle) score += EXACT_TITLE_BONUS;
+    const candMarkers = versionMarkers(t.title);
+    const versionMismatch =
+      [...candMarkers].some((m) => !wantMarkers.has(m)) || [...wantMarkers].some((m) => !candMarkers.has(m));
+    if (versionMismatch) score -= VERSION_PENALTY;
+    if (qualifiers(t.title).some((q) => !wantQualifiers.has(q))) score -= QUALIFIER_PENALTY;
     if (score > bestScore) {
       best = t;
       bestScore = score;

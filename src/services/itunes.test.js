@@ -239,3 +239,81 @@ describe('lookupTracks failedIds', () => {
     expect(map.failedIds).toEqual(new Set());
   });
 });
+
+describe('pickBestMatch prefers original recordings', () => {
+  const cand = (trackId, trackName, artistName) => toTrack(raw({ trackId, trackName, artistName }));
+
+  // [wanted title, wanted artist, alternate version iTunes listed first, original as iTunes titles it]
+  it.each([
+    ['Poker Face', 'Lady Gaga', 'Poker Face (Glam As You Radio Mix)', 'Poker Face'],
+    ['Get Lucky', 'Daft Punk', 'Get Lucky [Daft Punk Remix]', 'Get Lucky (feat. Pharrell Williams & Nile Rodgers)'],
+    ['Blinding Lights', 'The Weeknd', 'Blinding Lights (Live)', 'Blinding Lights'],
+    ['Creep', 'Radiohead', 'Creep (Acoustic)', 'Creep'],
+    ['Purple Rain', 'Prince', 'Purple Rain (Piano & a Microphone 1983 Version)', 'Purple Rain'],
+    ['Under Pressure', 'Queen', 'Under Pressure [Rah Mix]', 'Under Pressure (Remastered 2011)'],
+    ['Mask Off', 'Future', 'Mask Off (Marshmello Remix)', 'Mask Off'],
+    ["Lola's Theme", 'Shapeshifters', "Lola's Theme (Tripolism Extended Remix)", "Lola's Theme"],
+    ['Kernkraft 400', 'Zombie Nation', 'Kernkraft 400 (Sport Chant Stadium Remix)', 'Kernkraft 400'],
+    ['Espresso', 'Sabrina Carpenter', 'Espresso (On Vacation Version)', 'Espresso'],
+    ['Despacito', 'Luis Fonsi', 'Despacito (Versión Pop)', 'Despacito (feat. Daddy Yankee)'],
+    ['Bailando', 'Enrique Iglesias', 'Bailando (English Version)', 'Bailando (feat. Descemer Bueno & Gente de Zona)'],
+    ['Felices los 4', 'Maluma', 'Felices los 4 [Salsa Version]', 'Felices los 4'],
+    ['Mayores', 'Becky G', 'Mayores (Urban Tropical)', 'Mayores'],
+    ['Waka Waka (This Time for Africa)', 'Shakira', 'Waka Waka (This Time for Africa) [K-Mix]', 'Waka Waka (This Time for Africa)'],
+    ['Sin Pijama', 'Becky G', 'Sin Pijama (Kumbia Remix)', 'Sin Pijama'],
+    ['Purple Haze', 'Jimi Hendrix', 'Purple Haze (Anthology Version)', 'Purple Haze'],
+    ['Blue Monday', 'New Order', 'Blue Monday (12" Version)', 'Blue Monday'],
+    ['Hey Jude', 'The Beatles', 'Hey Jude - Live', 'Hey Jude - Remastered 2015'],
+    ['Levitating', 'Dua Lipa', 'Levitating (Sped Up)', 'Levitating'],
+  ])('%s by %s: skips "%s"', (title, artist, alternate, original) => {
+    const tracks = [cand(1, alternate, artist), cand(2, original, artist)];
+    expect(pickBestMatch(tracks, { title, artist }).id).toBe(2);
+  });
+
+  it('does not penalise remasters or featured-artist credits', () => {
+    const tracks = [
+      cand(1, 'Bohemian Rhapsody (Live Aid)', 'Queen'),
+      cand(2, 'Bohemian Rhapsody (Remastered 2011)', 'Queen'),
+    ];
+    expect(pickBestMatch(tracks, { title: 'Bohemian Rhapsody', artist: 'Queen' }).id).toBe(2);
+    const feat = [cand(3, 'Despacito (feat. Justin Bieber) [Remix]', 'Luis Fonsi'), cand(4, 'Despacito (feat. Daddy Yankee)', 'Luis Fonsi')];
+    expect(pickBestMatch(feat, { title: 'Despacito', artist: 'Luis Fonsi' }).id).toBe(4);
+  });
+  it('keeps a version the seed asks for', () => {
+    const tracks = [cand(1, 'Creep', 'Radiohead'), cand(2, 'Creep (Acoustic)', 'Radiohead')];
+    expect(pickBestMatch(tracks, { title: 'Creep (Acoustic)', artist: 'Radiohead' }).id).toBe(2);
+  });
+  it('does not penalise marker words that are part of the real title', () => {
+    const tracks = [cand(1, 'Radio Ga Ga (Live Aid)', 'Queen'), cand(2, 'Radio Ga Ga', 'Queen')];
+    expect(pickBestMatch(tracks, { title: 'Radio Ga Ga', artist: 'Queen' }).id).toBe(2);
+    const piano = [cand(3, 'Piano Man', 'Billy Joel')];
+    expect(pickBestMatch(piano, { title: 'Piano Man', artist: 'Billy Joel' }).id).toBe(3);
+  });
+  it('still returns the best candidate when every one is an alternate version', () => {
+    const tracks = [cand(1, 'Creep (Acoustic)', 'Radiohead'), cand(2, 'Creep (Live)', 'Radiohead')];
+    expect(pickBestMatch(tracks, { title: 'Creep', artist: 'Radiohead' })).not.toBeNull();
+  });
+  it('prefers an exact title over a near match', () => {
+    const tracks = [cand(1, 'Loose Yourself', 'Eminem'), cand(2, 'Lose Yourself', 'Eminen')];
+    expect(pickBestMatch(tracks, { title: 'Lose Yourself', artist: 'Eminem' }).id).toBe(2);
+  });
+
+  it.each([
+    ['Get Lucky', 'Daft Punk', 'Daft Punk, Pharrell Williams & Nile Rodgers'],
+    ['Under Pressure', 'Queen', 'Queen & David Bowie'],
+    ['This Is What You Came For', 'Calvin Harris', 'Calvin Harris feat. Rihanna'],
+    ['Old Town Road', 'Lil Nas X', 'Lil Nas X & Billy Ray Cyrus'],
+    ['Señorita', 'Shawn Mendes', 'Shawn Mendes x Camila Cabello'],
+    ['Stay', 'The Kid LAROI', 'The Kid LAROI with Justin Bieber'],
+  ])('%s: matches "%s" within the credit "%s"', (title, artist, credit) => {
+    const tracks = [cand(1, title, credit)];
+    expect(pickBestMatch(tracks, { title, artist })?.id).toBe(1);
+  });
+  it('still rejects covers and karaoke by other artists', () => {
+    const tracks = [
+      cand(1, 'Blinding Lights (Karaoke Version)', 'Sing King'),
+      cand(2, 'Blinding Lights', 'Some Cover Band & Friends'),
+    ];
+    expect(pickBestMatch(tracks, { title: 'Blinding Lights', artist: 'The Weeknd' })).toBeNull();
+  });
+});
