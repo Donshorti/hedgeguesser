@@ -1,0 +1,67 @@
+/* The cabinet face: one centred column, clear of notches and home bars. */
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding:
+    max(var(--s-6), env(safe-area-inset-top))
+    max(var(--gutter), env(safe-area-inset-right))
+    max(var(--s-10), env(safe-area-inset-bottom))
+    max(var(--gutter), env(safe-area-inset-left));
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  max-width: var(--col-max);
+  margin-inline: auto;
+}
+
+/* screens share one grid cell so the outgoing one sits under the incoming */
+.stack {
+  display: grid;
+  flex: 1;
+}
+
+.layer {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+
+/* programmatic focus on a heading shouldn't draw the ring after a click */
+.layer [data-screen-heading]:focus:not(:focus-visible),
+.layer h1:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.entering {
+  animation: screen-in var(--t-med) var(--ease-out) both;
+}
+
+.leaving {
+  pointer-events: none;
+  animation: screen-out var(--t-med) var(--ease-out) both;
+}
+
+@keyframes screen-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes screen-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entering,
+  .leaving {
+    animation: none;
+  }
+  .leaving {
+    display: none;
+  }
+}

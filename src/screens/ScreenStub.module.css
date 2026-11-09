@@ -1,0 +1,25 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-6);
+  text-align: center;
+}
+
+.heading {
+  margin-top: var(--s-6);
+  color: var(--ink);
+}
+
+.note {
+  color: var(--ink-dim);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-4);
+  margin-top: var(--s-4);
+}

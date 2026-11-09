@@ -96,6 +96,7 @@
   --s-12: 48px;
   --s-16: 64px;
   --gutter: clamp(16px, 4vw, 48px);
+  --col-max: 720px;         /* the game-ish column: one cabinet face */
 
   /* ---- shape ---- */
   --r-pill: 999px;
