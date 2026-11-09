@@ -85,24 +85,34 @@ export function gameReducer(state, action) {
     }
     case 'REPLACE_CURRENT': {
       if (state.status !== 'playing') return state;
+      // Hints bought for an unplayable song are refunded.
+      const refund = state.hintsUsed.reduce((sum, h) => sum + (state.settings.hintCosts?.[h] ?? 0), 0);
+      const score = state.score + refund;
       const queue = [...state.queue];
       if (state.reserve.length) {
         queue[state.index] = state.reserve[0];
-        return { ...state, ...freshSong, queue, reserve: state.reserve.slice(1) };
+        return { ...state, ...freshSong, score, queue, reserve: state.reserve.slice(1) };
+      }
+      let poolTitles = state.poolTitles;
+      if (state.mode === 'endless' && action.refill?.length) {
+        queue.push(...action.refill);
+        poolTitles = [...poolTitles, ...action.refill.map((t) => t.title)];
       }
       queue.splice(state.index, 1);
-      if (state.index >= queue.length) return { ...state, queue, status: 'over' };
-      return { ...state, ...freshSong, queue };
+      if (state.index >= queue.length) return { ...state, score, queue, poolTitles, status: 'over' };
+      return { ...state, ...freshSong, score, queue, poolTitles };
     }
     case 'NEXT': {
       if (state.status !== 'reveal') return state;
       if (state.mode === 'endless' && state.lives <= 0) return { ...state, status: 'over' };
       let queue = state.queue;
+      let poolTitles = state.poolTitles;
       if (state.index + 1 >= queue.length) {
         if (state.mode === 'challenge' || !action.refill?.length) return { ...state, status: 'over' };
         queue = [...queue, ...action.refill];
+        poolTitles = [...poolTitles, ...action.refill.map((t) => t.title)];
       }
-      return { ...state, ...freshSong, queue, index: state.index + 1, status: 'playing' };
+      return { ...state, ...freshSong, queue, poolTitles, index: state.index + 1, status: 'playing' };
     }
     case 'QUIT':
       return initialGameState;

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { qualifies, insertScore, sanitizeInitials, MAX_SCORES } from './highScores.js';
+import { qualifies, insertScore, sanitizeInitials, readTable, MAX_SCORES } from './highScores.js';
 
 const list = (n) => Array.from({ length: n }, (_, i) => ({ initials: 'AAA', score: (n - i) * 100, date: i }));
 
@@ -23,5 +23,28 @@ describe('highScores', () => {
     expect(sanitizeInitials('ab!c9')).toBe('ABC');
     expect(sanitizeInitials('z')).toBe('Z');
     expect(sanitizeInitials(null)).toBe('');
+  });
+});
+
+describe('readTable', () => {
+  it('drops malformed rows and sorts by score desc, then date asc', () => {
+    const t = readTable([
+      { initials: 'LOW', score: 100, date: 1 },
+      null,
+      { initials: 'B', score: 500, date: 9 },
+      { initials: 7, score: 900, date: 0 },
+      { initials: 'A', score: 500, date: 2 },
+      { initials: 'NaN', score: 'x', date: 3 },
+    ]);
+    expect(t.map((e) => e.initials)).toEqual(['A', 'B', 'LOW']);
+  });
+  it('keeps the top MAX_SCORES after sorting', () => {
+    const rows = Array.from({ length: MAX_SCORES + 2 }, (_, i) => ({ initials: 'X', score: i, date: i }));
+    const t = readTable(rows);
+    expect(t).toHaveLength(MAX_SCORES);
+    expect(t[0].score).toBe(MAX_SCORES + 1);
+  });
+  it('returns [] for non-arrays', () => {
+    expect(readTable({})).toEqual([]);
   });
 });

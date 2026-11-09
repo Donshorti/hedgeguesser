@@ -116,3 +116,36 @@ describe('REPLACE_CURRENT', () => {
     expect(s.status).toBe('over');
   });
 });
+
+describe('refills and replacement (review fixes)', () => {
+  const help = { id: 9, title: 'Help!', artist: 'The Beatles' };
+
+  it('NEXT with a refill adds the new titles to the decoy pool', () => {
+    const s = { ...start('endless'), index: 2, status: 'reveal' };
+    const n = run(s, { type: 'NEXT', refill: [help] });
+    expect(n.poolTitles).toEqual(['Yesterday', 'Hey Jude', 'Let It Be', 'Help!']);
+  });
+  it('REPLACE_CURRENT in endless with no reserve appends the refill before dropping', () => {
+    const s = { ...start('endless'), index: 2 };
+    const r = run(s, { type: 'REPLACE_CURRENT', refill: [help] });
+    expect(r.status).toBe('playing');
+    expect(r.queue.map((t) => t.id)).toEqual([1, 2, 9]);
+    expect(r.index).toBe(2);
+    expect(r.poolTitles).toContain('Help!');
+  });
+  it('REPLACE_CURRENT refunds hints bought for the replaced song', () => {
+    const won = run(start(), { type: 'GUESS', text: 'yesterday' }, { type: 'NEXT' }); // score 1000
+    const hinted = run(won, { type: 'BUY_HINT', hint: 'year' }, { type: 'BUY_HINT', hint: 'artistInitials' });
+    expect(hinted.score).toBe(700);
+    const r = run(hinted, { type: 'REPLACE_CURRENT' });
+    expect(r.score).toBe(1000);
+    expect(r.hintsUsed).toEqual([]);
+  });
+  it('REPLACE_CURRENT refunds hints even when the game ends', () => {
+    const won = run(start(), { type: 'GUESS', text: 'yesterday' }, { type: 'NEXT' });
+    const s = { ...run(won, { type: 'BUY_HINT', hint: 'genre' }), reserve: [] };
+    const r = run(s, { type: 'REPLACE_CURRENT' });
+    expect(r.status).toBe('over');
+    expect(r.score).toBe(1000);
+  });
+});
