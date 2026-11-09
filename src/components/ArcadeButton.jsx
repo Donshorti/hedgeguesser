@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import styles from './ArcadeButton.module.css';
 
 /**
@@ -17,9 +17,13 @@ export default function ArcadeButton({
 }) {
   const hasText = children != null && children !== false && children !== '';
   const unnamed = !hasText && !buttonProps['aria-label'] && !buttonProps['aria-labelledby'];
+  const warned = useRef(false);
   useEffect(() => {
-    // once per instance, not on every render
-    if (import.meta.env.DEV && unnamed) console.warn('ArcadeButton: icon-only buttons need an aria-label.');
+    // once per instance (the ref also absorbs StrictMode's effect re-run)
+    if (import.meta.env.DEV && unnamed && !warned.current) {
+      warned.current = true;
+      console.warn('ArcadeButton: icon-only buttons need an aria-label.');
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const cls = [styles.btn, styles[variant], styles[size], className].filter(Boolean).join(' ');

@@ -16,8 +16,10 @@ export default function TitleStrip({
   state = 'ok',
   status,
   onToggle,
+  onClick,
   className,
   disabled,
+  'aria-disabled': ariaDisabled,
   ...buttonProps
 }) {
   const unavailable = state === 'unavailable';
@@ -26,7 +28,8 @@ export default function TitleStrip({
       e.preventDefault();
       return;
     }
-    onToggle?.(e);
+    onClick?.(e);
+    if (!e.defaultPrevented) onToggle?.(e);
   };
   const cls = [styles.strip, selected ? styles.selected : '', className].filter(Boolean).join(' ');
   const songs = typeof count === 'number' ? `${count} ${count === 1 ? 'song' : 'songs'}` : count;
@@ -41,7 +44,7 @@ export default function TitleStrip({
       {...buttonProps}
       onClick={handleClick}
       disabled={disabled}
-      aria-disabled={unavailable || undefined}
+      aria-disabled={unavailable ? true : ariaDisabled}
     >
       <span className={styles.band} aria-hidden="true" />
       <span className={styles.code}>{code}</span>
