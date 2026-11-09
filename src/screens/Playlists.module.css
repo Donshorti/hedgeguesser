@@ -1,0 +1,133 @@
+/* Playlists: the jukebox's service drawer. Operate surface: plain, exact. */
+.screen {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+}
+
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3) var(--s-4);
+}
+
+.title {
+  font-size: var(--fs-h1);
+  color: var(--ink);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+}
+
+.error {
+  font-size: var(--fs-sm);
+  color: var(--red-hi);
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  min-width: 0;
+}
+
+.groupTitle {
+  margin: 0;
+  font-family: var(--font-sign);
+  font-size: var(--fs-label);
+  font-weight: 400;
+  line-height: var(--lh-tight);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.note {
+  font-size: var(--fs-sm);
+  color: var(--ink-dim);
+}
+
+.strips,
+.houseList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.strips > li,
+.houseList > li {
+  min-width: 0;
+}
+
+.none {
+  padding: var(--s-5) var(--s-4);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-strip);
+  font-size: var(--fs-sm);
+  color: var(--ink-dim);
+}
+
+/* house rows: the printed strip, not pressable; the button does the work */
+.houseRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--s-3);
+  min-height: 64px;
+  padding: calc(var(--s-2) + 4px) var(--s-3) var(--s-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-strip);
+  background: var(--bg-2);
+  overflow: hidden;
+}
+
+.houseRow::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: var(--band);
+}
+
+.houseCode {
+  font-family: var(--font-sign);
+  font-size: var(--fs-label);
+  color: var(--ink-dim);
+}
+
+.houseText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: var(--lh-snug);
+}
+
+.houseName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.houseMeta {
+  font-size: var(--fs-sm);
+  color: var(--ink-dim);
+}
+
+@media (min-width: 560px) {
+  .strips,
+  .houseList {
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  }
+  .houseList {
+    grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
+  }
+}

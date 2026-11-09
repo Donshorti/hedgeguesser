@@ -1,0 +1,100 @@
+/* A song row: a slim card in the jukebox's catalogue. */
+.row {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--s-3);
+  min-height: 64px;
+  padding: var(--s-2) var(--s-3) var(--s-2) var(--s-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-strip);
+  background: var(--bg-2);
+}
+
+.thumb {
+  display: block;
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  background: var(--bg-4);
+  object-fit: cover;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: var(--lh-snug);
+}
+
+.title,
+.meta {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.title {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.meta {
+  font-size: var(--fs-sm);
+  color: var(--ink-dim);
+}
+
+.year {
+  font-variant-numeric: tabular-nums;
+}
+
+/* round cyan audio key: cyan is the audio colour */
+.preview {
+  display: grid;
+  place-items: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  padding: 0;
+  border: 1px solid var(--cyan-lo);
+  border-radius: 50%;
+  background: var(--cyan-off);
+  color: var(--cyan);
+  font-size: 1.1rem;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    transform var(--t-fast) var(--ease-press),
+    box-shadow var(--t-med) var(--ease-out),
+    background-color var(--t-med) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .preview:hover {
+    border-color: var(--cyan);
+  }
+}
+
+.preview:active {
+  transform: translateY(1px);
+}
+
+.playing {
+  background: var(--cyan);
+  color: var(--on-lit);
+  box-shadow: var(--cyan-glow);
+}
+
+.action {
+  display: flex;
+}
+
+@media (max-width: 420px) {
+  .row {
+    grid-template-columns: 40px minmax(0, 1fr) auto auto;
+    gap: var(--s-2);
+  }
+  .thumb {
+    width: 40px;
+    height: 40px;
+  }
+}

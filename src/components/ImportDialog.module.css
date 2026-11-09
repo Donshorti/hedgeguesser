@@ -1,0 +1,116 @@
+/* Import: a service panel pulled out of the cabinet. */
+.dialog {
+  width: min(560px, calc(100vw - 2 * var(--s-4)));
+  max-height: calc(100dvh - 2 * var(--s-4));
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-panel);
+  background: linear-gradient(180deg, var(--bg-3) 0%, var(--bg-2) 100%);
+  box-shadow: var(--shadow-panel);
+  color: var(--ink);
+}
+
+.dialog::backdrop {
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding: var(--s-5);
+}
+
+.title {
+  font-size: var(--fs-h3);
+  color: var(--ink);
+}
+
+.label {
+  font-family: var(--font-sign);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.field,
+.input {
+  width: 100%;
+  padding: var(--s-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-strip);
+  background: var(--bezel);
+  color: var(--ink);
+  font: inherit;
+}
+
+.field {
+  min-height: 9rem;
+  resize: vertical;
+  font-family: ui-monospace, monospace;
+  font-size: var(--fs-xs);
+}
+
+.field:focus-visible,
+.input:focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+.field[aria-invalid='true'] {
+  border-color: var(--red);
+}
+
+.error {
+  font-size: var(--fs-sm);
+  color: var(--red-hi);
+}
+
+.hint {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  font-size: var(--fs-xs);
+  color: var(--ink-dim);
+}
+
+.code {
+  display: block;
+  overflow-wrap: anywhere;
+  font-family: ui-monospace, monospace;
+  color: var(--ink);
+}
+
+.summary {
+  font-size: var(--fs-sm);
+  color: var(--ink);
+}
+
+.list {
+  max-height: 14rem;
+  margin: 0;
+  padding: var(--s-2) var(--s-3) var(--s-2) var(--s-8);
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--r-strip);
+  background: var(--bezel);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+}
+
+.songTitle {
+  font-weight: 600;
+}
+
+.songArtist {
+  color: var(--ink-dim);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--s-3);
+  margin-top: var(--s-2);
+}
