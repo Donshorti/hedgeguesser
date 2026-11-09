@@ -151,67 +151,18 @@
   transition: width var(--t-med) var(--ease-out);
 }
 
-/* ---- minimal reveal ---- */
-.reveal {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: var(--s-4);
-  padding: var(--s-4);
-  border: 1px solid var(--line);
-  border-radius: var(--r-panel);
-  background: var(--bg-2);
-  box-shadow: var(--shadow-panel);
+/* a hit: the score window flares amber while the points roll in */
+.scoreFlash {
+  animation: score-flash var(--t-slow) var(--ease-out);
 }
 
-.reveal > button {
-  grid-column: 1 / -1;
-  justify-self: center;
+@keyframes score-flash {
+  0%, 25% { filter: brightness(1.6) drop-shadow(0 0 14px rgba(255, 182, 39, 0.7)); }
+  100% { filter: none; }
 }
 
-.art {
-  width: clamp(96px, 22vw, 180px);
-  height: auto;
-  aspect-ratio: 1;
-  border-radius: var(--r-strip);
-  box-shadow: var(--shadow-housing);
-}
-
-.revealText {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-1);
-  min-width: 0;
-}
-
-.win,
-.lose {
-  margin: 0;
-  font-family: var(--font-sign);
-  font-size: var(--fs-sm);
-  text-transform: uppercase;
-}
-
-.win {
-  color: var(--amber);
-  text-shadow: var(--amber-glow-text);
-}
-
-.lose {
-  color: var(--red);
-  text-shadow: var(--red-glow-text);
-}
-
-.trackTitle {
-  font-family: var(--font-body);
-  font-size: var(--fs-h2);
-  font-weight: 700;
-  line-height: var(--lh-snug);
-  overflow-wrap: anywhere;
-}
-
-.trackArtist {
-  margin: 0;
-  font-size: var(--fs-body);
-  color: var(--ink-dim);
+@media (prefers-reduced-motion: reduce) {
+  .scoreFlash {
+    animation: none;
+  }
 }

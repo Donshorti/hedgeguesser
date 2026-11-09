@@ -5,12 +5,14 @@ import Equalizer from '../components/Equalizer.jsx';
 import GuessInput from '../components/GuessInput.jsx';
 import HintPanel from '../components/HintPanel.jsx';
 import LedPips from '../components/LedPips.jsx';
+import Reveal from '../components/Reveal.jsx';
 import SegmentScore from '../components/SegmentScore.jsx';
 import StageLadder from '../components/StageLadder.jsx';
 import { BackIcon, HintIcon, PlayIcon, SkipIcon, StopIcon } from '../components/icons.jsx';
 import { useGame, useGameProgress } from '../state/GameContext.jsx';
 import { useScreenActive } from '../state/ScreenActive.js';
 import { load } from '../services/storage.js';
+import Results from './Results.jsx';
 import styles from './Game.module.css';
 
 const pad2 = (n) => String(n).padStart(2, '0');
@@ -31,6 +33,8 @@ function LiveLadder({ stages, stage, attempts, outcome, playing }) {
 
 function StatusStrip({ state, onQuit }) {
   const { mode, index, queue, lives, score, settings } = state;
+  // a hit lights the score window while the "+N" rolls in
+  const hit = state.status === 'reveal' && state.outcome === 'win';
   const challenge = mode === 'challenge';
   return (
     <header className={styles.status}>
@@ -54,7 +58,7 @@ function StatusStrip({ state, onQuit }) {
       {challenge ? null : (
         <LedPips total={settings.endlessLives} lit={lives} label={`${lives} ${lives === 1 ? 'life' : 'lives'} left`} />
       )}
-      <SegmentScore value={score} digits={5} label="Score" className={styles.score} />
+      <SegmentScore value={score} digits={5} label="Score" className={`${styles.score} ${hit ? styles.scoreFlash : ''}`} />
     </header>
   );
 }
@@ -137,49 +141,6 @@ function Failure({ error, onRetry, onBack }) {
   );
 }
 
-/** Minimal reveal; Task 17 replaces it with the full one. */
-function Reveal({ state, onNext }) {
-  const track = state.queue[state.index];
-  const win = state.outcome === 'win';
-  const result = state.results[state.results.length - 1];
-  return (
-    <section className={styles.reveal} aria-live="polite">
-      {track.artwork ? <img className={styles.art} src={track.artwork} alt="" width="160" height="160" /> : null}
-      <div className={styles.revealText}>
-        <p className={win ? styles.win : styles.lose}>
-          {win ? `Got it at ${secs(state.settings.stages[result?.stage ?? 0])} · +${result?.points ?? 0}` : 'Missed it'}
-        </p>
-        <h2 className={styles.trackTitle}>{track.title}</h2>
-        <p className={styles.trackArtist}>{track.artist}</p>
-      </div>
-      <ArcadeButton variant="pink" size="md" autoFocus onClick={onNext}>
-        Next
-      </ArcadeButton>
-    </section>
-  );
-}
-
-/** Minimal game over; Task 18 replaces it with results and initials. */
-function GameOver({ score, onAgain, onHome }) {
-  return (
-    <Panel
-      title="Game over"
-      actions={
-        <>
-          <ArcadeButton variant="pink" size="md" onClick={onAgain}>
-            Play again
-          </ArcadeButton>
-          <ArcadeButton variant="cyan" size="md" onClick={onHome}>
-            Home
-          </ArcadeButton>
-        </>
-      }
-    >
-      <SegmentScore value={score} digits={6} label="Final score" />
-    </Panel>
-  );
-}
-
 export default function Game({ navigate }) {
   const game = useGame();
   const { state, phase, error, loadProgress, isPlaying, progressStore } = game;
@@ -189,9 +150,11 @@ export default function Game({ navigate }) {
   const hintsId = useId();
 
   // Nothing to show without a run (deep link, reload): back to the jukebox.
+  // (Not after quitTo: the hash changes a tick after quit() empties the run.)
   const idle = state.status === 'idle' && phase === 'idle';
+  const leaving = useRef(false);
   useEffect(() => {
-    if (active && idle) navigate('/play', { replace: true });
+    if (active && idle && !leaving.current) navigate('/play', { replace: true });
   }, [active, idle, navigate]);
 
   const track = state.queue[state.index];
@@ -219,6 +182,7 @@ export default function Game({ navigate }) {
   }, [active]);
 
   const quitTo = (to) => {
+    leaving.current = true;
     game.quit();
     navigate(to);
   };
@@ -244,14 +208,22 @@ export default function Game({ navigate }) {
   if (state.status === 'over') {
     return (
       <div className={styles.screen}>
-        <GameOver
-          score={state.score}
+        <Results
+          state={state}
           onAgain={() => {
             const setup = load('lastSetup', null);
             if (setup?.playlistIds?.length) game.start(setup);
             else quitTo('/play');
           }}
           onHome={() => quitTo('/')}
+          onSaved={(mode, date) => {
+            try {
+              sessionStorage.setItem('hg:newScore', JSON.stringify({ mode, date }));
+            } catch {
+              /* highlight is a nicety */
+            }
+            quitTo('/scores');
+          }}
         />
       </div>
     );
@@ -319,7 +291,16 @@ export default function Game({ navigate }) {
           <AttemptLog attempts={attempts} rows={stages.length} />
         </div>
       ) : (
-        <Reveal key={songKey} state={state} onNext={game.next} />
+        <Reveal
+          key={songKey}
+          track={track}
+          outcome={outcome}
+          result={state.results[state.results.length - 1]}
+          stages={stages}
+          mode={state.mode}
+          isLast={state.mode === 'endless' ? state.lives <= 0 : state.index + 1 >= state.queue.length}
+          onNext={game.next}
+        />
       )}
     </div>
   );

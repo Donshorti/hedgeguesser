@@ -7,7 +7,7 @@ import { save } from './services/storage.js';
 import Home from './screens/Home.jsx';
 import PlaySetup from './screens/PlaySetup.jsx';
 import Game from './screens/Game.jsx';
-import Scores from './screens/Scores.jsx';
+import HighScores from './screens/HighScores.jsx';
 import Playlists from './screens/Playlists.jsx';
 import PlaylistDetail from './screens/PlaylistDetail.jsx';
 import Settings from './screens/Settings.jsx';
@@ -17,7 +17,7 @@ const SCREENS = {
   '/': { Screen: Home, title: null },
   '/play': { Screen: PlaySetup, title: 'Play' },
   '/game': { Screen: Game, title: 'Game' },
-  '/scores': { Screen: Scores, title: 'High scores' },
+  '/scores': { Screen: HighScores, title: 'High scores' },
   '/playlists': { Screen: Playlists, title: 'Playlists' },
   '/playlists/:id': { Screen: PlaylistDetail, title: 'Playlist' },
   '/settings': { Screen: Settings, title: 'Settings' },

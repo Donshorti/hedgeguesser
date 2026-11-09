@@ -1,0 +1,30 @@
+/* High scores: the board, full size, with its own heading. */
+.screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-6);
+  padding-bottom: var(--s-4);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  width: 100%;
+  max-width: 34rem;
+}
+
+.title {
+  font-family: var(--font-sign);
+  font-size: var(--fs-h1);
+  font-weight: 400;
+  line-height: var(--lh-tight);
+  color: var(--amber);
+  text-shadow: var(--amber-glow-text);
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
