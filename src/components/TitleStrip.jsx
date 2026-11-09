@@ -3,7 +3,8 @@ import styles from './TitleStrip.module.css';
 /**
  * A jukebox title strip: selection code (A1…), playlist name, song count,
  * genre colour band, and a selection lamp. Toggles on press.
- * `state` drives the look: 'ok' | 'resolving' | 'unavailable' (disabled).
+ * `state` drives the look: 'ok' | 'resolving' | 'unavailable'. Unavailable strips
+ * stay focusable (aria-disabled) so they can be discovered, but ignore presses.
  * `status` is the line shown for it, e.g. "resolving 12/50" or "unavailable".
  */
 export default function TitleStrip({
@@ -20,6 +21,13 @@ export default function TitleStrip({
   ...buttonProps
 }) {
   const unavailable = state === 'unavailable';
+  const handleClick = (e) => {
+    if (unavailable) {
+      e.preventDefault();
+      return;
+    }
+    onToggle?.(e);
+  };
   const cls = [styles.strip, selected ? styles.selected : '', className].filter(Boolean).join(' ');
   const songs = typeof count === 'number' ? `${count} ${count === 1 ? 'song' : 'songs'}` : count;
   const statusCls = unavailable ? styles.statusBad : state === 'resolving' ? styles.status : styles.statusOk;
@@ -29,10 +37,11 @@ export default function TitleStrip({
       type="button"
       className={cls}
       aria-pressed={selected}
-      onClick={onToggle}
-      disabled={unavailable || disabled}
       style={{ '--band': color }}
       {...buttonProps}
+      onClick={handleClick}
+      disabled={disabled}
+      aria-disabled={unavailable || undefined}
     >
       <span className={styles.band} aria-hidden="true" />
       <span className={styles.code}>{code}</span>

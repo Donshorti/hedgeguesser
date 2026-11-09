@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styles from './ArcadeButton.module.css';
 
 /**
@@ -15,9 +16,12 @@ export default function ArcadeButton({
   ...buttonProps
 }) {
   const hasText = children != null && children !== false && children !== '';
-  if (import.meta.env.DEV && !hasText && !buttonProps['aria-label'] && !buttonProps['aria-labelledby']) {
-    console.warn('ArcadeButton: icon-only buttons need an aria-label.');
-  }
+  const unnamed = !hasText && !buttonProps['aria-label'] && !buttonProps['aria-labelledby'];
+  useEffect(() => {
+    // once per instance, not on every render
+    if (import.meta.env.DEV && unnamed) console.warn('ArcadeButton: icon-only buttons need an aria-label.');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const cls = [styles.btn, styles[variant], styles[size], className].filter(Boolean).join(' ');
   return (
     <button type={type} className={cls} {...buttonProps}>

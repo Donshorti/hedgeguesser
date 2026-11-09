@@ -29,6 +29,9 @@
   box-shadow:
     0 0 0 1px var(--bezel),
     var(--shadow-panel);
+  /* the flicker tubes are doubled glyphs; copying would yield "HEDDGE…" */
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 /* the cyan outline tube, inset from the board edge */
