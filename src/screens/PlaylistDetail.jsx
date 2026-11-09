@@ -76,7 +76,7 @@ export default function PlaylistDetail({ navigate, params }) {
 function Header({ navigate, children }) {
   return (
     <header className={styles.top}>
-      <ArcadeButton variant="cyan" size="sm" icon={<BackIcon />} onClick={() => navigate('/playlists')}>
+      <ArcadeButton variant="neutral" size="sm" icon={<BackIcon />} onClick={() => navigate('/playlists')}>
         Back
       </ArcadeButton>
       <h1 className={styles.title} data-screen-heading>

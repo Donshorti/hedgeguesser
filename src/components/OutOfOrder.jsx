@@ -27,7 +27,7 @@ export default function OutOfOrder({ cause, onRetry, onBack, backLabel = 'Back' 
             Retry
           </ArcadeButton>
         ) : null}
-        <ArcadeButton variant="cyan" size="md" icon={<BackIcon />} onClick={onBack}>
+        <ArcadeButton variant="neutral" size="md" icon={<BackIcon />} onClick={onBack}>
           {backLabel}
         </ArcadeButton>
       </div>

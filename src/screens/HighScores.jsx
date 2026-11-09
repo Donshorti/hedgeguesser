@@ -33,7 +33,7 @@ export default function HighScores({ navigate }) {
   return (
     <div className={styles.screen}>
       <header className={styles.head}>
-        <ArcadeButton variant="cyan" size="sm" icon={<BackIcon />} aria-label="Back to home" onClick={() => navigate('/')} />
+        <ArcadeButton variant="neutral" size="sm" icon={<BackIcon />} aria-label="Back to home" onClick={() => navigate('/')} />
         <h1 className={styles.title} data-screen-heading>
           High scores
         </h1>

@@ -225,15 +225,35 @@
 }
 
 /* ---- resets ---- */
-.danger {
+.resets {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
   gap: var(--s-4);
   padding-top: var(--s-6);
   border-top: 1px solid var(--line);
 }
 
+/* wiping everything lives apart, behind a red frame and a confirm step */
+.danger {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-3);
+  padding: var(--s-5);
+  border: 1px solid color-mix(in srgb, var(--red) 45%, transparent);
+  border-radius: var(--r-panel);
+  background: color-mix(in srgb, var(--red-off) 55%, transparent);
+}
+
+.dangerTitle {
+  margin: 0;
+  font-family: var(--font-sign);
+  font-size: var(--fs-label);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--red-hi);
+}
 .confirm {
   display: flex;
   flex-direction: column;
@@ -246,7 +266,7 @@
   margin: 0;
   font-size: var(--fs-body);
   font-weight: 600;
-  color: var(--amber-hi);
+  color: var(--red-hi);
 }
 
 .confirmActions {

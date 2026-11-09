@@ -96,7 +96,7 @@
  * Breakpoints below must match CABINET_MQ there.
  */
 /* tall desktops: the deck outgrows the window, so the CRT keeps a readable floor */
-@media (min-width: 900px) and (min-height: 760px) {
+@media (min-width: 900px) and (min-height: 1000px) {
   .crt {
     flex-basis: 200px;
     min-height: clamp(160px, 22vh, 240px);
@@ -107,7 +107,7 @@
   display: none;
 }
 
-@media (max-width: 899px), (max-height: 759px) {
+@media (max-width: 899px), (max-height: 999px) {
   .screen {
     gap: var(--s-3);
   }
@@ -119,6 +119,70 @@
   .count {
     font-size: var(--fs-sm);
   }
+}
+
+/* compact layouts: SKIP | PLAY | HINT, small round caps flanking the big one */
+.cluster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-3);
+  padding-block: var(--s-1);
+}
+
+.cluster .flank {
+  width: 4.75rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.cluster .flank > span {
+  flex-direction: column;
+  gap: 0.2em;
+  min-height: 0;
+  padding: 0;
+  text-align: center;
+  white-space: normal;
+}
+
+.cluster .flank .btnNote {
+  display: block;
+}
+
+/* laptops (wide but short): tighter stack, smaller score window and PLAY cap,
+   so log, guess and the thumb row fit 1366×768 without scrolling */
+@media (min-width: 900px) and (max-height: 999px) {
+  .screen,
+  .deck {
+    gap: var(--s-2);
+  }
+
+  .status {
+    --fs-score: clamp(2rem, 5.5vh, 3rem);
+  }
+
+  .cluster > button:nth-child(2) {
+    width: clamp(8rem, 18vh, 13.5rem);
+  }
+
+  .cluster > button:nth-child(2) > span {
+    font-size: clamp(1rem, 2.6vh, 1.5rem);
+  }
+}
+
+/* CRT idle readout: what the next press will play */
+.readout {
+  position: absolute;
+  inset: var(--s-3) var(--s-4) auto;
+  z-index: 1;
+  margin: 0;
+  font-family: var(--font-sign);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--cyan);
+  text-shadow: var(--cyan-glow-text);
 }
 
 .btnNote {

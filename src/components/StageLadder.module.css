@@ -78,9 +78,11 @@
   color: var(--ink-dim);
 }
 
+/* each label sits where its clip ends */
 .labels li {
   flex-basis: 0;
   min-width: 0;
+  text-align: end;
   white-space: nowrap;
 }
 

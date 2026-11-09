@@ -27,7 +27,7 @@ export default function Playlists({ navigate }) {
   return (
     <div className={styles.screen}>
       <header className={styles.top}>
-        <ArcadeButton variant="cyan" size="sm" icon={<BackIcon />} onClick={() => navigate('/')}>
+        <ArcadeButton variant="neutral" size="sm" icon={<BackIcon />} onClick={() => navigate('/')}>
           Back
         </ArcadeButton>
         <h1 className={styles.title} data-screen-heading>
@@ -39,7 +39,7 @@ export default function Playlists({ navigate }) {
         <ArcadeButton variant="pink" size="sm" icon={<PlusIcon />} onClick={() => navigate('/playlists/new')}>
           New playlist
         </ArcadeButton>
-        <ArcadeButton variant="cyan" size="sm" onClick={() => setImporting(true)}>
+        <ArcadeButton variant="neutral" size="sm" onClick={() => setImporting(true)}>
           Import
         </ArcadeButton>
       </div>
@@ -91,7 +91,7 @@ export default function Playlists({ navigate }) {
                   {p.tracks.length} {p.tracks.length === 1 ? 'song' : 'songs'}
                 </span>
               </span>
-              <ArcadeButton variant="cyan" size="sm" aria-label={`Duplicate ${p.name}`} onClick={() => duplicate(p)}>
+              <ArcadeButton variant="neutral" size="sm" aria-label={`Duplicate ${p.name}`} onClick={() => duplicate(p)}>
                 Duplicate
               </ArcadeButton>
             </li>

@@ -28,7 +28,7 @@ function hashSeed(v) {
 /**
  * Cyan LED equalizer in the CRT window. While `playing` the bars chase
  * pseudo-random targets seeded by `seed`, eased per frame, louder as the
- * stage plays through (`getProgress()` → `{ t, limit }`). Idle: low and dim.
+ * stage plays through (`getProgress()` → `{ t, limit }`). Idle: a still, seeded resting spectrum, dimmed.
  * Writes clip-paths directly, so the LED cells never stretch (no React renders per frame). Decorative.
  */
 export default function Equalizer({ playing, seed, getProgress, active = true }) {
@@ -39,11 +39,12 @@ export default function Equalizer({ playing, seed, getProgress, active = true })
   useEffect(() => {
     const bars = barsRef.current;
     const setAll = (fn) => bars.forEach((el, i) => el && (el.style.clipPath = `inset(${((1 - fn(i)) * 100).toFixed(1)}% 0 0 0)`));
+    const rand = mulberry32(hashSeed(seed));
     if (!playing || !active || !visible) {
-      setAll(() => REST);
+      // resting spectrum: a still, seeded contour between 8% and 30%, so the glass never reads empty
+      setAll((i) => REST + 0.22 * (0.35 + 0.65 * Math.sin(((i + 0.5) / BARS) * Math.PI)) * (0.45 + 0.55 * rand()));
       return undefined;
     }
-    const rand = mulberry32(hashSeed(seed));
     // fixed per-song contour so bass/treble bands keep a shape
     const contour = Array.from({ length: BARS }, (_, i) => 0.55 + 0.45 * Math.sin((i / BARS) * Math.PI) * (0.6 + 0.4 * rand()));
     if (reduced) {

@@ -202,7 +202,7 @@ export default function Settings({ navigate }) {
   return (
     <div className={styles.screen}>
       <header className={styles.head}>
-        <ArcadeButton variant="cyan" size="sm" icon={<BackIcon />} aria-label="Back to home" onClick={() => navigate('/')} />
+        <ArcadeButton variant="neutral" size="sm" icon={<BackIcon />} aria-label="Back to home" onClick={() => navigate('/')} />
         <h1 className={styles.title} data-screen-heading>
           Settings
         </h1>
@@ -328,27 +328,34 @@ export default function Settings({ navigate }) {
         </Group>
       </div>
 
-      <section className={styles.danger} aria-labelledby="settings-reset">
+      <section className={styles.resets} aria-labelledby="settings-reset">
         <h2 id="settings-reset" className="visually-hidden">
-          Reset
+          Reset settings
         </h2>
-        <ArcadeButton variant="cyan" size="md" onClick={resetDefaults}>
+        <ArcadeButton variant="neutral" size="md" onClick={resetDefaults}>
           Reset defaults
         </ArcadeButton>
+      </section>
+
+      <section className={styles.danger} aria-labelledby="settings-danger">
+        <h2 id="settings-danger" className={styles.dangerTitle}>
+          Danger zone
+        </h2>
+        <p className={styles.note}>Deletes every playlist, high score and setting on this device.</p>
         {confirmWipe ? (
           <div className={styles.confirm} role="alert">
             <p className={styles.confirmText}>Wipe every playlist, score and setting? This can't be undone.</p>
             <div className={styles.confirmActions}>
-              <ArcadeButton variant="pink" size="md" onClick={wipe}>
+              <ArcadeButton variant="red" size="md" onClick={wipe}>
                 Yes, wipe it
               </ArcadeButton>
-              <ArcadeButton variant="cyan" size="md" onClick={() => setConfirmWipe(false)}>
+              <ArcadeButton variant="neutral" size="md" onClick={() => setConfirmWipe(false)}>
                 Cancel
               </ArcadeButton>
             </div>
           </div>
         ) : (
-          <ArcadeButton variant="amber" size="md" onClick={() => setConfirmWipe(true)}>
+          <ArcadeButton variant="red" size="md" onClick={() => setConfirmWipe(true)}>
             Reset all data
           </ArcadeButton>
         )}

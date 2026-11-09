@@ -3,13 +3,21 @@ import styles from './StageLadder.module.css';
 /** Stage 1 is tiny in seconds; give it enough width to see and tap. */
 const MIN_FIRST = 0.16;
 
-/** Fractions of the ladder width per stage: proportional to duration, first one floored. */
+/**
+ * Fractions of the ladder width per stage: proportional to duration, the first
+ * one floored, and never narrower than the stage before it (a longer clip is
+ * never drawn shorter). Floor + monotone + renormalise, repeated to settle.
+ */
 export function ladderWidths(stages) {
   const total = stages[stages.length - 1] || 1;
-  const raw = stages.map((s, i) => (s - (i ? stages[i - 1] : 0)) / total);
-  if (raw[0] >= MIN_FIRST) return raw;
-  const restTotal = 1 - raw[0];
-  return raw.map((w, i) => (i === 0 ? MIN_FIRST : (w / restTotal) * (1 - MIN_FIRST)));
+  let w = stages.map((s, i) => Math.max(0, s - (i ? stages[i - 1] : 0)) / total);
+  for (let pass = 0; pass < 40; pass++) {
+    w[0] = Math.max(w[0], MIN_FIRST);
+    for (let i = 1; i < w.length; i++) w[i] = Math.max(w[i], w[i - 1]);
+    const sum = w.reduce((a, b) => a + b, 0) || 1;
+    w = w.map((x) => x / sum);
+  }
+  return w;
 }
 
 /** Playhead position 0..1 for time `t`, piecewise across the (non-linear) segments. */

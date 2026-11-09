@@ -22,6 +22,12 @@
   color: var(--ink);
 }
 
+/* unfilled slots stay slim so the deck fits a phone without scrolling */
+.row.empty {
+  min-height: 28px;
+  font-size: var(--fs-sm);
+}
+
 .empty {
   color: var(--bg-4);
   letter-spacing: 0.3em;

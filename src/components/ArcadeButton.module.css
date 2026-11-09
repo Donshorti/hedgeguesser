@@ -23,6 +23,36 @@
   --glow: var(--amber-glow);
   --shade: 74, 38, 0;
 }
+/* destructive: red is the miss/danger colour */
+.red {
+  --c: var(--red);
+  --c-hi: var(--red-hi);
+  --c-lo: var(--red-lo);
+  --c-off: var(--red-off);
+  --glow: var(--red-glow);
+  --shade: 80, 0, 12;
+}
+/* nav and utility keys: an unlit violet cap that only glows when aimed at */
+.neutral {
+  --c: var(--bg-3);
+  --c-hi: var(--bg-4);
+  --c-lo: var(--bg-2);
+  --c-off: var(--bg-2);
+  --glow: 0 0 0 0 transparent;
+  --shade: 0, 0, 0;
+}
+.btn.neutral {
+  color: var(--ink); /* .btn prints dark ink for lit caps; this cap is unlit */
+}
+.neutral .label,
+.neutral .icon {
+  text-shadow: none;
+  filter: none;
+}
+.neutral:focus-visible,
+.neutral:hover:not(:disabled) {
+  --glow: 0 0 0 1px var(--line-strong), 0 0 14px rgba(196, 160, 255, 0.28);
+}
 
 /* ---- housing: the black plastic collar bolted into the cabinet ---- */
 .btn {
@@ -141,9 +171,17 @@
   aspect-ratio: 1;
   border-radius: 50%;
 }
+/* the label wraps (PRESS / START) so the cap stays a circle inside its collar */
+.xl {
+  overflow: hidden;
+}
 .xl .cap {
   flex-direction: column;
+  min-width: 0;
   gap: 0.35em;
+  white-space: normal;
+  text-align: center;
+  text-wrap: balance;
   padding: var(--s-4);
   font-size: clamp(1.125rem, 0.85rem + 1.1vw, 1.875rem);
   box-shadow:

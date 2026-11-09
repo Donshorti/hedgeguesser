@@ -57,7 +57,7 @@ export default function Results({ state, onAgain, onHome, onSaved }) {
         <ArcadeButton variant={onBoard ? 'cyan' : 'pink'} size="md" icon={<PlayIcon />} onClick={onAgain}>
           Play again
         </ArcadeButton>
-        <ArcadeButton variant="cyan" size="sm" onClick={onHome}>
+        <ArcadeButton variant="neutral" size="sm" onClick={onHome}>
           Home
         </ArcadeButton>
       </div>

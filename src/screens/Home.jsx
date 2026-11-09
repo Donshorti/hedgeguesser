@@ -73,13 +73,13 @@ export default function Home({ navigate }) {
       <AttractBoard tables={tables} />
 
       <nav className={styles.nav} aria-label="Main">
-        <ArcadeButton variant="cyan" size="sm" onClick={() => navigate('/playlists')}>
+        <ArcadeButton variant="neutral" size="sm" onClick={() => navigate('/playlists')}>
           Playlists
         </ArcadeButton>
         <ArcadeButton variant="amber" size="sm" onClick={() => navigate('/scores')}>
           High scores
         </ArcadeButton>
-        <ArcadeButton variant="cyan" size="sm" onClick={() => navigate('/settings')}>
+        <ArcadeButton variant="neutral" size="sm" onClick={() => navigate('/settings')}>
           Settings
         </ArcadeButton>
       </nav>

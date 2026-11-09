@@ -18,15 +18,15 @@ import Results from './Results.jsx';
 import styles from './Game.module.css';
 
 /*
- * Tall desktop windows keep the cabinet order: PLAY, field, SKIP/HINT, hints, log.
- * Phones and short windows: the log rides up under the ladder and the guess
+ * Tall windows (1080p TVs, big monitors) keep the cabinet order: PLAY, field, SKIP/HINT, hints, log.
+ * Phones and laptops: the log rides up under the ladder, SKIP | PLAY | HINT share one row and the guess
  * field sits just above PLAY, so both land in thumb reach and the suggestion
  * list (which opens upward there) covers the log, never the PLAY button.
  * Must match the breakpoint in Game.module.css.
  */
-const CABINET_MQ = '(min-width: 900px) and (min-height: 760px)';
+const CABINET_MQ = '(min-width: 900px) and (min-height: 1000px)';
 const CABINET_ORDER = ['play', 'guess', 'secondary', 'hints', 'log'];
-const THUMB_ORDER = ['log', 'hints', 'guess', 'play', 'secondary'];
+const THUMB_ORDER = ['log', 'hints', 'guess', 'cluster'];
 
 const pad2 = (n) => String(n).padStart(2, '0');
 const secs = (s) => `${s}s`;
@@ -51,7 +51,7 @@ function StatusStrip({ state, onQuit }) {
   const challenge = mode === 'challenge';
   return (
     <header className={styles.status}>
-      <ArcadeButton variant="cyan" size="sm" icon={<BackIcon />} aria-label="Quit to the jukebox" onClick={onQuit} />
+      <ArcadeButton variant="neutral" size="sm" icon={<BackIcon />} aria-label="Quit to the jukebox" onClick={onQuit} />
       <div className={styles.round}>
         <h1 className={styles.mode} data-screen-heading>
           {challenge ? 'Challenge' : 'Endless'}
@@ -96,7 +96,7 @@ function Loading({ progress, onBack }) {
       title="Loading songs"
       live
       actions={
-        <ArcadeButton variant="cyan" size="sm" icon={<BackIcon />} onClick={onBack}>
+        <ArcadeButton variant="neutral" size="sm" icon={<BackIcon />} onClick={onBack}>
           Back
         </ArcadeButton>
       }
@@ -214,19 +214,49 @@ export default function Game({ navigate }) {
   const nextStage = stages[stage + 1];
   const skipLabel = nextStage ? `+${nextStage - stages[stage]}s` : 'Give up';
 
+  const playButton = (
+    <ArcadeButton
+      variant="pink"
+      size="xl"
+      icon={isPlaying ? <StopIcon /> : <PlayIcon />}
+      disabled={!ready}
+      onClick={game.play}
+    >
+      {!ready ? 'Loading…' : isPlaying ? 'Stop' : `Play ${secs(stages[stage])}`}
+    </ArcadeButton>
+  );
+  const skipButton = (flank) => (
+    <ArcadeButton variant="cyan" size="sm" icon={<SkipIcon />} onClick={game.skip} className={flank ? styles.flank : undefined}>
+      Skip <span className={styles.btnNote}>{skipLabel}</span>
+    </ArcadeButton>
+  );
+  const hintButton = (flank) => (
+    <ArcadeButton
+      variant="amber"
+      size="sm"
+      icon={<HintIcon />}
+      aria-expanded={hintsOpen}
+      aria-controls={hintsId}
+      onClick={() => setHintsOpen((o) => !o)}
+      className={flank ? styles.flank : undefined}
+    >
+      Hint
+    </ArcadeButton>
+  );
+
   // Keyed slots, rendered in the order they appear so Tab follows the screen.
   const deckSlots = {
     play: (
       <div key="play" className={styles.playRow}>
-        <ArcadeButton
-          variant="pink"
-          size="xl"
-          icon={isPlaying ? <StopIcon /> : <PlayIcon />}
-          disabled={!ready}
-          onClick={game.play}
-        >
-          {!ready ? 'Loading…' : isPlaying ? 'Stop' : `Play ${secs(stages[stage])}`}
-        </ArcadeButton>
+        {playButton}
+      </div>
+    ),
+    // compact layouts: SKIP | PLAY | HINT in one thumb row
+    cluster: (
+      <div key="cluster" className={styles.cluster}>
+        {skipButton(true)}
+        {playButton}
+        {hintButton(true)}
       </div>
     ),
     guess: (
@@ -236,22 +266,10 @@ export default function Game({ navigate }) {
     ),
     secondary: (
       <div key="secondary" className={styles.secondary}>
-        <ArcadeButton variant="cyan" size="sm" icon={<SkipIcon />} onClick={game.skip}>
-          Skip <span className={styles.btnNote}>{skipLabel}</span>
-        </ArcadeButton>
-        <ArcadeButton
-          variant="amber"
-          size="sm"
-          icon={<HintIcon />}
-          aria-expanded={hintsOpen}
-          aria-controls={hintsId}
-          onClick={() => setHintsOpen((o) => !o)}
-        >
-          Hint
-        </ArcadeButton>
+        {skipButton(false)}
+        {hintButton(false)}
       </div>
-    ),
-    hints: (
+    ),    hints: (
       <div key="hints" className={styles.slotHints}>
         <HintPanel
           id={hintsId}
@@ -277,6 +295,11 @@ export default function Game({ navigate }) {
 
       <div className={styles.crt}>
         <Equalizer playing={isPlaying} seed={track?.id} getProgress={progressStore.get} active={active} />
+        {playingRound && !isPlaying ? (
+          <p className={styles.readout} aria-hidden="true">
+            {ready ? `Stage ${stage + 1} · ${secs(stages[stage])} — press play` : 'Loading…'}
+          </p>
+        ) : null}
       </div>
 
       <LiveLadder stages={stages} stage={stage} attempts={attempts} outcome={outcome} playing={isPlaying} />

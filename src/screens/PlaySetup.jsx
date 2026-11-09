@@ -24,6 +24,11 @@ function restoreSetup(catalog) {
   const mode = MODES.includes(last?.mode) ? last.mode : 'challenge';
   const ok = new Set(catalog.filter(playable).map((p) => p.id));
   const ids = Array.isArray(last?.playlistIds) ? last.playlistIds.filter((id) => ok.has(id)) : [];
+  // first run: the first house strip (A1) is already punched, so START is live
+  if (!last) {
+    const first = catalog.find((p) => !p.custom && playable(p));
+    if (first) ids.push(first.id);
+  }
   return { mode, selected: new Set(ids) };
 }
 
@@ -99,7 +104,7 @@ export default function PlaySetup({ navigate, onStart }) {
   return (
     <form className={styles.screen} onSubmit={submit} noValidate>
       <header className={styles.top}>
-        <ArcadeButton variant="cyan" size="sm" icon={<BackIcon />} onClick={() => navigate('/')}>
+        <ArcadeButton variant="neutral" size="sm" icon={<BackIcon />} onClick={() => navigate('/')}>
           Back
         </ArcadeButton>
         <h1 className={styles.title} data-screen-heading>
