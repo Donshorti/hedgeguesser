@@ -22,7 +22,7 @@ STORY: The player sees an idle cabinet cycling high scores, presses START, punch
 
 FIRST VIEWPORT: Game screen — status strip at top (round 07/20, red life pips, amber 7-segment score at the right); below it a CRT window holding the cyan LED equalizer, full column width; under it the four-segment stage ladder sized by duration with a sweeping playhead and duration labels; then the dominant pink arcade PLAY button (the largest object on screen, centred); then the guess field with autocomplete and SKIP/HINT as smaller arcade buttons; attempt log of four rows below. On phones the play button and input sit in the lower half for thumbs.
 
-FORM: Coin-op cabinet + jukebox selector (brief-pinned world, first on the ordered list; no roll). seed: none (brief-pinned direction)
+FORM: Coin-op cabinet + jukebox selector (brief-pinned world, first on the ordered list). No concept-seed roll was run: new-work.md states "a user- or brief-pinned direction beats the roll, always", and a session whose direction the brief pinned "reads the mode's file instead" (mode-persuade.md was read). seed: none (brief-pinned; roll skipped by rule, not unavailable)
 
 Signature interaction: the stage ladder — segments light as stages unlock, the playhead sweeps during playback, a hit triggers marquee flash, score roll-up and pixel-square confetti; a miss stamps MISS with a short shake. Motion grammar: physical (press, roll, flicker), short (120–600ms), off under reduced motion.
 
