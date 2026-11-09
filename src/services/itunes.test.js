@@ -198,3 +198,44 @@ describe('searchTracks / resolveByTitle cancellation', () => {
     ).rejects.toMatchObject({ name: 'AbortError' });
   });
 });
+
+describe('getJson guard covers the JSONP fallback', () => {
+  const corsFail = () => vi.fn(async () => { throw new TypeError('Failed to fetch'); });
+
+  it('rejects with AbortError promptly when aborted during JSONP', async () => {
+    const ctrl = new AbortController();
+    const jsonpImpl = vi.fn(() => new Promise(() => {}));
+    const p = getJson('u', { fetchImpl: corsFail(), jsonpImpl, signal: ctrl.signal });
+    await vi.waitFor(() => expect(jsonpImpl).toHaveBeenCalled());
+    ctrl.abort();
+    await expect(p).rejects.toMatchObject({ name: 'AbortError' });
+  });
+  it('times out a JSONP fallback that never answers', async () => {
+    vi.useFakeTimers();
+    const p = getJson('u', { fetchImpl: corsFail(), jsonpImpl: () => new Promise(() => {}), timeoutMs: 100 });
+    const assertion = expect(p).rejects.toMatchObject({ code: 'timeout' });
+    await vi.advanceTimersByTimeAsync(100);
+    await assertion;
+  });
+  it('still surfaces a JSONP error', async () => {
+    const err = Object.assign(new Error('jsonp-error'), { code: 'unreachable' });
+    const jsonpImpl = vi.fn(async () => { throw err; });
+    await expect(getJson('u', { fetchImpl: corsFail(), jsonpImpl })).rejects.toBe(err);
+  });
+});
+
+describe('lookupTracks failedIds', () => {
+  it('records the ids of failed chunks', async () => {
+    const getJsonImpl = vi.fn(async (url) => {
+      const ids = new URL(url).searchParams.get('id').split(',').map(Number);
+      if (ids[0] === 1) throw new Error('boom');
+      return { results: ids.map((id) => raw({ trackId: id })) };
+    });
+    const map = await lookupTracks([1, 2, 3, 4], { chunk: 2, getJsonImpl });
+    expect([...map.failedIds]).toEqual([1, 2]);
+  });
+  it('is an empty set when every chunk succeeds', async () => {
+    const map = await lookupTracks([1], { getJsonImpl: async () => ({ results: [] }) });
+    expect(map.failedIds).toEqual(new Set());
+  });
+});

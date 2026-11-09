@@ -109,7 +109,10 @@ export async function getJson(
   } catch (err) {
     if (guardError) throw guardError;
     if (err instanceof HttpError) throw err;
-    return jsonpImpl(url); // network or CORS failure
+    // Network or CORS failure: fall back to JSONP, still bounded by the same timeout and signal.
+    const fallback = Promise.resolve(jsonpImpl(url));
+    fallback.catch(() => {});
+    return await Promise.race([fallback, guard]);
   } finally {
     clearTimeout(timer);
     signal?.removeEventListener('abort', onAbort);
@@ -123,20 +126,25 @@ export async function searchTracks(term, { country, limit, getJsonImpl = getJson
 
 /**
  * Batch lookup by id. Never throws for a failed chunk: the returned Map holds every
- * track that was fetched, and `map.errors` lists one error per failed chunk (empty when
- * all succeeded). An AbortError from `signal` is the only rejection.
+ * track that was fetched, `map.errors` lists one error per failed chunk, and
+ * `map.failedIds` holds the ids of those chunks (both empty when all succeeded). An id
+ * that is in neither the map nor `failedIds` was genuinely not returned. An AbortError
+ * from `signal` is the only rejection.
  */
 export async function lookupTracks(ids, { country, chunk = 150, getJsonImpl = getJson, signal } = {}) {
   const map = new Map();
   map.errors = [];
+  map.failedIds = new Set();
   for (let i = 0; i < ids.length; i += chunk) {
     if (signal?.aborted) throw abortError();
+    const batch = ids.slice(i, i + chunk);
     let data;
     try {
-      data = await getJsonImpl(lookupUrl(ids.slice(i, i + chunk), { country }), { signal });
+      data = await getJsonImpl(lookupUrl(batch, { country }), { signal });
     } catch (err) {
       if (isAbortError(err)) throw err;
       map.errors.push(err);
+      batch.forEach((id) => map.failedIds.add(id));
       continue;
     }
     for (const r of data?.results ?? []) {
