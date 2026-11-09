@@ -28,8 +28,10 @@ vite.config.js                  base: './'
 ```
 
 **Data flow:** the player picks a mode and one or more playlists, and each playlist's songs are resolved:
-- **Seed playlist:** each "Title — Artist" pair is searched on iTunes (`entity=song`, `limit` small). The best match by title/artist similarity that has a `previewUrl` wins. Results are cached in localStorage so later runs need no network.
-- **Custom playlist:** stores the resolved track objects directly.
+- **Seed playlist:** curated `Title - Artist` text lists in `scripts/seeds/` are resolved to iTunes track IDs **once, at development time**, by `scripts/build-seeds.mjs`, and committed as `src/data/seedPlaylists.json`. At runtime, a whole playlist loads with one batched `lookup?id=…` request, cached for 24h.
+- **Custom playlist:** stores track IDs once resolved. Imported title/artist lines are resolved by search, throttled to stay under the limit, with a progress bar, and the IDs are saved so this only happens once.
+
+The iTunes Search API allows about 20 requests a minute, so runtime title search is kept for interactive editor search and one-off import resolution.
 
 The resolved songs are shuffled into a queue. Each song's audio is fully preloaded (`canplaythrough`) before Play is enabled.
 
@@ -69,10 +71,13 @@ A hint can't be bought if the player can't afford it.
   - drop bracketed or parenthesized suffixes, " - Live/Remaster…" tails, and "feat./ft." clauses
   - `&`→`and`, ignore a leading "the", collapse whitespace
 - If the guess contains " - ", only the part before it is checked as the title.
+- Titles with a leading bracket, such as "(I Can't Get No) Satisfaction", accept both the bracketed and the stripped form.
 - **Accept** on an exact match after normalizing, or when the edit distance stays within the limit:
-  - 1 for titles of 5 characters or fewer
-  - 2 for titles of 6–12 characters
+  - 0 for titles of 4 characters or fewer
+  - 1 for titles of 5–7 characters
+  - 2 for titles of 8–14 characters
   - `floor(0.15 × length)` for longer titles
+- **Reject** a guess that exactly matches a *different* title in the pool, even when it's within the edit limit ("Believer" isn't accepted for "Believe").
 - **Reject** guesses under 3 characters unless the title itself is that short.
 - **Autocomplete** suggests titles from the active pool. A picked suggestion goes through the same check.
 
