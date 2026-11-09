@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { SettingsProvider } from './state/SettingsContext.jsx';
 import { useHashRoute } from './state/useHashRoute.js';
+import { ScreenActiveContext } from './state/ScreenActive.js';
 import Home from './screens/Home.jsx';
 import PlaySetup from './screens/PlaySetup.jsx';
 import Game from './screens/Game.jsx';
@@ -37,7 +38,7 @@ function prefersReducedMotion() {
  * hidden from AT) while it fades out over --t-med under the incoming one.
  * Reduced motion swaps instantly.
  */
-function ScreenStack({ screenKey, children }) {
+function ScreenStack({ screenKey, currentRef, children }) {
   const [current, setCurrent] = useState(screenKey);
   const [leaving, setLeaving] = useState(null);
   const lastNode = useRef(children);
@@ -62,25 +63,35 @@ function ScreenStack({ screenKey, children }) {
     if (e.target === e.currentTarget) setLeaving(null);
   };
 
+  // Both layers render the same element shape (div > Provider > screen) so
+  // the outgoing screen keeps its instance; only the Provider value flips.
   return (
     <div className={styles.stack}>
       {leaving ? (
-        <div key={leaving.key} className={`${styles.layer} ${styles.leaving}`} aria-hidden="true" inert="" onAnimationEnd={done}>
-          {leaving.node}
+        <div key={leaving.key} ref={makeInert} className={`${styles.layer} ${styles.leaving}`} aria-hidden="true" onAnimationEnd={done}>
+          <ScreenActiveContext.Provider value={false}>{leaving.node}</ScreenActiveContext.Provider>
         </div>
       ) : null}
-      <div key={screenKey} className={`${styles.layer} ${leaving ? styles.entering : ''}`}>
-        {children}
+      <div key={screenKey} ref={currentRef} className={`${styles.layer} ${leaving ? styles.entering : ''}`}>
+        <ScreenActiveContext.Provider value={true}>{children}</ScreenActiveContext.Provider>
       </div>
     </div>
   );
 }
 
+// Set as a DOM property: React 18 has no `inert` prop and React 19 treats it
+// as a boolean, so neither string form is safe across versions.
+function makeInert(el) {
+  if (el) el.inert = true;
+}
+
 function RoutedScreen() {
   const { path, params, location, navigate } = useHashRoute();
   const { Screen, title } = SCREENS[path] ?? SCREENS['/'];
-  const mainRef = useRef(null);
-  const firstRender = useRef(true);
+  const currentRef = useRef(null);
+  // last location we handled; comparing values (not a first-run flag) keeps
+  // StrictMode's effect re-run from scrolling/focusing on first load
+  const prevLocation = useRef(location);
 
   useEffect(() => {
     document.title = title ? `HedgeGuesser — ${title}` : 'HedgeGuesser';
@@ -88,21 +99,21 @@ function RoutedScreen() {
 
   // a11y: on route change, land focus on the new screen's main heading.
   useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
+    if (prevLocation.current === location) return;
+    prevLocation.current = location;
     window.scrollTo(0, 0);
-    const current = mainRef.current?.querySelector(`.${styles.layer}:not([inert])`);
-    const heading = current?.querySelector('[data-screen-heading]') ?? current?.querySelector('h1');
+    const current = currentRef.current;
+    // a screen that autofocused its own control (e.g. the guess field) keeps it
+    if (!current || current.contains(document.activeElement)) return;
+    const heading = current.querySelector('[data-screen-heading]') ?? current.querySelector('h1');
     if (!heading) return;
     if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
     heading.focus({ preventScroll: true });
   }, [location]);
 
   return (
-    <main ref={mainRef} className={styles.column}>
-      <ScreenStack screenKey={location}>
+    <main className={styles.column}>
+      <ScreenStack screenKey={location} currentRef={currentRef}>
         <Screen params={params} navigate={navigate} />
       </ScreenStack>
     </main>

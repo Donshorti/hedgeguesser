@@ -11,14 +11,12 @@ const SettingsContext = createContext(null);
  */
 export function SettingsProvider({ children }) {
   const [settings, setSettings] = useState(() => mergeSettings(load(KEY)));
-  const first = useRef(true);
+  // The settings object we loaded with. Comparing values (not a "first run"
+  // flag) keeps StrictMode's mount → unmount → mount from saving defaults.
+  const initial = useRef(settings);
 
   useEffect(() => {
-    // don't write defaults back on mount; only persist real changes
-    if (first.current) {
-      first.current = false;
-      return;
-    }
+    if (settings === initial.current) return;
     save(KEY, settings);
   }, [settings]);
 

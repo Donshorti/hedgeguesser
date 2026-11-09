@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { createElement as h } from 'react';
+import { createElement as h, StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { act } from 'react';
 import { SettingsProvider, useSettings } from './SettingsContext.jsx';
@@ -19,7 +19,8 @@ let root;
 function mount() {
   container = document.createElement('div');
   root = createRoot(container);
-  act(() => root.render(h(SettingsProvider, null, h(Probe))));
+  // StrictMode re-runs mount effects: catches "skip first run" bugs
+  act(() => root.render(h(StrictMode, null, h(SettingsProvider, null, h(Probe)))));
 }
 
 beforeEach(() => {
