@@ -72,3 +72,13 @@ export function CoinIcon(props) {
     </svg>
   );
 }
+
+/** Forward chevron for NEXT / RESULTS. */
+export function NextIcon(props) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M8.3 4.4a1.6 1.6 0 0 0-2.26 2.26L11.38 12l-5.34 5.34a1.6 1.6 0 1 0 2.26 2.26l6.47-6.47a1.6 1.6 0 0 0 0-2.26L8.3 4.4Z" />
+      <path d="M13.3 4.4a1.6 1.6 0 0 0-2.26 2.26L16.38 12l-5.34 5.34a1.6 1.6 0 1 0 2.26 2.26l6.47-6.47a1.6 1.6 0 0 0 0-2.26L13.3 4.4Z" opacity=".55" />
+    </svg>
+  );
+}

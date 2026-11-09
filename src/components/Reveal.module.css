@@ -1,0 +1,204 @@
+/* The reveal: the song card set into the deck where the controls were. */
+.reveal {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  grid-template-areas:
+    'art text'
+    'actions actions';
+  align-items: center;
+  gap: var(--s-4) var(--s-5);
+  padding: var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-panel);
+  background: linear-gradient(180deg, var(--bg-3) 0%, var(--bg-2) 100%);
+  box-shadow: var(--shadow-panel), inset 0 1px 0 color-mix(in srgb, var(--ink) 5%, transparent);
+  animation: card-in var(--t-slow) var(--ease-out) both;
+}
+
+@keyframes card-in {
+  from { opacity: 0; filter: blur(4px); transform: translateY(6px); }
+  to { opacity: 1; filter: blur(0); transform: none; }
+}
+
+/* ---- artwork in a CRT bezel ---- */
+.bezel {
+  grid-area: art;
+  position: relative;
+  width: clamp(120px, 30vw, 220px);
+  aspect-ratio: 1;
+  padding: 6px;
+  border-radius: var(--r-window);
+  background: var(--bezel);
+  box-shadow:
+    inset 0 0 0 1px var(--line),
+    inset 0 6px 16px rgba(0, 0, 0, 0.8),
+    var(--shadow-housing);
+}
+
+.bezel::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: calc(var(--r-window) - 6px);
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.18) 0 1px, transparent 1px 3px);
+  pointer-events: none;
+}
+
+.art,
+.noArt {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: calc(var(--r-window) - 6px);
+}
+
+.art {
+  object-fit: cover;
+  background: var(--bg-4);
+}
+
+.noArt {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 50%, var(--bezel) 0 18%, transparent 19%),
+    repeating-radial-gradient(circle at 50% 50%, var(--bg-3) 0 3px, var(--bg-4) 3px 5px);
+  font-family: var(--font-sign);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  color: var(--pink);
+  text-shadow: var(--pink-glow-text);
+}
+
+/* ---- text ---- */
+.text {
+  grid-area: text;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  min-width: 0;
+}
+
+.verdict {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s-2) var(--s-3);
+  margin: 0;
+  font-family: var(--font-sign);
+  font-size: var(--fs-sm);
+  letter-spacing: var(--track-sign);
+  text-transform: uppercase;
+}
+
+.got {
+  color: var(--cyan);
+}
+
+/* "+N" lifts toward the score in the strip above */
+.points {
+  font-family: var(--font-seg);
+  font-weight: 700;
+  font-size: var(--fs-h2);
+  color: var(--amber);
+  text-shadow: var(--amber-glow-text);
+  animation: points-up var(--t-slow) var(--ease-out) both;
+}
+
+@keyframes points-up {
+  from { opacity: 0; transform: translateY(14px) scale(0.85); }
+  60% { opacity: 1; }
+  to { opacity: 1; transform: none; }
+}
+
+.missed {
+  color: var(--red);
+  text-shadow: var(--red-glow-text);
+}
+
+.lifeLost {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  color: var(--red);
+}
+
+.lostPip {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--red-hi) 0%, var(--red) 55%);
+  box-shadow: var(--red-glow);
+  animation: pip-out 900ms var(--ease-in) 200ms both;
+}
+
+@keyframes pip-out {
+  0%, 30% { opacity: 1; }
+  40% { opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { opacity: 1; background: var(--red-off); box-shadow: inset 0 -1px 2px rgba(0, 0, 0, 0.6); }
+}
+
+.title {
+  font-family: var(--font-body);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: var(--lh-snug);
+  color: var(--ink);
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1) var(--s-3);
+  margin: 0;
+  font-size: var(--fs-body);
+  color: var(--ink-dim);
+}
+
+.year {
+  font-variant-numeric: tabular-nums;
+}
+
+.year::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  margin-right: var(--s-3);
+  vertical-align: middle;
+  border-radius: 50%;
+  background: var(--ink-dim);
+}
+
+.actions {
+  grid-area: actions;
+  display: flex;
+  justify-content: center;
+}
+
+/* phones: art on top, centred */
+@media (max-width: 479px) {
+  .reveal {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'art' 'text' 'actions';
+    justify-items: center;
+    text-align: center;
+  }
+  .bezel {
+    width: min(64vw, 240px);
+  }
+  .verdict,
+  .meta {
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .points,
+  .lostPip {
+    animation: none;
+  }
+}
