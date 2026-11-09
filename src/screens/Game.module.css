@@ -115,7 +115,10 @@
   .deck {
     gap: var(--s-3);
   }
+}
 
+/* only phones shrink the round count; laptops keep it at --fs-h3 */
+@media (max-width: 899px) {
   .count {
     font-size: var(--fs-sm);
   }
