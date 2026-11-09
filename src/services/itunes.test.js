@@ -317,3 +317,41 @@ describe('pickBestMatch prefers original recordings', () => {
     expect(pickBestMatch(tracks, { title: 'Blinding Lights', artist: 'The Weeknd' })).toBeNull();
   });
 });
+
+describe('pickBestMatch alternate-version edge cases (seed run 2)', () => {
+  const cand = (trackId, trackName, artistName) => toTrack(raw({ trackId, trackName, artistName }));
+
+  it.each([
+    ['Clint Eastwood', 'Gorillaz', 'Clint Eastwood (Ed Case / Sweetie Irie Refix)'],
+    ['Feel So Close', 'Calvin Harris', 'Feel So Close (Nero Dub)'],
+    ['Blue (Da Ba Dee)', 'Eiffel 65', 'Blue (Da Ba Dee) [Hannover Rmx]'],
+    ['Pepas', 'Farruko', 'Pepas (Latin Urban Bass Boosted)'],
+    ['Macarena', 'Los Del Rio', 'Macarena (River Re-Mix)'],
+    ['Levels', 'Avicii', 'Levels (Skrillex Rework)'],
+  ])('%s by %s: "%s" counts as an alternate version', (title, artist, alternate) => {
+    // an unexplained qualifier costs a little; an alternate-version word costs a lot
+    const tracks = [cand(1, alternate, artist), cand(2, `${title} (Bonus Track)`, artist)];
+    expect(pickBestMatch(tracks, { title, artist }).id).toBe(2);
+  });
+  it.each([
+    ['Pepas', 'Farruko', 'Pepas (Latin Urban Bass Boosted)', 'Pepas (Original Radio Version)'],
+    ['Macarena', 'Los Del Rio', 'Macarena (Bayside Boys Remix)', 'Macarena (Original Version)'],
+  ])('%s: a qualifier marked "original" is not an alternate version', (title, artist, alternate, original) => {
+    const tracks = [cand(1, alternate, artist), cand(2, original, artist)];
+    expect(pickBestMatch(tracks, { title, artist }).id).toBe(2);
+  });
+  it('prefers the plain recording over a later featured-artist re-recording', () => {
+    const tracks = [
+      cand(1, 'Hey There Delilah (feat. LØLØ)', "Plain White T's"),
+      cand(2, 'Hey There Delilah', "Plain White T's"),
+    ];
+    expect(pickBestMatch(tracks, { title: 'Hey There Delilah', artist: "Plain White T's" }).id).toBe(2);
+  });
+  it('still picks a featured-artist original over an alternate version', () => {
+    const tracks = [
+      cand(1, 'Uptown Funk (Live)', 'Mark Ronson'),
+      cand(2, 'Uptown Funk (feat. Bruno Mars)', 'Mark Ronson'),
+    ];
+    expect(pickBestMatch(tracks, { title: 'Uptown Funk', artist: 'Mark Ronson' }).id).toBe(2);
+  });
+});

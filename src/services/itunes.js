@@ -159,8 +159,11 @@ export async function lookupTracks(ids, { country, chunk = 150, getJsonImpl = ge
 const VERSION_MARKERS = [
   'live', 'remix', 'mix', 'demo', 'acoustic', 'version', 'edit', 'extended', 'instrumental',
   'karaoke', 'cover', 'sped up', 'slowed', 'radio', 'session', 'sessions', 'anthology',
-  'spanglish', 'piano', 'stripped',
+  'spanglish', 'piano', 'stripped', 'refix', 'dub', 'rmx', 'rework', 'bootleg', 'boosted',
 ].map((w) => [w, new RegExp(`\\b${w}\\b`)]);
+/** A qualifier naming the original ("Original Version", "Original Radio Version") is not an alternate. */
+const ORIGINAL_QUALIFIER = /[([][^)\]]*\boriginal\b[^)\]]*[)\]]/gi;
+const FEATURED_CREDIT = /[([]\s*(feat\.?|ft\.?|featuring|with)\s/i;
 const TWELVE_INCH = /\b12\s*(?:"|”|''|-?\s*inch)/i;
 /** Bracketed or " - " qualifiers that still describe the original recording. */
 const NEUTRAL_QUALIFIER = /\b(remaster(ed)?|feat|ft|featuring|with|from|soundtrack|original|mono|stereo|single|album)\b/;
@@ -170,11 +173,14 @@ const ARTIST_SEPARATORS = /\s*(?:,|&|\bx\b|\bfeat\.?|\bft\.?|\bwith\b|\band\b)\s
 const VERSION_PENALTY = 0.5;
 const QUALIFIER_PENALTY = 0.1;
 const EXACT_TITLE_BONUS = 0.05;
+/** Tie-break only: a plain recording beats a featured-artist re-recording the seed did not name. */
+const EXTRA_FEATURE_PENALTY = 0.02;
 
 function versionMarkers(rawTitle) {
-  const text = normalizeText(rawTitle);
+  const raw = String(rawTitle ?? '').replace(ORIGINAL_QUALIFIER, ' ');
+  const text = normalizeText(raw);
   const found = new Set(VERSION_MARKERS.filter(([, re]) => re.test(text)).map(([w]) => w));
-  if (TWELVE_INCH.test(String(rawTitle ?? ''))) found.add('12 inch');
+  if (TWELVE_INCH.test(raw)) found.add('12 inch');
   return found;
 }
 
@@ -199,14 +205,15 @@ function artistSimilarity(credit, wantArtist) {
  * Pick the search result that is the wanted song by the wanted artist, preferring the
  * original recording: a candidate whose version markers (live, remix, acoustic...) differ
  * from the wanted title's is penalised, both ways, but still returned if nothing else
- * matches. Covers by other artists are
- * rejected by the artist threshold.
+ * matches. Unexplained qualifiers cost a little, and an unrequested featured artist costs
+ * a tie-break. Covers by other artists are rejected by the artist threshold.
  */
 export function pickBestMatch(tracks, { title, artist }) {
   const wantTitle = normalizeTitle(title);
   const wantArtist = normalizeText(artist);
   const wantMarkers = versionMarkers(title);
   const wantQualifiers = new Set(qualifiers(title));
+  const wantFeature = FEATURED_CREDIT.test(String(title ?? ''));
   let best = null;
   let bestScore = -Infinity;
   for (const t of tracks) {
@@ -221,6 +228,7 @@ export function pickBestMatch(tracks, { title, artist }) {
       [...candMarkers].some((m) => !wantMarkers.has(m)) || [...wantMarkers].some((m) => !candMarkers.has(m));
     if (versionMismatch) score -= VERSION_PENALTY;
     if (qualifiers(t.title).some((q) => !wantQualifiers.has(q))) score -= QUALIFIER_PENALTY;
+    if (!wantFeature && FEATURED_CREDIT.test(t.title)) score -= EXTRA_FEATURE_PENALTY;
     if (score > bestScore) {
       best = t;
       bestScore = score;
