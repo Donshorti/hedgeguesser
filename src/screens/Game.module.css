@@ -90,6 +90,44 @@
   gap: var(--s-3);
 }
 
+/*
+ * Phones and short windows: the log rides up under the ladder and the guess
+ * field sits just above PLAY, so both land in thumb reach and the suggestion
+ * list (which opens upward here) covers the log, never the PLAY button.
+ * Tall desktop windows keep the cabinet order: PLAY, field, SKIP/HINT, log.
+ */
+.slotLog { order: 1; }
+.slotHints { order: 2; }
+.slotGuess { order: 3; }
+.slotPlay { order: 4; }
+.slotSecondary { order: 5; }
+
+.slotHints:empty {
+  display: none;
+}
+
+@media (max-width: 899px), (max-height: 759px) {
+  .screen {
+    gap: var(--s-3);
+  }
+
+  .deck {
+    gap: var(--s-3);
+  }
+
+  .count {
+    font-size: var(--fs-sm);
+  }
+}
+
+@media (min-width: 900px) and (min-height: 760px) {
+  .slotPlay { order: 1; }
+  .slotGuess { order: 2; }
+  .slotSecondary { order: 3; }
+  .slotHints { order: 4; }
+  .slotLog { order: 5; }
+}
+
 .btnNote {
   opacity: 0.75;
 }

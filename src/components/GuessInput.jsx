@@ -4,8 +4,9 @@ import styles from './GuessInput.module.css';
 
 /**
  * Guess field with an ARIA 1.2 combobox: pool-title suggestions after two
- * characters. Arrows move the highlight, Enter submits the highlighted
- * title (or the raw text), Escape closes the list. Clears after a guess.
+ * characters. Arrows move the highlight; Enter or a click on a suggestion
+ * fills the field with it, and a second Enter (or the send key) submits.
+ * Escape closes the list. Clears after a guess.
  */
 const GuessInput = forwardRef(function GuessInput({ poolTitles, onGuess, disabled }, ref) {
   const id = useId();
@@ -22,6 +23,13 @@ const GuessInput = forwardRef(function GuessInput({ poolTitles, onGuess, disable
     if (!v || disabled) return;
     onGuess(v);
     setText('');
+    setOpen(false);
+    setActive(-1);
+  };
+
+  /** Put a suggestion in the field without guessing yet. */
+  const fill = (title) => {
+    setText(title);
     setOpen(false);
     setActive(-1);
   };
@@ -44,7 +52,8 @@ const GuessInput = forwardRef(function GuessInput({ poolTitles, onGuess, disable
       setActive(-1);
     } else if (e.key === 'Enter') {
       e.preventDefault();
-      submit(expanded && active >= 0 ? options[active] : text);
+      if (expanded && active >= 0) fill(options[active]);
+      else submit(text);
     }
   };
 
@@ -99,9 +108,9 @@ const GuessInput = forwardRef(function GuessInput({ poolTitles, onGuess, disable
                 role="option"
                 aria-selected={i === active}
                 className={i === active ? `${styles.option} ${styles.active}` : styles.option}
-                // keep focus in the input; pick on press
+                // keep focus in the input; a pick fills the field, it does not guess
                 onMouseDown={(e) => e.preventDefault()}
-                onClick={() => submit(title)}
+                onClick={() => fill(title)}
                 onMouseEnter={() => setActive(i)}
               >
                 {title}
