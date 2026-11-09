@@ -5,6 +5,7 @@ import Equalizer from '../components/Equalizer.jsx';
 import GuessInput from '../components/GuessInput.jsx';
 import HintPanel from '../components/HintPanel.jsx';
 import LedPips from '../components/LedPips.jsx';
+import OutOfOrder from '../components/OutOfOrder.jsx';
 import Reveal from '../components/Reveal.jsx';
 import SegmentScore from '../components/SegmentScore.jsx';
 import StageLadder from '../components/StageLadder.jsx';
@@ -105,42 +106,6 @@ function Loading({ progress, onBack }) {
   );
 }
 
-const ERRORS = {
-  offline: {
-    title: 'Out of order',
-    text: "Can't reach the music store, so there's nothing to play. Check your connection and try again.",
-    retry: true,
-  },
-  'not-enough': {
-    title: 'Not enough songs',
-    text: 'Too few of those songs have a playable preview. Pick more playlists on the jukebox.',
-    retry: false,
-  },
-};
-
-function Failure({ error, onRetry, onBack }) {
-  const e = ERRORS[error] ?? ERRORS.offline;
-  return (
-    <Panel
-      title={e.title}
-      actions={
-        <>
-          {e.retry ? (
-            <ArcadeButton variant="pink" size="md" onClick={onRetry}>
-              Retry
-            </ArcadeButton>
-          ) : null}
-          <ArcadeButton variant="cyan" size="md" icon={<BackIcon />} onClick={onBack}>
-            Jukebox
-          </ArcadeButton>
-        </>
-      }
-    >
-      <p className={styles.panelText}>{e.text}</p>
-    </Panel>
-  );
-}
-
 export default function Game({ navigate }) {
   const game = useGame();
   const { state, phase, error, loadProgress, isPlaying, progressStore } = game;
@@ -192,7 +157,7 @@ export default function Game({ navigate }) {
   if (error) {
     return (
       <div className={styles.screen}>
-        <Failure error={error} onRetry={game.retry} onBack={() => quitTo('/play')} />
+        <OutOfOrder cause={error} onRetry={game.retry} onBack={() => quitTo('/play')} />
       </div>
     );
   }
@@ -248,7 +213,7 @@ export default function Game({ navigate }) {
 
       {playingRound ? (
         <div className={styles.deck}>
-          <div className={styles.playRow}>
+          <div className={`${styles.playRow} ${styles.slotPlay}`}>
             <ArcadeButton
               variant="pink"
               size="xl"
@@ -260,9 +225,11 @@ export default function Game({ navigate }) {
             </ArcadeButton>
           </div>
 
-          <GuessInput ref={inputRef} poolTitles={state.poolTitles} onGuess={game.guess} />
+          <div className={styles.slotGuess}>
+            <GuessInput ref={inputRef} poolTitles={state.poolTitles} onGuess={game.guess} />
+          </div>
 
-          <div className={styles.secondary}>
+          <div className={`${styles.secondary} ${styles.slotSecondary}`}>
             <ArcadeButton variant="cyan" size="sm" icon={<SkipIcon />} onClick={game.skip}>
               Skip <span className={styles.btnNote}>{skipLabel}</span>
             </ArcadeButton>
@@ -278,17 +245,21 @@ export default function Game({ navigate }) {
             </ArcadeButton>
           </div>
 
-          <HintPanel
-            id={hintsId}
-            open={hintsOpen}
-            track={track}
-            hintsUsed={hintsUsed}
-            costs={settings.hintCosts}
-            score={score}
-            onBuy={game.buyHint}
-          />
+          <div className={styles.slotHints}>
+            <HintPanel
+              id={hintsId}
+              open={hintsOpen}
+              track={track}
+              hintsUsed={hintsUsed}
+              costs={settings.hintCosts}
+              score={score}
+              onBuy={game.buyHint}
+            />
+          </div>
 
-          <AttemptLog attempts={attempts} rows={stages.length} />
+          <div className={styles.slotLog}>
+            <AttemptLog attempts={attempts} rows={stages.length} />
+          </div>
         </div>
       ) : (
         <Reveal

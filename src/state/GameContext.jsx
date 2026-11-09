@@ -18,6 +18,13 @@ import { isAbortError } from '../utils/errors.js';
 import { shuffle } from '../utils/shuffle.js';
 import { attachResolvedIds, buildRefill, dedupeTracks } from './gameLoading.js';
 
+/** 'busy' when iTunes answered but refused or stalled (rate limit, timeout); else 'offline'. */
+function errorCause(err) {
+  const status = err?.status;
+  if (status === 403 || status === 429 || status === 503 || err?.code === 'timeout') return 'busy';
+  return 'offline';
+}
+
 const GameContext = createContext(null);
 
 /** Full preview length, played on the reveal. */
@@ -230,7 +237,7 @@ export function GameProvider({ children }) {
         }
         const pool = shuffle(dedupeTracks(found));
         if (pool.length < settings.minPlayableSongs) {
-          setError(netError ? 'offline' : 'not-enough');
+          setError(netError ? errorCause(netError) : 'not-enough');
           setPhase('error');
           setLoadProgress(null);
           return;
