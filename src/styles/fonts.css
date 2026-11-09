@@ -1,0 +1,14 @@
+/* All type is self-hosted and bundled by Vite: no third-party font hosts. */
+@import '@fontsource/monoton/400.css';
+@import '@fontsource/bungee/400.css';
+@import '@fontsource/barlow-semi-condensed/400.css';
+@import '@fontsource/barlow-semi-condensed/600.css';
+
+/* DSEG7 Classic (SIL OFL) — score digits. Path checked against node_modules/dseg/fonts/. */
+@font-face {
+  font-family: 'DSEG7 Classic';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../../node_modules/dseg/fonts/DSEG7-Classic/DSEG7Classic-Bold.woff2') format('woff2');
+}

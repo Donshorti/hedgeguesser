@@ -1,0 +1,118 @@
+/*
+ * HedgeGuesser — neon cabinet tokens.
+ * Colour has jobs: pink = player action, cyan = audio/progress,
+ * amber = points, red = misses/lives. Glows only on lit/interactive things.
+ *
+ * Contrast (WCAG, measured):
+ *   ink     #f4ecff  on bg 17.3 · bg-2 16.1 · bg-3 14.8
+ *   ink-dim #a99bc4  on bg  7.7 · bg-2  7.2 · bg-3  6.6
+ *   on-lit  #12041f  on pink 5.6 · cyan 12.4 · amber 11.0
+ *   pink 5.8 · cyan 12.7 · amber 11.3 · red 5.6 on bg (usable as text)
+ */
+:root {
+  color-scheme: dark;
+
+  /* ---- ground + cabinet panels ---- */
+  --bg: #0f051d;
+  --bg-2: #1a0b30;          /* raised panel, side-art violet */
+  --bg-3: #26113f;          /* raised panel, second step / housings */
+  --bg-4: #341a52;          /* hairlines, unlit segments */
+  --bezel: #0a0314;         /* the black plastic around buttons + windows */
+  --line: rgba(196, 160, 255, 0.14);
+  --line-strong: rgba(196, 160, 255, 0.26);
+
+  /* ---- ink ---- */
+  --ink: #f4ecff;
+  --ink-dim: #a99bc4;
+  --on-lit: #12041f;        /* label printed on a lit button cap */
+
+  /* ---- roles (+ highlight / shade for caps and tubes) ---- */
+  --pink: #ff2e97;
+  --pink-hi: #ff8cc6;
+  --pink-lo: #b3005f;
+  --cyan: #20e3ff;
+  --cyan-hi: #a6f4ff;
+  --cyan-lo: #0089a8;
+  --amber: #ffb627;
+  --amber-hi: #ffe09a;
+  --amber-lo: #b06d00;
+  --red: #ff3b3b;
+  --red-hi: #ff9a9a;
+  --red-lo: #a30f1b;
+
+  /* unlit versions: the colour you see when the tube is off */
+  --pink-off: #3d1236;
+  --cyan-off: #0f2a3e;
+  --amber-off: #3a2414;
+  --red-off: #3a0f1e;
+
+  /* ---- glows: tight core + soft halo (box-shadow) ---- */
+  --pink-glow: 0 0 1px rgba(255, 46, 151, 0.9), 0 0 10px rgba(255, 46, 151, 0.55), 0 0 32px rgba(255, 46, 151, 0.28);
+  --cyan-glow: 0 0 1px rgba(32, 227, 255, 0.9), 0 0 10px rgba(32, 227, 255, 0.5), 0 0 32px rgba(32, 227, 255, 0.25);
+  --amber-glow: 0 0 1px rgba(255, 182, 39, 0.9), 0 0 10px rgba(255, 182, 39, 0.5), 0 0 30px rgba(255, 182, 39, 0.24);
+  --red-glow: 0 0 1px rgba(255, 59, 59, 0.9), 0 0 8px rgba(255, 59, 59, 0.6), 0 0 24px rgba(255, 59, 59, 0.3);
+
+  /* text-shadow versions for lit lettering (never body copy) */
+  --pink-glow-text: 0 0 2px rgba(255, 140, 198, 0.9), 0 0 12px rgba(255, 46, 151, 0.7), 0 0 34px rgba(255, 46, 151, 0.45);
+  --cyan-glow-text: 0 0 2px rgba(166, 244, 255, 0.9), 0 0 12px rgba(32, 227, 255, 0.6), 0 0 30px rgba(32, 227, 255, 0.35);
+  --amber-glow-text: 0 0 2px rgba(255, 224, 154, 0.85), 0 0 10px rgba(255, 182, 39, 0.6), 0 0 26px rgba(255, 182, 39, 0.3);
+  --red-glow-text: 0 0 2px rgba(255, 154, 154, 0.9), 0 0 10px rgba(255, 59, 59, 0.65), 0 0 24px rgba(255, 59, 59, 0.35);
+
+  /* physical depth: offset + blur, for things that sit on the cabinet */
+  --shadow-panel: 0 10px 24px -10px rgba(0, 0, 0, 0.8), 0 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-housing: 0 6px 14px -4px rgba(0, 0, 0, 0.75), 0 2px 0 #05010b;
+
+  /* ---- type ---- */
+  --font-marquee: 'Monoton', 'Bungee', system-ui, sans-serif;
+  --font-sign: 'Bungee', system-ui, sans-serif;
+  --font-body: 'Barlow Semi Condensed', 'Arial Narrow', system-ui, sans-serif;
+  --font-seg: 'DSEG7 Classic', ui-monospace, monospace;
+
+  /* fluid scale: comfortable at 390px in the hand, readable at 3m on a 1080p TV */
+  --fs-xs: clamp(0.8125rem, 0.78rem + 0.15vw, 0.9375rem);
+  --fs-sm: clamp(0.9375rem, 0.9rem + 0.2vw, 1.125rem);
+  --fs-body: clamp(1.0625rem, 0.98rem + 0.4vw, 1.375rem);
+  --fs-label: clamp(0.9375rem, 0.84rem + 0.45vw, 1.375rem);    /* Bungee on controls */
+  --fs-h3: clamp(1.125rem, 0.98rem + 0.7vw, 1.75rem);
+  --fs-h2: clamp(1.375rem, 1.1rem + 1.3vw, 2.5rem);
+  --fs-h1: clamp(1.875rem, 1.3rem + 2.6vw, 3.75rem);
+  --fs-marquee: clamp(1.75rem, 0.9rem + 4.4vw, 5.5rem);
+  --fs-score: clamp(2rem, 1rem + 4.2vw, 4.5rem);               /* ~32px phone → 72px wide screen */
+
+  --lh-tight: 1.05;
+  --lh-snug: 1.25;
+  --lh-body: 1.5;
+  --track-sign: 0.04em;
+
+  /* ---- space (4-based) ---- */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --gutter: clamp(16px, 4vw, 48px);
+
+  /* ---- shape ---- */
+  --r-pill: 999px;
+  --r-strip: 6px;
+  --r-panel: 14px;
+  --r-window: 18px;
+  --tap-min: 44px;
+
+  /* ---- motion: physical, short ---- */
+  --t-fast: 120ms;
+  --t-med: 240ms;
+  --t-slow: 600ms;
+  --ease-press: cubic-bezier(0.3, 1.5, 0.6, 1);    /* release with a little spring */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);       /* exponential settle */
+  --ease-in: cubic-bezier(0.5, 0, 0.75, 0);
+
+  /* ---- layers ---- */
+  --z-veil: 900;
+  --z-overlay: 800;
+}
