@@ -1,7 +1,7 @@
 export function artistInitials(artist) {
   return String(artist ?? '')
     .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
+    .replace(/[\u0300-\u036f]/g, '')
     .split(/[\s/&,-]+/)
     .filter((w) => /[\p{L}\p{N}]/u.test(w))
     .map((w) => w.match(/[\p{L}\p{N}]/u)[0].toUpperCase() + '.')

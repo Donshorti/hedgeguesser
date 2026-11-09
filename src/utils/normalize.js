@@ -7,7 +7,7 @@ const FEAT_BRACKET = /[([]\s*(feat\.?|ft\.?|featuring)\s[^)\]]*[)\]]/gi;
 function base(s) {
   return String(s ?? '')
     .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
+    .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase();
 }
 
