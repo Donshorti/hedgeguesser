@@ -27,14 +27,20 @@
   line-height: var(--lh-snug);
 }
 
-.title,
 .meta {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+/* titles get two lines before they clip: phones cut them far too early on one */
 .title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: break-word;
   font-weight: 600;
   color: var(--ink);
 }

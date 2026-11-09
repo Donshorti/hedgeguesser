@@ -64,7 +64,9 @@
   gap: var(--s-3);
 }
 
-@media (min-width: 480px) {
+/* four across only while the group spans the full column; in the two-column
+   desktop grid the boxes would clip their own values */
+@media (min-width: 480px) and (max-width: 899px) {
   .quad {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }

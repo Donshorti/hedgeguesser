@@ -78,7 +78,8 @@
 .houseRow {
   position: relative;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  /* fixed code column so the names line up down the list */
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
   align-items: center;
   gap: var(--s-3);
   min-height: 64px;

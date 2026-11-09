@@ -38,29 +38,43 @@
   aspect-ratio: 3 / 4;
   border-radius: var(--r-strip);
   background: var(--bg-2);
-  border-bottom: 3px solid var(--pink-off);
+  position: relative;
   font-family: var(--font-sign);
   font-size: var(--fs-h1);
   line-height: 1;
   color: var(--ink-dim);
   cursor: pointer;
   user-select: none;
-  transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out);
+  transition: color var(--t-fast) var(--ease-out);
+}
+
+/* the entry cursor: a lit bar inset under the letter, clear of the rounded corners */
+.slot::after {
+  content: '';
+  position: absolute;
+  inset: auto 18% 8px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--pink-off);
+  transition: background-color var(--t-fast) var(--ease-out);
+}
+
+.current::after {
+  background: var(--pink);
 }
 
 .current {
   color: var(--pink-hi);
-  border-bottom-color: var(--pink);
   text-shadow: var(--pink-glow-text);
 }
 
-.slots:focus .current {
+.slots:focus .current::after {
   animation: blink 0.9s steps(2, jump-none) infinite;
 }
 
 @keyframes blink {
-  from { border-bottom-color: var(--pink); }
-  to { border-bottom-color: var(--pink-off); }
+  from { background-color: var(--pink); }
+  to { background-color: var(--pink-off); }
 }
 
 .help {
@@ -103,7 +117,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .slots:focus .current {
+  .slots:focus .current::after {
     animation: none;
   }
 }

@@ -20,7 +20,21 @@ export function usePrefersReducedMotion() {
   return reduced;
 }
 
-const pageVisible = () => typeof document === 'undefined' || document.visibilityState !== 'hidden';
+/** Live match state of any media query. */
+export function useMediaQuery(query) {
+  const [matches, setMatches] = useState(() => mq(query)?.matches ?? false);
+  useEffect(() => {
+    const m = mq(query);
+    if (!m) return undefined;
+    const on = () => setMatches(m.matches);
+    on();
+    m.addEventListener?.('change', on);
+    return () => m.removeEventListener?.('change', on);
+  }, [query]);
+  return matches;
+}
+
+const pageVisible =() => typeof document === 'undefined' || document.visibilityState !== 'hidden';
 
 /** False while the browser tab is hidden. */
 export function usePageVisible() {

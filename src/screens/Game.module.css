@@ -91,16 +91,17 @@
 }
 
 /*
- * Phones and short windows: the log rides up under the ladder and the guess
- * field sits just above PLAY, so both land in thumb reach and the suggestion
- * list (which opens upward here) covers the log, never the PLAY button.
- * Tall desktop windows keep the cabinet order: PLAY, field, SKIP/HINT, log.
+ * Slot order lives in Game.jsx (DOM order = visual order = Tab order):
+ * thumb order on phones and short windows, cabinet order on tall desktops.
+ * Breakpoints below must match CABINET_MQ there.
  */
-.slotLog { order: 1; }
-.slotHints { order: 2; }
-.slotGuess { order: 3; }
-.slotPlay { order: 4; }
-.slotSecondary { order: 5; }
+/* tall desktops: the deck outgrows the window, so the CRT keeps a readable floor */
+@media (min-width: 900px) and (min-height: 760px) {
+  .crt {
+    flex-basis: 200px;
+    min-height: clamp(160px, 22vh, 240px);
+  }
+}
 
 .slotHints:empty {
   display: none;
@@ -118,14 +119,6 @@
   .count {
     font-size: var(--fs-sm);
   }
-}
-
-@media (min-width: 900px) and (min-height: 760px) {
-  .slotPlay { order: 1; }
-  .slotGuess { order: 2; }
-  .slotSecondary { order: 3; }
-  .slotHints { order: 4; }
-  .slotLog { order: 5; }
 }
 
 .btnNote {

@@ -12,9 +12,21 @@ import StageLadder from '../components/StageLadder.jsx';
 import { BackIcon, HintIcon, PlayIcon, SkipIcon, StopIcon } from '../components/icons.jsx';
 import { useGame, useGameProgress } from '../state/GameContext.jsx';
 import { useScreenActive } from '../state/ScreenActive.js';
+import { useMediaQuery } from '../state/environment.js';
 import { load } from '../services/storage.js';
 import Results from './Results.jsx';
 import styles from './Game.module.css';
+
+/*
+ * Tall desktop windows keep the cabinet order: PLAY, field, SKIP/HINT, hints, log.
+ * Phones and short windows: the log rides up under the ladder and the guess
+ * field sits just above PLAY, so both land in thumb reach and the suggestion
+ * list (which opens upward there) covers the log, never the PLAY button.
+ * Must match the breakpoint in Game.module.css.
+ */
+const CABINET_MQ = '(min-width: 900px) and (min-height: 760px)';
+const CABINET_ORDER = ['play', 'guess', 'secondary', 'hints', 'log'];
+const THUMB_ORDER = ['log', 'hints', 'guess', 'play', 'secondary'];
 
 const pad2 = (n) => String(n).padStart(2, '0');
 const secs = (s) => `${s}s`;
@@ -113,6 +125,7 @@ export default function Game({ navigate }) {
   const [hintsOpen, setHintsOpen] = useState(false);
   const inputRef = useRef(null);
   const hintsId = useId();
+  const cabinet = useMediaQuery(CABINET_MQ);
 
   // Nothing to show without a run (deep link, reload): back to the jukebox.
   // (Not after quitTo: the hash changes a tick after quit() empties the run.)
@@ -201,6 +214,63 @@ export default function Game({ navigate }) {
   const nextStage = stages[stage + 1];
   const skipLabel = nextStage ? `+${nextStage - stages[stage]}s` : 'Give up';
 
+  // Keyed slots, rendered in the order they appear so Tab follows the screen.
+  const deckSlots = {
+    play: (
+      <div key="play" className={styles.playRow}>
+        <ArcadeButton
+          variant="pink"
+          size="xl"
+          icon={isPlaying ? <StopIcon /> : <PlayIcon />}
+          disabled={!ready}
+          onClick={game.play}
+        >
+          {!ready ? 'Loading…' : isPlaying ? 'Stop' : `Play ${secs(stages[stage])}`}
+        </ArcadeButton>
+      </div>
+    ),
+    guess: (
+      <div key="guess">
+        <GuessInput ref={inputRef} poolTitles={state.poolTitles} onGuess={game.guess} />
+      </div>
+    ),
+    secondary: (
+      <div key="secondary" className={styles.secondary}>
+        <ArcadeButton variant="cyan" size="sm" icon={<SkipIcon />} onClick={game.skip}>
+          Skip <span className={styles.btnNote}>{skipLabel}</span>
+        </ArcadeButton>
+        <ArcadeButton
+          variant="amber"
+          size="sm"
+          icon={<HintIcon />}
+          aria-expanded={hintsOpen}
+          aria-controls={hintsId}
+          onClick={() => setHintsOpen((o) => !o)}
+        >
+          Hint
+        </ArcadeButton>
+      </div>
+    ),
+    hints: (
+      <div key="hints" className={styles.slotHints}>
+        <HintPanel
+          id={hintsId}
+          open={hintsOpen}
+          track={track}
+          hintsUsed={hintsUsed}
+          costs={settings.hintCosts}
+          score={score}
+          onBuy={game.buyHint}
+        />
+      </div>
+    ),
+    log: (
+      <div key="log">
+        <AttemptLog attempts={attempts} rows={stages.length} />
+      </div>
+    ),
+  };
+
   return (
     <div className={styles.screen}>
       <StatusStrip state={state} onQuit={() => quitTo('/play')} />
@@ -213,53 +283,7 @@ export default function Game({ navigate }) {
 
       {playingRound ? (
         <div className={styles.deck}>
-          <div className={`${styles.playRow} ${styles.slotPlay}`}>
-            <ArcadeButton
-              variant="pink"
-              size="xl"
-              icon={isPlaying ? <StopIcon /> : <PlayIcon />}
-              disabled={!ready}
-              onClick={game.play}
-            >
-              {!ready ? 'Loading…' : isPlaying ? 'Stop' : `Play ${secs(stages[stage])}`}
-            </ArcadeButton>
-          </div>
-
-          <div className={styles.slotGuess}>
-            <GuessInput ref={inputRef} poolTitles={state.poolTitles} onGuess={game.guess} />
-          </div>
-
-          <div className={`${styles.secondary} ${styles.slotSecondary}`}>
-            <ArcadeButton variant="cyan" size="sm" icon={<SkipIcon />} onClick={game.skip}>
-              Skip <span className={styles.btnNote}>{skipLabel}</span>
-            </ArcadeButton>
-            <ArcadeButton
-              variant="amber"
-              size="sm"
-              icon={<HintIcon />}
-              aria-expanded={hintsOpen}
-              aria-controls={hintsId}
-              onClick={() => setHintsOpen((o) => !o)}
-            >
-              Hint
-            </ArcadeButton>
-          </div>
-
-          <div className={styles.slotHints}>
-            <HintPanel
-              id={hintsId}
-              open={hintsOpen}
-              track={track}
-              hintsUsed={hintsUsed}
-              costs={settings.hintCosts}
-              score={score}
-              onBuy={game.buyHint}
-            />
-          </div>
-
-          <div className={styles.slotLog}>
-            <AttemptLog attempts={attempts} rows={stages.length} />
-          </div>
+          {(cabinet ? CABINET_ORDER : THUMB_ORDER).map((slot) => deckSlots[slot])}
         </div>
       ) : (
         <Reveal
