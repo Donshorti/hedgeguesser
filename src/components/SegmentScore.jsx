@@ -12,8 +12,9 @@ function prefersReducedMotion() {
 const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 
 /**
- * Amber 7-segment score over dim "8" ghost segments. Rolls from the
- * previously shown value to `value` over 600ms (instant under reduced motion).
+ * Amber 7-segment score over dim "8" ghost segments. Rolls up from the
+ * previously shown value to `value` over 600ms; decreases and reduced motion
+ * are instant.
  */
 export default function SegmentScore({ value = 0, digits = 6, label, className }) {
   const max = 10 ** digits - 1;
@@ -24,7 +25,8 @@ export default function SegmentScore({ value = 0, digits = 6, label, className }
   useEffect(() => {
     const from = shownRef.current;
     if (from === target) return undefined;
-    if (prefersReducedMotion()) {
+    // Only gains roll; a drop (reset, hint cost) lands instantly.
+    if (target < from || prefersReducedMotion()) {
       shownRef.current = target;
       setShown(target);
       return undefined;

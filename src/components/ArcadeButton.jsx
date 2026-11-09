@@ -14,12 +14,16 @@ export default function ArcadeButton({
   type = 'button',
   ...buttonProps
 }) {
+  const hasText = children != null && children !== false && children !== '';
+  if (import.meta.env.DEV && !hasText && !buttonProps['aria-label'] && !buttonProps['aria-labelledby']) {
+    console.warn('ArcadeButton: icon-only buttons need an aria-label.');
+  }
   const cls = [styles.btn, styles[variant], styles[size], className].filter(Boolean).join(' ');
   return (
     <button type={type} className={cls} {...buttonProps}>
       <span className={styles.cap}>
         {icon ? <span className={styles.icon}>{icon}</span> : null}
-        {children != null && children !== false ? <span className={styles.label}>{children}</span> : null}
+        {hasText ? <span className={styles.label}>{children}</span> : null}
       </span>
     </button>
   );

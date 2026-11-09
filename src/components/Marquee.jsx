@@ -24,18 +24,27 @@ export default function Marquee({ flash, as: Tag = 'h1', className }) {
 
   useEffect(() => () => clearTimeout(timer.current), []);
 
-  const cls = [styles.sign, pulse ? styles.flashing : '', className].filter(Boolean).join(' ');
+  const boardCls = [styles.board, pulse ? styles.flashing : ''].filter(Boolean).join(' ');
 
   return (
-    <Tag className={cls}>
+    <Tag className={[styles.sign, className].filter(Boolean).join(' ')}>
       <span className="visually-hidden">HedgeGuesser</span>
-      <span className={styles.board} aria-hidden="true">
-        <span className={styles.tube} key={pulse}>
-          {WORD.split('').map((ch, i) => (
-            <span key={i} className={FLICKER[i] ? `${styles.ch} ${styles[FLICKER[i]]}` : styles.ch}>
-              {ch}
-            </span>
-          ))}
+      {/* re-keyed per pulse so a re-flash restarts every flash animation */}
+      <span className={boardCls} aria-hidden="true" key={pulse}>
+        <span className={styles.tube}>
+          {WORD.split('').map((ch, i) =>
+            FLICKER[i] ? (
+              // flickering tube: a dark copy under the lit letter; only the lit layer's opacity animates
+              <span key={i} className={`${styles.ch} ${styles.flick}`}>
+                <span className={styles.dark}>{ch}</span>
+                <span className={`${styles.lit} ${styles[FLICKER[i]]}`}>{ch}</span>
+              </span>
+            ) : (
+              <span key={i} className={styles.ch}>
+                {ch}
+              </span>
+            )
+          )}
         </span>
       </span>
     </Tag>

@@ -19,11 +19,8 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
   color: var(--ink);
-  /* the cabinet: a faint violet wash from the marquee down, deep ground at the base */
-  background:
-    radial-gradient(120% 60% at 50% -10%, rgba(120, 40, 190, 0.22), transparent 60%),
-    var(--bg);
-  background-attachment: fixed;
+  /* ground comes from html; the wash is a fixed layer (body::before) */
+  background: transparent;
   font-family: var(--font-body);
   font-size: var(--fs-body);
   font-weight: 400;
@@ -35,8 +32,22 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* CRT veil: one faint scanline overlay, never on top of anything you touch.
-   ≤4% white lines keep text contrast effectively unchanged (ink stays >16:1). */
+/* The cabinet: a faint violet wash from the marquee down. A fixed layer (not
+   background-attachment: fixed, which repaints on scroll) painted above the
+   html ground and below all content. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(120% 60% at 50% -10%, rgba(120, 40, 190, 0.22), transparent 60%);
+}
+
+/* CRT veil: one faint scanline overlay. It deliberately sits above everything,
+   overlays and modals included, so the whole screen reads as one tube; it is
+   visual only (pointer-events: none) and never blocks input. ≤4% white lines
+   keep text contrast effectively unchanged (ink stays >16:1). */
 body::after {
   content: '';
   position: fixed;
