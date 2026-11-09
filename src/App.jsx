@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { SettingsProvider } from './state/SettingsContext.jsx';
 import { useHashRoute } from './state/useHashRoute.js';
 import { ScreenActiveContext } from './state/ScreenActive.js';
+import { save } from './services/storage.js';
 import Home from './screens/Home.jsx';
 import PlaySetup from './screens/PlaySetup.jsx';
 import Game from './screens/Game.jsx';
@@ -99,6 +100,18 @@ function RoutedScreen() {
   const { path, params, location, navigate } = useHashRoute();
   const { Screen, title } = SCREENS[path] ?? SCREENS['/'];
   const currentRef = useRef(null);
+
+  // Task 15 swaps the body for game.start(setup); the setup is remembered so
+  // PLAY AGAIN and the next visit to Play are one tap.
+  const startGame = useCallback(
+    ({ mode, playlistIds }) => {
+      save('lastSetup', { mode, playlistIds });
+      navigate('/game');
+    },
+    [navigate]
+  );
+  const screenProps = path === '/play' ? { onStart: startGame } : null;
+
   // last location we handled; comparing values (not a first-run flag) keeps
   // StrictMode's effect re-run from scrolling/focusing on first load
   const prevLocation = useRef(location);
@@ -124,7 +137,7 @@ function RoutedScreen() {
   return (
     <main className={styles.column}>
       <ScreenStack screenKey={location} currentRef={currentRef}>
-        <Screen params={params} navigate={navigate} />
+        <Screen params={params} navigate={navigate} {...screenProps} />
       </ScreenStack>
     </main>
   );

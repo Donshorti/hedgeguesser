@@ -1,0 +1,325 @@
+/* Play setup: mode cards, the jukebox selector, the coin deck. */
+.screen {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-8);
+  margin: 0;
+}
+
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3) var(--s-4);
+}
+
+.title {
+  font-size: var(--fs-h1);
+  color: var(--ink);
+}
+
+/* ---- groups ---- */
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.groupTitle {
+  float: none;            /* legends otherwise sit in the fieldset border */
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sign);
+  font-size: var(--fs-label);
+  font-weight: 400;
+  line-height: var(--lh-tight);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+/* ---- mode cards: two selector plates, one lit ---- */
+.modes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-3);
+}
+
+.mode {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    'lamp name badge'
+    '.    rule badge';
+  align-items: center;
+  gap: var(--s-1) var(--s-3);
+  min-height: 88px;
+  padding: var(--s-4) var(--s-4) var(--s-4) var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-panel);
+  background: linear-gradient(180deg, var(--bg-3) 0%, var(--bg-2) 100%);
+  box-shadow: var(--shadow-panel), inset 0 1px 0 color-mix(in srgb, var(--ink) 5%, transparent);
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+  transition:
+    transform var(--t-fast) var(--ease-press),
+    border-color var(--t-med) var(--ease-out),
+    box-shadow var(--t-med) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .mode:hover {
+    border-color: var(--line-strong);
+    transform: translateY(-1px);
+  }
+}
+
+.mode:active {
+  transform: translateY(1px);
+  transition-duration: 40ms;
+}
+
+.mode:has(:focus-visible) {
+  outline: 3px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+.mode:has(:checked) {
+  border-color: var(--pink);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--pink) 16%, var(--bg-3)) 0%,
+    color-mix(in srgb, var(--pink) 8%, var(--bg-2)) 100%
+  );
+  box-shadow: var(--pink-glow), var(--shadow-panel);
+}
+
+.modeLamp {
+  grid-area: lamp;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--pink-off);
+  box-shadow: inset 0 -1px 2px color-mix(in srgb, black 60%, transparent);
+  transition: background-color var(--t-med) var(--ease-out), box-shadow var(--t-med) var(--ease-out);
+}
+
+.mode:has(:checked) .modeLamp {
+  background: radial-gradient(circle at 35% 30%, var(--pink-hi) 0%, var(--pink) 55%);
+  box-shadow: var(--pink-glow);
+}
+
+.modeName {
+  grid-area: name;
+  font-family: var(--font-sign);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--track-sign);
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.modeRule {
+  grid-area: rule;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-snug);
+  color: var(--ink-dim);
+}
+
+.mode:has(:checked) .modeRule {
+  color: var(--ink);
+}
+
+.modeBadge {
+  grid-area: badge;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--s-1);
+}
+
+/* ---- small 7-segment readouts (mode badge, song counter) ---- */
+.seg {
+  display: inline-grid;
+  padding: 0.18em 0.24em 0.14em;
+  border-radius: 4px;
+  background: var(--bezel);
+  box-shadow: inset 0 2px 5px color-mix(in srgb, black 85%, transparent);
+  font-family: var(--font-seg);
+  font-weight: 700;
+  font-size: var(--fs-h3);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.segGhost,
+.segLit {
+  grid-area: 1 / 1;
+}
+
+.segGhost {
+  color: var(--amber-off);
+}
+
+.segLit {
+  position: relative;
+  color: var(--amber);
+  text-shadow: var(--amber-glow-text);
+}
+
+.badgeLabel {
+  font-family: var(--font-sign);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+/* ---- jukebox strips ---- */
+.strips {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.strips > li {
+  min-width: 0;
+}
+
+.none {
+  padding: var(--s-5) var(--s-4);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-strip);
+  font-size: var(--fs-sm);
+  color: var(--ink-dim);
+}
+
+/* ---- the coin deck: sticky in the thumb zone on phones ---- */
+.deck {
+  position: sticky;
+  bottom: max(var(--s-3), env(safe-area-inset-bottom));
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3) var(--s-4);
+  padding: var(--s-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-panel);
+  background: linear-gradient(180deg, var(--bg-3) 0%, var(--bg-2) 100%);
+  box-shadow:
+    0 -12px 28px -8px color-mix(in srgb, var(--bg) 92%, transparent),
+    var(--shadow-panel),
+    inset 0 1px 0 color-mix(in srgb, var(--ink) 6%, transparent);
+}
+
+.readout {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  min-width: 0;
+}
+
+.count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.readoutText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: var(--lh-snug);
+}
+
+.summary {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.short {
+  font-size: var(--fs-sm);
+  color: var(--amber);
+}
+
+.hint {
+  font-size: var(--fs-sm);
+  color: var(--ink-dim);
+}
+
+.go {
+  flex: 1 1 auto;
+}
+
+.goLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.goArrow {
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+}
+
+/* ---- phones: the deck is a full-width row, START spans it ---- */
+@media (max-width: 559px) {
+  .go {
+    flex-basis: 100%;
+  }
+  .mode {
+    min-height: 0;
+  }
+}
+
+/* ---- tablet up: side-by-side modes, two strip columns, deck in flow ---- */
+@media (min-width: 560px) {
+  .modes {
+    grid-template-columns: 1fr 1fr;
+  }
+  .mode {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      'lamp name'
+      '.    rule'
+      '.    badge';
+    align-items: start;
+    align-content: start;
+  }
+  .modeLamp {
+    margin-top: 0.3em;
+  }
+  .modeBadge {
+    flex-direction: row;
+    align-items: center;
+    margin-top: var(--s-2);
+  }
+  .strips {
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  }
+  .go {
+    flex: 0 0 auto;
+  }
+}
+
+@media (min-width: 900px) {
+  .deck {
+    position: static;
+    box-shadow: var(--shadow-panel), inset 0 1px 0 color-mix(in srgb, var(--ink) 6%, transparent);
+  }
+}

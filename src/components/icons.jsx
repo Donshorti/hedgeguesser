@@ -51,3 +51,24 @@ export function PlusIcon(props) {
     </svg>
   );
 }
+
+export function BackIcon(props) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M10.6 5.1c.75-.62 1.9-.09 1.9.89V9.4h6.3c.66 0 1.2.54 1.2 1.2v2.8c0 .66-.54 1.2-1.2 1.2h-6.3v3.41c0 .98-1.15 1.51-1.9.89l-6.9-5.71a1.53 1.53 0 0 1 0-2.36l6.9-5.71Z" />
+    </svg>
+  );
+}
+
+/** A coin on edge, for the INSERT COIN deck. */
+export function CoinIcon(props) {
+  return (
+    <svg {...base} {...props}>
+      <path
+        fillRule="evenodd"
+        d="M12 2.8a9.2 9.2 0 1 1 0 18.4 9.2 9.2 0 0 1 0-18.4Zm0 3a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4Z"
+      />
+      <rect x="10.6" y="8" width="2.8" height="8" rx="1.1" />
+    </svg>
+  );
+}
