@@ -6,6 +6,7 @@ import { BackIcon, CoinIcon, PlayIcon } from '../components/icons.jsx';
 import { getAllPlaylists } from '../services/catalog.js';
 import { load } from '../services/storage.js';
 import { useSettings } from '../state/SettingsContext.jsx';
+import { requestCatalogSearch } from './playlistEdit.js';
 import styles from './PlaySetup.module.css';
 
 const MODES = ['challenge', 'endless'];
@@ -171,9 +172,21 @@ export default function PlaySetup({ navigate, onStart }) {
       </section>
 
       <section className={styles.group} aria-labelledby={`${uid}-mine`}>
-        <h2 className={styles.groupTitle} id={`${uid}-mine`}>
-          Your playlists
-        </h2>
+        <div className={styles.groupHead}>
+          <h2 className={styles.groupTitle} id={`${uid}-mine`}>
+            Your playlists
+          </h2>
+          <ArcadeButton
+            variant="neutral"
+            size="sm"
+            onClick={() => {
+              requestCatalogSearch();
+              navigate('/playlists');
+            }}
+          >
+            Album or artist
+          </ArcadeButton>
+        </div>
         {mine.length ? (
           <Strips playlists={mine} selected={selected} onToggle={toggle} />
         ) : (

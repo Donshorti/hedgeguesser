@@ -1,10 +1,11 @@
 import { useEffect, useId, useMemo, useState } from 'react';
 import ArcadeButton from '../components/ArcadeButton.jsx';
+import CatalogSearchDialog from '../components/CatalogSearchDialog.jsx';
 import ImportDialog from '../components/ImportDialog.jsx';
 import TitleStrip from '../components/TitleStrip.jsx';
 import { BackIcon, PlusIcon } from '../components/icons.jsx';
 import { getAllPlaylists } from '../services/catalog.js';
-import { duplicatePlaylist } from './playlistEdit.js';
+import { catalogSearchRequested, clearCatalogSearchRequest, duplicatePlaylist } from './playlistEdit.js';
 import styles from './Playlists.module.css';
 
 /** Playlists: your own (open to edit), the house selection (duplicate to edit), import. */
@@ -18,6 +19,9 @@ export default function Playlists({ navigate, spotifyResume = null, onSpotifyRes
   useEffect(() => {
     if (spotifyResume) onSpotifyResumeDone?.();
   }, [spotifyResume, onSpotifyResumeDone]);
+  // PlaySetup's ALBUM OR ARTIST key lands here with the search already open
+  const [browsing, setBrowsing] = useState(() => !spotifyResume && catalogSearchRequested());
+  useEffect(() => clearCatalogSearchRequest(), []);
   const [error, setError] = useState(null);
   const uid = useId();
 
@@ -43,6 +47,9 @@ export default function Playlists({ navigate, spotifyResume = null, onSpotifyRes
       <div className={styles.toolbar}>
         <ArcadeButton variant="pink" size="sm" icon={<PlusIcon />} onClick={() => navigate('/playlists/new')}>
           New playlist
+        </ArcadeButton>
+        <ArcadeButton variant="pink" size="sm" onClick={() => setBrowsing(true)}>
+          Album or artist
         </ArcadeButton>
         <ArcadeButton variant="neutral" size="sm" onClick={() => setImporting(true)}>
           Import
@@ -104,6 +111,14 @@ export default function Playlists({ navigate, spotifyResume = null, onSpotifyRes
         </ul>
       </section>
 
+      <CatalogSearchDialog
+        open={browsing}
+        onClose={() => setBrowsing(false)}
+        onSaved={(p) => {
+          setBrowsing(false);
+          open(p.id);
+        }}
+      />
       <ImportDialog
         open={importing}
         resume={resume}

@@ -7,7 +7,15 @@ import { searchTracks } from '../services/itunes.js';
 import { deleteCustom, listCustom, saveCustom } from '../services/playlists.js';
 import { useSettings } from '../state/SettingsContext.jsx';
 import { useScreenActive } from '../state/ScreenActive.js';
-import { addTrack, duplicatePlaylist, hasTrack, plural, removeTrackAt, searchErrorMessage } from './playlistEdit.js';
+import {
+  addTrack,
+  duplicatePlaylist,
+  hasTrack,
+  plural,
+  removeTrackAt,
+  searchErrorMessage,
+  shortPlaylistNote,
+} from './playlistEdit.js';
 import styles from './PlaylistDetail.module.css';
 
 const SEARCH_DELAY = 400;
@@ -218,6 +226,8 @@ function Editor({ navigate, initial }) {
   }, [term, searching, searchError, results]);
 
   const displayName = name.trim() || 'Untitled playlist';
+  // album and artist playlists arrive complete, so a short one is worth a warning
+  const shortNote = base.current.source ? shortPlaylistNote(tracks.length, settings.minPlayableSongs) : null;
 
   return (
     <div className={styles.screen}>
@@ -303,6 +313,7 @@ function Editor({ navigate, initial }) {
         <h2 className={styles.groupTitle} id={`${uid}-list`}>
           In this playlist <span className={styles.count}>{plural(tracks.length, 'song')}</span>
         </h2>
+        {shortNote ? <p className={styles.note}>{shortNote}</p> : null}
         {tracks.length ? (
           <ol className={styles.rows}>
             {tracks.map((t, i) => (

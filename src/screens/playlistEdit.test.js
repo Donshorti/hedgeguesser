@@ -35,3 +35,13 @@ describe('searchErrorMessage', () => {
     expect(searchErrorMessage(abortError())).toBeNull();
   });
 });
+
+describe('shortPlaylistNote', () => {
+  it('warns only for a non-empty list below the minimum', async () => {
+    const { shortPlaylistNote } = await import('./playlistEdit.js');
+    expect(shortPlaylistNote(5, 8)).toBe('Only 5 playable songs — a run needs 8. Pick it together with another playlist.');
+    expect(shortPlaylistNote(1, 8)).toContain('Only 1 playable song —');
+    expect(shortPlaylistNote(8, 8)).toBeNull();
+    expect(shortPlaylistNote(0, 8)).toBeNull();
+  });
+});

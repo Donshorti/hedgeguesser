@@ -42,6 +42,15 @@
   color: var(--ink-dim);
 }
 
+/* a section heading with its utility key at the right */
+.groupHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2) var(--s-4);
+}
+
 /* ---- mode cards: two selector plates, one lit ---- */
 .modes {
   display: grid;

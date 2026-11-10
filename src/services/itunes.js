@@ -184,6 +184,22 @@ function versionMarkers(rawTitle) {
   return found;
 }
 
+/** Markers that often sit on the standard release ("Album Version", "Radio Edit", "Taylor's Version"). */
+const SOFT_MARKERS = new Set(['version', 'edit', 'radio']);
+
+/**
+ * Whether a title is labelled as an alternate recording (live, remix, demo, acoustic,
+ * karaoke, instrumental...). Only bracketed and " - " tail qualifiers count, so "Piano Man"
+ * and "Radio Ga Ga" pass; remasters and the soft markers above pass too.
+ */
+export function isAlternateVersion(rawTitle) {
+  const raw = String(rawTitle ?? '');
+  const parts = [...raw.matchAll(/[([][^)\]]*[)\]]/g)].map((m) => m[0]);
+  const tail = raw.match(/\s+[-–—]\s+(.+)$/);
+  if (tail) parts.push(tail[1]);
+  return parts.some((part) => [...versionMarkers(part)].some((m) => !SOFT_MARKERS.has(m)));
+}
+
 /** Normalized bracket and " - " tail qualifiers that are not neutral (e.g. "urban tropical"). */
 function qualifiers(rawTitle) {
   const raw = String(rawTitle ?? '');
@@ -235,6 +251,86 @@ export function pickBestMatch(tracks, { title, artist }) {
     }
   }
   return best;
+}
+
+// ---- albums and artists ----
+
+function catalogSearchUrl(term, entity, limit, country = 'US') {
+  const p = new URLSearchParams({ term, media: 'music', entity, limit: String(limit), country });
+  return `${SEARCH}?${p}`;
+}
+
+function collectionUrl(id, { country = 'US' } = {}) {
+  const p = new URLSearchParams({ id: String(id), entity: 'song', limit: '200', country });
+  return `${LOOKUP}?${p}`;
+}
+
+const yearOf = (date) => (date ? Number(String(date).slice(0, 4)) : null);
+
+/** Album search → `[{id, name, artist, artwork, year, trackCount}]`. */
+export async function searchAlbums(term, { country, limit = 12, getJsonImpl = getJson, signal } = {}) {
+  const data = await getJsonImpl(catalogSearchUrl(term, 'album', limit, country), { signal });
+  return (data?.results ?? [])
+    .filter((r) => r?.wrapperType === 'collection' && r.collectionId)
+    .map((r) => ({
+      id: r.collectionId,
+      name: r.collectionName ?? '',
+      artist: r.artistName ?? '',
+      artwork: r.artworkUrl100 ?? '',
+      year: yearOf(r.releaseDate),
+      trackCount: r.trackCount ?? 0,
+    }));
+}
+
+/** Artist search → `[{id, name, genre}]`. */
+export async function searchArtists(term, { country, limit = 8, getJsonImpl = getJson, signal } = {}) {
+  const data = await getJsonImpl(catalogSearchUrl(term, 'musicArtist', limit, country), { signal });
+  return (data?.results ?? [])
+    .filter((r) => r?.wrapperType === 'artist' && r.artistId)
+    .map((r) => ({ id: r.artistId, name: r.artistName ?? '', genre: r.primaryGenreName ?? '' }));
+}
+
+/** Keeps the first track for each normalized title; drops titles that normalize to nothing. */
+function dedupeByTitle(tracks) {
+  const seen = new Set();
+  return tracks.filter((t) => {
+    const key = normalizeTitle(t.title);
+    if (!key || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+/**
+ * An album's playable songs in album order → `{name, artist, tracks}`. Songs without a
+ * preview are dropped, and a repeated title is kept once.
+ */
+export async function albumTracks(id, { country, getJsonImpl = getJson, signal } = {}) {
+  const results = (await getJsonImpl(collectionUrl(id, { country }), { signal }))?.results ?? [];
+  const album = results.find((r) => r?.wrapperType === 'collection');
+  const songs = results
+    .filter((r) => r?.wrapperType === 'track')
+    .sort((a, b) => (a.discNumber ?? 1) - (b.discNumber ?? 1) || (a.trackNumber ?? 0) - (b.trackNumber ?? 0));
+  return {
+    name: album?.collectionName ?? '',
+    artist: album?.artistName ?? '',
+    tracks: dedupeByTitle(songs.map(toTrack).filter(Boolean)),
+  };
+}
+
+/**
+ * An artist's playable songs, most popular first → `{name, tracks}`. Drops songs without
+ * a preview, alternate versions (see isAlternateVersion), songs whose credit does not
+ * name the artist, and repeats of a title (the first, most popular, one is kept).
+ */
+export async function artistTracks(id, { country, getJsonImpl = getJson, signal } = {}) {
+  const results = (await getJsonImpl(collectionUrl(id, { country }), { signal }))?.results ?? [];
+  const name = results.find((r) => r?.wrapperType === 'artist')?.artistName ?? '';
+  const want = normalizeText(name);
+  const tracks = results
+    .map(toTrack)
+    .filter((t) => t && !isAlternateVersion(t.title) && (!want || normalizeText(t.artist).includes(want)));
+  return { name, tracks: dedupeByTitle(tracks) };
 }
 
 /** Shared throttle for bulk title resolution (iTunes allows ~20 req/min). */

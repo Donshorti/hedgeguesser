@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import {
   searchUrl, lookupUrl, toTrack, getJson, HttpError, pickBestMatch, lookupTracks, jsonp,
-  searchTracks, resolveByTitle,
+  searchTracks, resolveByTitle, searchAlbums, searchArtists, albumTracks, artistTracks, isAlternateVersion,
 } from './itunes.js';
 
 afterEach(() => {
@@ -353,5 +353,94 @@ describe('pickBestMatch alternate-version edge cases (seed run 2)', () => {
       cand(2, 'Uptown Funk (feat. Bruno Mars)', 'Mark Ronson'),
     ];
     expect(pickBestMatch(tracks, { title: 'Uptown Funk', artist: 'Mark Ronson' }).id).toBe(2);
+  });
+});
+
+describe('album and artist search', () => {
+  it('maps album results and builds the album search URL', async () => {
+    const getJsonImpl = vi.fn(async () => ({
+      results: [
+        { wrapperType: 'collection', collectionId: 7, collectionName: 'Help!', artistName: 'The Beatles',
+          artworkUrl100: 'https://x/100x100bb.jpg', releaseDate: '1965-08-06T07:00:00Z', trackCount: 14 },
+        { wrapperType: 'track', trackId: 1 },
+      ],
+    }));
+    expect(await searchAlbums('help', { country: 'DE', getJsonImpl })).toEqual([
+      { id: 7, name: 'Help!', artist: 'The Beatles', artwork: 'https://x/100x100bb.jpg', year: 1965, trackCount: 14 },
+    ]);
+    const u = new URL(getJsonImpl.mock.calls[0][0]);
+    expect(u.origin + u.pathname).toBe('https://itunes.apple.com/search');
+    expect(Object.fromEntries(u.searchParams)).toEqual({ term: 'help', media: 'music', entity: 'album', limit: '12', country: 'DE' });
+  });
+
+  it('maps artist results and builds the artist search URL', async () => {
+    const getJsonImpl = vi.fn(async () => ({
+      results: [{ wrapperType: 'artist', artistId: 136975, artistName: 'The Beatles', primaryGenreName: 'Rock' }, { wrapperType: 'artist' }],
+    }));
+    expect(await searchArtists('beatles', { getJsonImpl })).toEqual([{ id: 136975, name: 'The Beatles', genre: 'Rock' }]);
+    const p = new URL(getJsonImpl.mock.calls[0][0]).searchParams;
+    expect([p.get('entity'), p.get('limit'), p.get('country')]).toEqual(['musicArtist', '8', 'US']);
+  });
+});
+
+describe('isAlternateVersion', () => {
+  it.each([
+    'Yesterday (Live at the BBC)', 'Hey Jude - Live', 'Levitating (The Blessed Madonna Remix)', 'Help! [Demo]',
+    'Hello (Acoustic)', 'Hello (Karaoke Version)', 'Hello (Instrumental)', 'One More Time (Extended Mix)',
+  ])('%s is an alternate', (title) => expect(isAlternateVersion(title)).toBe(true));
+  it.each([
+    'Yesterday', 'Yesterday (Remastered 2009)', 'Hey Jude - 2015 Remaster', 'Piano Man', 'Radio Ga Ga',
+    'Live and Let Die', 'Love Story (Taylor’s Version)', 'Around the World (Radio Edit)', 'Song (Original Mix)',
+    'Stay (feat. Justin Bieber)',
+  ])('%s is not', (title) => expect(isAlternateVersion(title)).toBe(false));
+});
+
+describe('albumTracks', () => {
+  it('keeps album order, drops songs without a preview and repeated titles', async () => {
+    const getJsonImpl = vi.fn(async () => ({
+      results: [
+        { wrapperType: 'collection', collectionId: 7, collectionName: 'Help!', artistName: 'The Beatles' },
+        raw({ trackId: 3, trackName: 'Yesterday', discNumber: 1, trackNumber: 3 }),
+        raw({ trackId: 1, trackName: 'Help!', discNumber: 1, trackNumber: 1 }),
+        raw({ trackId: 2, trackName: 'The Night Before', discNumber: 1, trackNumber: 2, previewUrl: undefined }),
+        raw({ trackId: 5, trackName: 'Yesterday (Live)', discNumber: 2, trackNumber: 1 }),
+        raw({ trackId: 4, trackName: 'Ticket to Ride', discNumber: 1, trackNumber: 4 }),
+      ],
+    }));
+    const out = await albumTracks(7, { country: 'GB', getJsonImpl });
+    expect(out.name).toBe('Help!');
+    expect(out.artist).toBe('The Beatles');
+    expect(out.tracks.map((t) => t.id)).toEqual([1, 3, 4]);
+    expect(out.tracks[0]).toMatchObject({ title: 'Help!', artist: 'The Beatles', previewUrl: 'https://p/1.m4a' });
+    const u = new URL(getJsonImpl.mock.calls[0][0]);
+    expect(u.origin + u.pathname).toBe('https://itunes.apple.com/lookup');
+    expect([u.searchParams.get('id'), u.searchParams.get('entity'), u.searchParams.get('country')]).toEqual(['7', 'song', 'GB']);
+  });
+});
+
+describe('artistTracks', () => {
+  it('drops alternates, no-preview songs, other artists and repeats, keeping the first of each title', async () => {
+    const getJsonImpl = vi.fn(async () => ({
+      results: [
+        { wrapperType: 'artist', artistId: 9, artistName: 'The Beatles' },
+        raw({ trackId: 1, trackName: 'Yesterday (Remastered 2009)' }),
+        raw({ trackId: 2, trackName: 'Yesterday' }),
+        raw({ trackId: 3, trackName: 'Hey Jude (Live)' }),
+        raw({ trackId: 4, trackName: 'Hey Jude', previewUrl: undefined }),
+        raw({ trackId: 5, trackName: 'Let It Be', artistName: 'Some Tribute Band' }),
+        raw({ trackId: 6, trackName: 'Get Back', artistName: 'The Beatles & Billy Preston' }),
+        raw({ trackId: 7, trackName: 'Help! - Demo' }),
+        raw({ trackId: 8, trackName: 'Something' }),
+      ],
+    }));
+    const out = await artistTracks(9, { getJsonImpl });
+    expect(out.name).toBe('The Beatles');
+    expect(out.tracks.map((t) => t.id)).toEqual([1, 6, 8]);
+    const p = new URL(getJsonImpl.mock.calls[0][0]).searchParams;
+    expect([p.get('id'), p.get('entity'), p.get('limit')]).toEqual(['9', 'song', '200']);
+  });
+
+  it('returns an empty list when the lookup has nothing', async () => {
+    expect(await artistTracks(9, { getJsonImpl: async () => ({ results: [] }) })).toEqual({ name: '', tracks: [] });
   });
 });

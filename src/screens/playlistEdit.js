@@ -39,6 +39,39 @@ export function searchErrorMessage(err) {
   return "Search failed — try again";
 }
 
+/** Set by a link elsewhere in the app to open the album-or-artist search on the Playlists screen. */
+const OPEN_CATALOG_KEY = 'hg.openCatalogSearch';
+
+export function requestCatalogSearch(storage = globalThis.sessionStorage) {
+  try {
+    storage.setItem(OPEN_CATALOG_KEY, '1');
+  } catch {
+    // no storage: the Playlists screen still opens, without the dialog
+  }
+}
+
+export function catalogSearchRequested(storage = globalThis.sessionStorage) {
+  try {
+    return storage.getItem(OPEN_CATALOG_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
+export function clearCatalogSearchRequest(storage = globalThis.sessionStorage) {
+  try {
+    storage.removeItem(OPEN_CATALOG_KEY);
+  } catch {
+    // nothing to clear
+  }
+}
+
+/** Shown for an album or artist playlist too short to run alone; null when it is long enough. */
+export function shortPlaylistNote(count, min) {
+  if (!count || count >= min) return null;
+  return `Only ${plural(count, 'playable song')} — a run needs ${min}. Pick it together with another playlist.`;
+}
+
 export const plural = (n, one, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
 
 /** A house playlist as a fresh custom copy, or null when storage is full. */
