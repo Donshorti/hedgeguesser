@@ -1,24 +1,69 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import ArcadeButton from './ArcadeButton.jsx';
 import { parseImport, saveCustom } from '../services/playlists.js';
+import {
+  beginLogin,
+  fetchSpotifyTracks,
+  forgetToken,
+  getAccessToken,
+  needsLogin,
+  parseSpotifyLink,
+  spotifyErrorMessage,
+} from '../services/spotify.js';
 import { unmatchedCount, plural } from '../screens/playlistEdit.js';
 import styles from './ImportDialog.module.css';
 
 const JSON_EXAMPLE = '{"name":"My mix","tracks":[{"title":"Yesterday","artist":"The Beatles"}]}';
 const LINE_EXAMPLE = 'Yesterday - The Beatles';
+const LINK_EXAMPLE = 'https://open.spotify.com/playlist/…';
 
 /**
  * Paste-a-list import in a native modal <dialog>: PARSE previews the list
  * (or shows the parse error under the field), SAVE stores it and hands the
  * saved playlist to `onSaved`. The browser returns focus to the opener on close.
+ *
+ * A pasted Spotify playlist or album link is fetched from Spotify instead, after a
+ * one-time login. `resume` (`{link, error}`) reopens the dialog on the way back from
+ * that login and carries on with the link.
  */
-export default function ImportDialog({ open, onClose, onSaved }) {
+export default function ImportDialog({ open, onClose, onSaved, resume = null }) {
   const ref = useRef(null);
   const uid = useId();
   const [text, setText] = useState('');
   const [error, setError] = useState(null);
   const [preview, setPreview] = useState(null);
   const [saveError, setSaveError] = useState(null);
+  /** Spotify step: null | {phase: 'connect'|'loading'} | {phase: 'error', code}. */
+  const [spotify, setSpotify] = useState(null);
+  const run = useRef(0);
+
+  const fetchSpotify = async (link) => {
+    const mine = ++run.current;
+    const current = () => mine === run.current;
+    setError(null);
+    setSpotify({ phase: 'loading' });
+    try {
+      const token = await getAccessToken();
+      if (!current()) return;
+      if (!token) {
+        setSpotify({ phase: 'connect' });
+        return;
+      }
+      const found = await fetchSpotifyTracks(link, token);
+      if (!current()) return;
+      setSpotify(null);
+      setPreview(found);
+    } catch (err) {
+      if (!current()) return;
+      if (err.code === 'auth') forgetToken();
+      setSpotify({ phase: 'error', code: err.code ?? 'failed' });
+    }
+  };
+
+  const backToList = () => {
+    run.current += 1;
+    setSpotify(null);
+  };
 
   useEffect(() => {
     const d = ref.current;
@@ -28,13 +73,29 @@ export default function ImportDialog({ open, onClose, onSaved }) {
       setError(null);
       setPreview(null);
       setSaveError(null);
+      setSpotify(null);
+      run.current += 1;
       d.showModal?.();
+      if (resume) {
+        setText(resume.link ?? '');
+        const link = parseSpotifyLink(resume.link);
+        if (resume.error) setSpotify({ phase: 'error', code: resume.error });
+        else if (link) fetchSpotify(link);
+      }
     } else if (!open && d.open) {
+      run.current += 1;
       d.close();
     }
+    // `resume` is read once, when the dialog opens
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   const parse = () => {
+    const link = parseSpotifyLink(text);
+    if (link) {
+      fetchSpotify(link);
+      return;
+    }
     try {
       setPreview(parseImport(text));
       setError(null);
@@ -63,10 +124,38 @@ export default function ImportDialog({ open, onClose, onSaved }) {
           Import a playlist
         </h2>
 
-        {!preview ? (
+        {spotify ? (
+          <>
+            {spotify.phase === 'loading' ? (
+              <p className={styles.summary} role="status">
+                Reading the list from Spotify…
+              </p>
+            ) : spotify.phase === 'connect' ? (
+              <p className={styles.summary}>You’ll log in to Spotify once, then come straight back.</p>
+            ) : (
+              <p className={styles.error} role="alert">
+                {spotifyErrorMessage(spotify.code)}
+              </p>
+            )}
+            <div className={styles.actions}>
+              <ArcadeButton variant="neutral" size="sm" onClick={backToList}>
+                Edit list
+              </ArcadeButton>
+              {spotify.phase === 'connect' || (spotify.phase === 'error' && needsLogin(spotify.code)) ? (
+                <ArcadeButton variant="pink" size="sm" autoFocus onClick={() => beginLogin(text.trim())}>
+                  Connect Spotify
+                </ArcadeButton>
+              ) : spotify.phase === 'error' ? (
+                <ArcadeButton variant="pink" size="sm" autoFocus onClick={parse}>
+                  Try again
+                </ArcadeButton>
+              ) : null}
+            </div>
+          </>
+        ) : !preview ? (
           <>
             <label className={styles.label} htmlFor={`${uid}-src`}>
-              Paste a list
+              Paste a list or a Spotify link
             </label>
             <textarea
               id={`${uid}-src`}
@@ -88,7 +177,8 @@ export default function ImportDialog({ open, onClose, onSaved }) {
               </p>
             ) : null}
             <div className={styles.hint} id={`${uid}-hint`}>
-              <p>JSON, or one song per line:</p>
+              <p>A Spotify playlist or album link, JSON, or one song per line:</p>
+              <code className={styles.code}>{LINK_EXAMPLE}</code>
               <code className={styles.code}>{JSON_EXAMPLE}</code>
               <code className={styles.code}>{LINE_EXAMPLE}</code>
             </div>
@@ -116,7 +206,7 @@ export default function ImportDialog({ open, onClose, onSaved }) {
             />
             <p className={styles.summary} role="status">
               {plural(preview.tracks.length, 'song')} found.
-              {pending ? ` ${plural(pending, 'song')} will be matched on first play.` : ''}
+              {pending ? ` ${plural(pending, 'song')} will be matched on first play — about 3 s per song.` : ''}
             </p>
             <ol className={styles.list}>
               {preview.tracks.map((t, i) => (

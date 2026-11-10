@@ -1,4 +1,4 @@
-import { useId, useMemo, useState } from 'react';
+import { useEffect, useId, useMemo, useState } from 'react';
 import ArcadeButton from '../components/ArcadeButton.jsx';
 import ImportDialog from '../components/ImportDialog.jsx';
 import TitleStrip from '../components/TitleStrip.jsx';
@@ -8,11 +8,16 @@ import { duplicatePlaylist } from './playlistEdit.js';
 import styles from './Playlists.module.css';
 
 /** Playlists: your own (open to edit), the house selection (duplicate to edit), import. */
-export default function Playlists({ navigate }) {
+export default function Playlists({ navigate, spotifyResume = null, onSpotifyResumeDone }) {
   const catalog = useMemo(() => getAllPlaylists(), []);
   const house = catalog.filter((p) => !p.custom);
   const mine = catalog.filter((p) => p.custom);
-  const [importing, setImporting] = useState(false);
+  // back from Spotify's login: the import dialog reopens and carries on with the link
+  const [resume, setResume] = useState(spotifyResume);
+  const [importing, setImporting] = useState(Boolean(spotifyResume));
+  useEffect(() => {
+    if (spotifyResume) onSpotifyResumeDone?.();
+  }, [spotifyResume, onSpotifyResumeDone]);
   const [error, setError] = useState(null);
   const uid = useId();
 
@@ -70,7 +75,7 @@ export default function Playlists({ navigate }) {
             ))}
           </ul>
         ) : (
-          <p className={styles.none}>No playlists yet — build one by searching, or paste a list.</p>
+          <p className={styles.none}>No playlists yet — build one by searching, or paste a list or a Spotify link.</p>
         )}
       </section>
 
@@ -99,10 +104,18 @@ export default function Playlists({ navigate }) {
         </ul>
       </section>
 
-      <ImportDialog open={importing} onClose={() => setImporting(false)} onSaved={(p) => {
+      <ImportDialog
+        open={importing}
+        resume={resume}
+        onClose={() => {
+          setImporting(false);
+          setResume(null);
+        }}
+        onSaved={(p) => {
           setImporting(false);
           open(p.id);
-        }} />
+        }}
+      />
     </div>
   );
 }

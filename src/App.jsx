@@ -4,6 +4,7 @@ import { GameProvider, useGame } from './state/GameContext.jsx';
 import { useHashRoute } from './state/useHashRoute.js';
 import { ScreenActiveContext } from './state/ScreenActive.js';
 import { save } from './services/storage.js';
+import { completeLoginIfReturning } from './services/spotify.js';
 import Home from './screens/Home.jsx';
 import PlaySetup from './screens/PlaySetup.jsx';
 import Game from './screens/Game.jsx';
@@ -114,7 +115,28 @@ function RoutedScreen() {
     },
     [navigate, startRun]
   );
-  const screenProps = path === '/play' ? { onStart: startGame } : null;
+
+  // Back from Spotify's login: carry the pasted link on to the import dialog.
+  const [spotifyResume, setSpotifyResume] = useState(null);
+  useEffect(() => {
+    let live = true;
+    completeLoginIfReturning().then((back) => {
+      if (!live || !back || (!back.link && !back.error)) return;
+      setSpotifyResume(back);
+      navigate('/playlists');
+    });
+    return () => {
+      live = false;
+    };
+  }, [navigate]);
+  const clearSpotifyResume = useCallback(() => setSpotifyResume(null), []);
+
+  const screenProps =
+    path === '/play'
+      ? { onStart: startGame }
+      : path === '/playlists'
+        ? { spotifyResume, onSpotifyResumeDone: clearSpotifyResume }
+        : null;
 
   // last location we handled; comparing values (not a first-run flag) keeps
   // StrictMode's effect re-run from scrolling/focusing on first load
